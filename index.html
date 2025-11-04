@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer pour The Frame</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --spotify-black: #191414;
+            --spotify-dark: #1e1e1e;
+            --spotify-light-black: #282828;
+            --spotify-green: #1DB954;
+            --spotify-white: #FFFFFF;
+            --spotify-gray: #b3b3b3;
+            --spotify-dark-gray: #535353;
+            --accent-blue: #2D46B9;
+            --accent-purple: #AF2896;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--spotify-black);
+            color: var(--spotify-white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--spotify-dark-gray);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .language-selector select {
+            background-color: var(--spotify-light-black);
+            color: var(--spotify-white);
+            border: 1px solid var(--spotify-dark-gray);
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .language-selector select:focus {
+            outline: none;
+            border-color: var(--spotify-green);
+        }
+        
+        /* Navigation */
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .nav-btn {
+            background-color: var(--spotify-light-black);
+            color: var(--spotify-white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--spotify-green);
+            color: var(--spotify-black);
+        }
+        
+        .nav-btn.active {
+            background-color: var(--spotify-green);
+            color: var(--spotify-black);
+        }
+        
+        /* Cards Section */
+        .cards-section {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .cards-container-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cards-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .cards-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
+        }
+        
+        .card {
+            background-color: var(--spotify-light-black);
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 250px;
+            flex-shrink: 0;
+        }
+        
+        .card.active {
+            border: 2px solid var(--spotify-green);
+        }
+        
+        .card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            background-color: var(--spotify-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--spotify-black);
+        }
+        
+        .card:hover {
+            background-color: #3a3a3a;
+            transform: translateY(-5px);
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .upload-icon {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        }
+        
+        .dimension-icon {
+            background: linear-gradient(135deg, var(--spotify-green), #1ed760);
+        }
+        
+        .preview-icon {
+            background: linear-gradient(135deg, #ff9a00, #ff6a00);
+        }
+        
+        .download-icon {
+            background: linear-gradient(135deg, #ff375f, #ff2e6c);
+        }
+        
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        
+        .card p {
+            color: var(--spotify-gray);
+            font-size: 0.85rem;
+        }
+        
+        /* Navigation arrows for steps */
+        .step-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            opacity: 0.7;
+        }
+        
+        .step-nav:hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .step-nav.prev {
+            left: 5px;
+        }
+        
+        .step-nav.next {
+            right: 5px;
+        }
+        
+        .step-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .step-nav:disabled:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Progress bar - repositionnée entre les étapes et le contenu */
+        .progress-section {
+            margin: 25px 0;
+            padding: 0 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: var(--spotify-dark-gray);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--spotify-green));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--spotify-gray);
+        }
+        
+        /* Content sections */
+        .content-section {
+            background: linear-gradient(180deg, #3a3a3a 0%, var(--spotify-dark) 100%);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        /* Upload section */
+        .upload-area {
+            border: 2px dashed var(--spotify-dark-gray);
+            border-radius: 8px;
+            padding: 40px 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--spotify-green);
+            background-color: rgba(29, 185, 84, 0.05);
+        }
+        
+        .upload-area i {
+            font-size: 2.5rem;
+            color: var(--spotify-green);
+            margin-bottom: 10px;
+        }
+        
+        .upload-area p {
+            font-size: 0.9rem;
+        }
+        
+        /* Selected files */
+        .selected-files {
+            margin-top: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: var(--spotify-light-black);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+        
+        .file-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+        
+        .file-icon {
+            color: var(--spotify-green);
+        }
+        
+        .remove-file {
+            background: none;
+            border: none;
+            color: var(--spotify-gray);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .remove-file:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--spotify-white);
+        }
+        
+        /* Dimension selector */
+        .dimension-selector {
+            margin-top: 20px;
+        }
+        
+        .dimension-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .dimension-option {
+            background-color: var(--spotify-light-black);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .dimension-option:hover {
+            transform: translateY(-3px);
+            background-color: #3a3a3a;
+        }
+        
+        .dimension-option.active {
+            border-color: var(--spotify-green);
+            background-color: rgba(29, 185, 84, 0.1);
+        }
+        
+        .dimension-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .dimension-size {
+            font-size: 0.8rem;
+            color: var(--spotify-gray);
+        }
+        
+        .custom-dimension {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .custom-inputs {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .custom-inputs input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--spotify-light-black);
+            color: var(--spotify-white);
+            font-size: 0.9rem;
+        }
+        
+        input::placeholder {
+            color: var(--spotify-gray);
+        }
+        
+        button {
+            background-color: var(--spotify-green);
+            color: var(--spotify-black);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            margin-top: 15px;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            background-color: #1ed760;
+            transform: scale(1.03);
+        }
+        
+        .download-btn {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #3a5bd9;
+        }
+        
+        /* Preview section */
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 250px;
+            background-color: var(--spotify-black);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        #previewImage {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+        }
+        
+        .preview-info {
+            background-color: var(--spotify-light-black);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: var(--spotify-gray);
+        }
+        
+        /* Affiliation Section */
+        .affiliation-section {
+            background: linear-gradient(180deg, #3a3a3a 0%, var(--spotify-dark) 100%);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .affiliation-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .affiliation-subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--spotify-gray);
+            font-size: 1.1rem;
+        }
+        
+        .affiliation-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .affiliation-card {
+            background-color: var(--spotify-light-black);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .affiliation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .affiliation-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+        
+        .amazon-icon {
+            background: linear-gradient(135deg, #FF9900, #FFAC33);
+        }
+        
+        .samsung-icon {
+            background: linear-gradient(135deg, #1428A0, #1C39BB);
+        }
+        
+        .affiliation-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .affiliation-card p {
+            color: var(--spotify-gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .affiliation-link {
+            display: inline-block;
+            background-color: var(--spotify-green);
+            color: var(--spotify-black);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        
+        .affiliation-link:hover {
+            background-color: #1ed760;
+            transform: scale(1.05);
+        }
+        
+        .affiliation-note {
+            text-align: center;
+            color: var(--spotify-gray);
+            font-size: 0.9rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--spotify-black);
+            padding: 15px 0;
+            margin-top: 30px;
+            text-align: center;
+            color: var(--spotify-gray);
+            border-top: 1px solid var(--spotify-dark-gray);
+            font-size: 0.8rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .language-selector {
+                position: static;
+                transform: none;
+                align-self: flex-end;
+            }
+            
+            .affiliation-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .dimension-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .custom-inputs {
+                flex-direction: column;
+            }
+            
+            .step-nav {
+                display: none;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .preview-container {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+            
+            .card {
+                min-width: 220px;
+                padding: 12px;
+            }
+            
+            .main-nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                margin: 5px 0;
+            }
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: var(--spotify-green);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-buttons button {
+            margin-top: 0;
+        }
+        
+        .restart-btn {
+            background-color: var(--spotify-dark-gray);
+            color: var(--spotify-white);
+        }
+        
+        .restart-btn:hover {
+            background-color: var(--spotify-gray);
+        }
+        
+        /* Hide sections by default */
+        .section-hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-tv"></i>
+                </div>
+                <h1>Image Resizer pour The Frame</h1>
+            </div>
+            
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="fr">Français</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="main-nav">
+            <button class="nav-btn active" id="resizerBtn">Redimensionneur d'images</button>
+            <button class="nav-btn" id="affiliationBtn">Liens d'affiliation</button>
+        </div>
+
+        <!-- Resizer Section -->
+        <div id="resizerSection">
+            <!-- Cards Section -->
+            <div class="cards-section">
+                <h2 class="section-title">Étapes de redimensionnement</h2>
+                <div class="cards-container-wrapper">
+                    <button class="step-nav prev" id="stepNavPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="cards-container" id="cardsContainer">
+                        <div class="card active" id="step1Card">
+                            <div class="card-icon upload-icon">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                            <h3>1. Téléchargez votre image</h3>
+                            <p>Sélectionnez votre image depuis votre appareil</p>
+                        </div>
+                        <div class="card" id="step2Card">
+                            <div class="card-icon dimension-icon">
+                                <i class="fas fa-expand-alt"></i>
+                            </div>
+                            <h3>2. Sélectionnez la dimension</h3>
+                            <p>Choisissez le modèle de votre TV The Frame Samsung</p>
+                        </div>
+                        <div class="card" id="step3Card">
+                            <div class="card-icon preview-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3>3. Vérifiez l'aperçu</h3>
+                            <p>Contrôlez le résultat avant le téléchargement</p>
+                        </div>
+                        <div class="card" id="step4Card">
+                            <div class="card-icon download-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3>4. Téléchargez</h3>
+                            <p>Récupérez votre image parfaitement dimensionnée</p>
+                        </div>
+                    </div>
+                    <button class="step-nav next" id="stepNavNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Bar - repositionnée entre les étapes et le contenu -->
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+                <div class="progress-labels">
+                    <span>Étape 1</span>
+                    <span>Étape 2</span>
+                    <span>Étape 3</span>
+                    <span>Étape 4</span>
+                </div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="content-section" id="step1Content">
+                <h2 class="section-title">Télécharger votre image</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Cliquez pour sélectionner votre image</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="selected-files" id="selectedFiles"></div>
+                
+                <button id="nextStep1Btn" disabled>Continuer vers l'étape 2</button>
+            </div>
+            
+            <!-- Dimension Selection Section -->
+            <div class="content-section section-hidden" id="step2Content">
+                <h2 class="section-title">Sélectionnez la dimension de votre TV</h2>
+                
+                <div class="dimension-options">
+                    <div class="dimension-option active" data-width="1920" data-height="1080">
+                        <div class="dimension-name">43"</div>
+                        <div class="dimension-size">1920 × 1080</div>
+                    </div>
+                    <div class="dimension-option" data-width="3840" data-height="2160">
+                        <div class="dimension-name">50"</div>
+                        <div class="dimension-size">3840 × 2160</div>
+                    </div>
+                    <div class="dimension-option" data-width="3840" data-height="2160">
+                        <div class="dimension-name">55"</div>
+                        <div class="dimension-size">3840 × 2160</div>
+                    </div>
+                    <div class="dimension-option" data-width="3840" data-height="2160">
+                        <div class="dimension-name">65"</div>
+                        <div class="dimension-size">3840 × 2160</div>
+                    </div>
+                    <div class="dimension-option" data-width="3840" data-height="2160">
+                        <div class="dimension-name">75"</div>
+                        <div class="dimension-size">3840 × 2160</div>
+                    </div>
+                    <div class="dimension-option" id="customOption">
+                        <div class="dimension-name">Personnalisé</div>
+                        <div class="dimension-size">Autre dimension</div>
+                    </div>
+                </div>
+                
+                <div class="custom-dimension" id="customDimension">
+                    <h4>Dimensions personnalisées</h4>
+                    <div class="custom-inputs">
+                        <input type="number" id="customWidth" placeholder="Largeur" min="1">
+                        <input type="number" id="customHeight" placeholder="Hauteur" min="1">
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="prevStep2Btn">Retour à l'étape 1</button>
+                    <button id="nextStep2Btn">Continuer vers l'aperçu</button>
+                </div>
+            </div>
+            
+            <!-- Preview Section -->
+            <div class="content-section section-hidden" id="step3Content">
+                <h2 class="section-title">Aperçu et téléchargement</h2>
+                
+                <div class="preview-container">
+                    <canvas id="previewCanvas"></canvas>
+                    <p id="placeholderText">L'image redimensionnée apparaîtra ici</p>
+                </div>
+                
+                <div class="preview-info">
+                    <div class="info-item">
+                        <span class="info-label">Dimensions originales:</span>
+                        <span id="originalDimensions">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Nouvelles dimensions:</span>
+                        <span id="newDimensions">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Taille du fichier:</span>
+                        <span id="fileSize">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Format:</span>
+                        <span id="fileFormat">-</span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="prevStep3Btn">Retour aux dimensions</button>
+                    <button class="download-btn" id="downloadBtn" disabled>
+                        <i class="fas fa-download"></i> Télécharger l'image redimensionnée
+                    </button>
+                    <button class="restart-btn" id="restartBtn">
+                        <i class="fas fa-redo"></i> Recommencer
+                    </button>
+                </div>
+                
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p>Redimensionnement en cours...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Affiliation Section -->
+        <div id="affiliationSection" class="section-hidden">
+            <div class="affiliation-section">
+                <h2 class="affiliation-title">Achetez votre Samsung The Frame</h2>
+                <p class="affiliation-subtitle">Découvrez les offres disponibles sur Amazon et le site officiel Samsung</p>
+                
+                <div class="affiliation-cards">
+                    <div class="affiliation-card">
+                        <div class="affiliation-icon amazon-icon">
+                            <i class="fab fa-amazon"></i>
+                        </div>
+                        <h3>Amazon</h3>
+                        <p>Achetez votre Samsung The Frame sur Amazon avec la livraison rapide et les avis vérifiés des clients.</p>
+                        <a href="https://www.amazon.fr/s?k=Samsung+The+Frame+TV" class="affiliation-link" target="_blank">
+                            Voir sur Amazon
+                        </a>
+                    </div>
+                    
+                    <div class="affiliation-card">
+                        <div class="affiliation-icon samsung-icon">
+                            <i class="fas fa-tv"></i>
+                        </div>
+                        <h3>Samsung Officiel</h3>
+                        <p>Commandez directement sur le site Samsung pour bénéficier des dernières promotions et de la garantie constructeur.</p>
+                        <a href="https://www.samsung.com/fr/tvs/the-frame/" class="affiliation-link" target="_blank">
+                            Site officiel Samsung
+                        </a>
+                    </div>
+                </div>
+                
+                <p class="affiliation-note">
+                    Note: Ces liens sont des liens d'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Outil de redimensionnement d'images pour Samsung The Frame - Design inspiré de Spotify</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Références aux éléments DOM
+            const fileInput = document.getElementById('fileInput');
+            const uploadArea = document.getElementById('uploadArea');
+            const selectedFilesContainer = document.getElementById('selectedFiles');
+            const dimensionOptions = document.querySelectorAll('.dimension-option');
+            const customDimension = document.getElementById('customDimension');
+            const customWidth = document.getElementById('customWidth');
+            const customHeight = document.getElementById('customHeight');
+            const previewCanvas = document.getElementById('previewCanvas');
+            const ctx = previewCanvas.getContext('2d');
+            const placeholderText = document.getElementById('placeholderText');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const originalDimensions = document.getElementById('originalDimensions');
+            const newDimensions = document.getElementById('newDimensions');
+            const fileSize = document.getElementById('fileSize');
+            const fileFormat = document.getElementById('fileFormat');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const progressBar = document.getElementById('progressBar');
+            
+            // Boutons de navigation
+            const nextStep1Btn = document.getElementById('nextStep1Btn');
+            const prevStep2Btn = document.getElementById('prevStep2Btn');
+            const nextStep2Btn = document.getElementById('nextStep2Btn');
+            const prevStep3Btn = document.getElementById('prevStep3Btn');
+            const restartBtn = document.getElementById('restartBtn');
+            
+            // Navigation des étapes
+            const stepNavPrev = document.getElementById('stepNavPrev');
+            const stepNavNext = document.getElementById('stepNavNext');
+            const cardsContainer = document.getElementById('cardsContainer');
+            
+            // Sections de contenu
+            const step1Content = document.getElementById('step1Content');
+            const step2Content = document.getElementById('step2Content');
+            const step3Content = document.getElementById('step3Content');
+            
+            // Cartes d'étapes
+            const step1Card = document.getElementById('step1Card');
+            const step2Card = document.getElementById('step2Card');
+            const step3Card = document.getElementById('step3Card');
+            const step4Card = document.getElementById('step4Card');
+            
+            // Navigation principale
+            const resizerBtn = document.getElementById('resizerBtn');
+            const affiliationBtn = document.getElementById('affiliationBtn');
+            const resizerSection = document.getElementById('resizerSection');
+            const affiliationSection = document.getElementById('affiliationSection');
+            
+            // Sélecteur de langue
+            const languageSelect = document.getElementById('languageSelect');
+            
+            let selectedFile = null;
+            let originalImage = null;
+            let resizedImage = null;
+            let targetWidth = 1920;
+            let targetHeight = 1080;
+            let currentStep = 1;
+            
+            // Mettre à jour la barre de progression
+            function updateProgressBar() {
+                const progress = (currentStep / 4) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Navigation entre les étapes
+            function goToStep(step) {
+                // Masquer toutes les sections
+                step1Content.classList.add('section-hidden');
+                step2Content.classList.add('section-hidden');
+                step3Content.classList.add('section-hidden');
+                
+                // Désactiver toutes les cartes
+                step1Card.classList.remove('active', 'completed');
+                step2Card.classList.remove('active', 'completed');
+                step3Card.classList.remove('active', 'completed');
+                step4Card.classList.remove('active', 'completed');
+                
+                // Afficher la section correspondante et activer la carte
+                if (step === 1) {
+                    step1Content.classList.remove('section-hidden');
+                    step1Card.classList.add('active');
+                    currentStep = 1;
+                } else if (step === 2) {
+                    step2Content.classList.remove('section-hidden');
+                    step1Card.classList.add('completed');
+                    step2Card.classList.add('active');
+                    currentStep = 2;
+                } else if (step === 3) {
+                    step3Content.classList.remove('section-hidden');
+                    step1Card.classList.add('completed');
+                    step2Card.classList.add('completed');
+                    step3Card.classList.add('active');
+                    currentStep = 3;
+                    
+                    // Redimensionner l'image quand on arrive à l'étape 3
+                    resizeImage();
+                }
+                
+                updateProgressBar();
+            }
+            
+            // Événements de navigation
+            nextStep1Btn.addEventListener('click', () => goToStep(2));
+            prevStep2Btn.addEventListener('click', () => goToStep(1));
+            nextStep2Btn.addEventListener('click', () => goToStep(3));
+            prevStep3Btn.addEventListener('click', () => goToStep(2));
+            restartBtn.addEventListener('click', () => {
+                // Réinitialiser l'application
+                selectedFile = null;
+                originalImage = null;
+                resizedImage = null;
+                selectedFilesContainer.innerHTML = '';
+                uploadArea.innerHTML = `
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Cliquez pour sélectionner votre image</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                `;
+                nextStep1Btn.disabled = true;
+                downloadBtn.disabled = true;
+                placeholderText.style.display = 'block';
+                goToStep(1);
+            });
+            
+            // Navigation des étapes avec les flèches
+            stepNavPrev.addEventListener('click', () => {
+                cardsContainer.scrollBy({
+                    left: -250,
+                    behavior: 'smooth'
+                });
+            });
+            
+            stepNavNext.addEventListener('click', () => {
+                cardsContainer.scrollBy({
+                    left: 250,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Navigation principale
+            resizerBtn.addEventListener('click', () => {
+                resizerBtn.classList.add('active');
+                affiliationBtn.classList.remove('active');
+                resizerSection.classList.remove('section-hidden');
+                affiliationSection.classList.add('section-hidden');
+            });
+            
+            affiliationBtn.addEventListener('click', () => {
+                affiliationBtn.classList.add('active');
+                resizerBtn.classList.remove('active');
+                affiliationSection.classList.remove('section-hidden');
+                resizerSection.classList.add('section-hidden');
+            });
+            
+            // Gestion du glisser-déposer et du clic pour télécharger
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'var(--spotify-green)';
+                uploadArea.style.backgroundColor = 'rgba(29, 185, 84, 0.05)';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.borderColor = 'var(--spotify-dark-gray)';
+                uploadArea.style.backgroundColor = '';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'var(--spotify-dark-gray)';
+                uploadArea.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleFile(e.target.files[0]);
+                }
+            });
+            
+            // Gestion de la sélection des dimensions
+            dimensionOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    dimensionOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    if (this.id === 'customOption') {
+                        customDimension.style.display = 'block';
+                        targetWidth = parseInt(customWidth.value) || 1920;
+                        targetHeight = parseInt(customHeight.value) || 1080;
+                    } else {
+                        customDimension.style.display = 'none';
+                        targetWidth = parseInt(this.dataset.width);
+                        targetHeight = parseInt(this.dataset.height);
+                    }
+                    
+                    // Mettre à jour les nouvelles dimensions affichées
+                    newDimensions.textContent = `${targetWidth} × ${targetHeight}`;
+                });
+            });
+            
+            // Mise à jour des dimensions personnalisées
+            customWidth.addEventListener('input', function() {
+                targetWidth = parseInt(this.value) || 1920;
+                newDimensions.textContent = `${targetWidth} × ${targetHeight}`;
+            });
+            
+            customHeight.addEventListener('input', function() {
+                targetHeight = parseInt(this.value) || 1080;
+                newDimensions.textContent = `${targetWidth} × ${targetHeight}`;
+            });
+            
+            // Fonction pour gérer le fichier sélectionné
+            function handleFile(file) {
+                if (!file.type.match('image.*')) {
+                    alert('Veuillez sélectionner un fichier image.');
+                    return;
+                }
+                
+                selectedFile = file;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    originalImage = new Image();
+                    originalImage.onload = function() {
+                        originalDimensions.textContent = `${originalImage.width} × ${originalImage.height}`;
+                        fileSize.textContent = formatFileSize(file.size);
+                        fileFormat.textContent = file.type.split('/')[1].toUpperCase();
+                    };
+                    originalImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                
+                updateSelectedFilesList();
+                
+                // Activer le bouton pour passer à l'étape suivante
+                nextStep1Btn.disabled = false;
+            }
+            
+            // Mettre à jour la liste des fichiers sélectionnés
+            function updateSelectedFilesList() {
+                selectedFilesContainer.innerHTML = '';
+                
+                if (!selectedFile) {
+                    uploadArea.innerHTML = `
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Cliquez pour sélectionner votre image</p>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                    `;
+                    return;
+                }
+                
+                uploadArea.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <p>Fichier sélectionné: ${selectedFile.name}</p>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: var(--spotify-green);">Cliquez pour changer</p>
+                `;
+                
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <i class="fas fa-image file-icon"></i>
+                        <span class="file-name">${selectedFile.name}</span>
+                    </div>
+                    <button class="remove-file" id="removeFileBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                selectedFilesContainer.appendChild(fileItem);
+                
+                // Ajouter l'événement de suppression
+                document.getElementById('removeFileBtn').addEventListener('click', function() {
+                    selectedFile = null;
+                    originalImage = null;
+                    updateSelectedFilesList();
+                    nextStep1Btn.disabled = true;
+                    placeholderText.style.display = 'block';
+                });
+            }
+            
+            // Fonction pour dessiner une image en conservant le ratio (sans rogner)
+            function drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
+                if (arguments.length === 2) {
+                    x = y = 0;
+                    w = ctx.canvas.width;
+                    h = ctx.canvas.height;
+                }
+                
+                // default offset is center
+                offsetX = typeof offsetX === "number" ? offsetX : 0.5;
+                offsetY = typeof offsetY === "number" ? offsetY : 0.5;
+                
+                // keep bounds [0.0, 1.0]
+                if (offsetX < 0) offsetX = 0;
+                if (offsetY < 0) offsetY = 0;
+                if (offsetX > 1) offsetX = 1;
+                if (offsetY > 1) offsetY = 1;
+                
+                var iw = img.width,
+                    ih = img.height,
+                    r = Math.min(w / iw, h / ih),
+                    nw = iw * r,   // new prop. width
+                    nh = ih * r,   // new prop. height
+                    cx, cy, cw, ch, ar = 1;
+                
+                // decide which gap to fill    
+                if (nw < w) ar = w / nw;                             
+                if (Math.abs(ar - 1) < 1e-14 && nh < h) ar = h / nh;  // updated
+                nw *= ar;
+                nh *= ar;
+                
+                // calc source rectangle
+                cw = iw / (nw / w);
+                ch = ih / (nh / h);
+                
+                cx = (iw - cw) * offsetX;
+                cy = (ih - ch) * offsetY;
+                
+                // make sure source rectangle is valid
+                if (cx < 0) cx = 0;
+                if (cy < 0) cy = 0;
+                if (cw > iw) cw = iw;
+                if (ch > ih) ch = ih;
+                
+                // fill image in dest. rectangle
+                ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
+            }
+            
+            // Fonction de redimensionnement
+            function resizeImage() {
+                if (!originalImage) return;
+                
+                loadingIndicator.style.display = 'block';
+                
+                // Simuler un temps de traitement
+                setTimeout(() => {
+                    // Créer un canvas pour l'image finale
+                    const canvas = document.createElement('canvas');
+                    canvas.width = targetWidth;
+                    canvas.height = targetHeight;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Remplir le fond avec une couleur noire (pour les bandes si nécessaire)
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(0, 0, targetWidth, targetHeight);
+                    
+                    // Dessiner l'image redimensionnée en conservant le ratio
+                    drawImageProp(ctx, originalImage, 0, 0, targetWidth, targetHeight);
+                    
+                    resizedImage = canvas;
+                    
+                    // Afficher l'aperçu
+                    showPreview();
+                    
+                    // Activer le bouton de téléchargement
+                    downloadBtn.disabled = false;
+                    loadingIndicator.style.display = 'none';
+                    
+                    // Marquer l'étape 3 comme terminée
+                    step3Card.classList.add('completed');
+                    step4Card.classList.add('active');
+                    currentStep = 4;
+                    updateProgressBar();
+                }, 1000);
+            }
+            
+            // Afficher l'aperçu
+            function showPreview() {
+                if (!resizedImage) return;
+                
+                // Définir la taille du canvas pour l'aperçu
+                previewCanvas.width = Math.min(targetWidth, 500);
+                previewCanvas.height = Math.min(targetHeight, 300);
+                
+                // Redessiner l'image en conservant le ratio (sans rogner)
+                ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+                drawImageProp(ctx, resizedImage, 0, 0, previewCanvas.width, previewCanvas.height);
+                
+                // Mettre à jour les informations
+                newDimensions.textContent = `${targetWidth} × ${targetHeight}`;
+                
+                placeholderText.style.display = 'none';
+            }
+            
+            // Gestion du téléchargement
+            downloadBtn.addEventListener('click', function() {
+                if (!resizedImage) return;
+                
+                resizedImage.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `theframe_${targetWidth}x${targetHeight}_${selectedFile.name}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 'image/jpeg', 0.95);
+            });
+            
+            // Fonction utilitaire pour formater la taille du fichier
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            // Gestion du changement de langue
+            languageSelect.addEventListener('change', function() {
+                const selectedLanguage = this.value;
+                // Ici, vous pouvez implémenter la logique de changement de langue
+                // Pour l'instant, nous allons simplement afficher une alerte
+                alert(`Langue changée en: ${this.options[this.selectedIndex].text}`);
+                // Dans une implémentation réelle, vous chargeriez les traductions appropriées
+            });
+            
+            // Initialiser la barre de progression
+            updateProgressBar();
+        });
+    </script>
+</body>
+</html>
