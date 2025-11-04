@@ -527,99 +527,160 @@
             color: var(--spotify-gray);
         }
         
-        /* Affiliation Section */
-        .affiliation-section {
+        /* Products Section */
+        .products-section {
             background: linear-gradient(180deg, #3a3a3a 0%, var(--spotify-dark) 100%);
             border-radius: 8px;
             padding: 30px;
             margin-bottom: 20px;
         }
         
-        .affiliation-title {
+        .products-title {
             text-align: center;
             margin-bottom: 25px;
             font-size: 1.8rem;
         }
         
-        .affiliation-subtitle {
+        .products-subtitle {
             text-align: center;
             margin-bottom: 30px;
             color: var(--spotify-gray);
             font-size: 1.1rem;
         }
         
-        .affiliation-cards {
+        .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
             margin-bottom: 30px;
         }
         
-        .affiliation-card {
+        .product-card {
             background-color: var(--spotify-light-black);
-            border-radius: 8px;
-            padding: 25px;
-            text-align: center;
+            border-radius: 12px;
+            overflow: hidden;
             transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
-        .affiliation-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
         }
         
-        .affiliation-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 1.8rem;
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--spotify-dark-gray);
         }
         
-        .amazon-icon {
-            background: linear-gradient(135deg, #FF9900, #FFAC33);
+        .product-content {
+            padding: 20px;
         }
         
-        .samsung-icon {
-            background: linear-gradient(135deg, #1428A0, #1C39BB);
+        .product-category {
+            color: var(--spotify-green);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
         }
         
-        .affiliation-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+        .product-name {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
         
-        .affiliation-card p {
+        .product-description {
             color: var(--spotify-gray);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
         
-        .affiliation-link {
-            display: inline-block;
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--spotify-green);
+        }
+        
+        .product-link {
+            display: block;
             background-color: var(--spotify-green);
             color: var(--spotify-black);
-            padding: 12px 25px;
-            border-radius: 30px;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 700;
             transition: all 0.3s;
         }
         
-        .affiliation-link:hover {
+        .product-link:hover {
             background-color: #1ed760;
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         
-        .affiliation-note {
+        .products-note {
             text-align: center;
             color: var(--spotify-gray);
             font-size: 0.9rem;
             margin-top: 20px;
             font-style: italic;
+        }
+        
+        /* Legal Section */
+        .legal-section {
+            background: linear-gradient(180deg, #3a3a3a 0%, var(--spotify-dark) 100%);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .legal-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .legal-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .legal-section h2 {
+            margin: 25px 0 15px;
+            color: var(--spotify-green);
+            font-size: 1.4rem;
+        }
+        
+        .legal-section h3 {
+            margin: 20px 0 10px;
+            font-size: 1.2rem;
+        }
+        
+        .legal-section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .legal-section ul {
+            margin: 15px 0 15px 30px;
+        }
+        
+        .legal-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        .back-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            text-align: center;
         }
         
         /* Footer */
@@ -631,6 +692,21 @@
             color: var(--spotify-gray);
             border-top: 1px solid var(--spotify-dark-gray);
             font-size: 0.8rem;
+        }
+        
+        .footer-links {
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--spotify-green);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
         }
         
         /* Responsive */
@@ -646,8 +722,8 @@
                 align-self: flex-end;
             }
             
-            .affiliation-cards {
-                grid-template-columns: 1fr;
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
             .dimension-options {
@@ -692,6 +768,10 @@
             
             .nav-btn {
                 margin: 5px 0;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -765,7 +845,7 @@
         <!-- Navigation -->
         <div class="main-nav">
             <button class="nav-btn active" id="resizerBtn" data-translate="resizer_btn">Redimensionneur d'images</button>
-            <button class="nav-btn" id="affiliationBtn" data-translate="affiliation_btn">Liens d'affiliation</button>
+            <button class="nav-btn" id="productsBtn" data-translate="products_btn">Produits recommandés</button>
         </div>
 
         <!-- Resizer Section -->
@@ -931,39 +1011,125 @@
             </div>
         </div>
 
-        <!-- Affiliation Section -->
-        <div id="affiliationSection" class="section-hidden">
-            <div class="affiliation-section">
-                <h2 class="affiliation-title" data-translate="affiliation_title">Achetez votre Samsung The Frame</h2>
-                <p class="affiliation-subtitle" data-translate="affiliation_subtitle">Découvrez les offres disponibles sur Amazon et le site officiel Samsung</p>
+        <!-- Products Section -->
+        <div id="productsSection" class="section-hidden">
+            <div class="products-section">
+                <h2 class="products-title" data-translate="products_title">Accessoires recommandés pour Samsung The Frame</h2>
+                <p class="products-subtitle" data-translate="products_subtitle">Découvrez notre sélection d'accessoires compatibles avec votre TV The Frame</p>
                 
-                <div class="affiliation-cards">
-                    <div class="affiliation-card">
-                        <div class="affiliation-icon amazon-icon">
-                            <i class="fab fa-amazon"></i>
-                        </div>
-                        <h3 data-translate="amazon_title">Amazon</h3>
-                        <p data-translate="amazon_desc">Achetez votre Samsung The Frame sur Amazon avec la livraison rapide et les avis vérifiés des clients.</p>
-                        <a href="https://www.amazon.fr/s?k=Samsung+The+Frame+TV" class="affiliation-link" target="_blank" data-translate="view_amazon">
-                            Voir sur Amazon
-                        </a>
-                    </div>
-                    
-                    <div class="affiliation-card">
-                        <div class="affiliation-icon samsung-icon">
-                            <i class="fas fa-tv"></i>
-                        </div>
-                        <h3 data-translate="samsung_title">Samsung Officiel</h3>
-                        <p data-translate="samsung_desc">Commandez directement sur le site Samsung pour bénéficier des dernières promotions et de la garantie constructeur.</p>
-                        <a href="https://www.samsung.com/fr/tvs/the-frame/" class="affiliation-link" target="_blank" data-translate="view_samsung">
-                            Site officiel Samsung
-                        </a>
-                    </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Les produits seront générés dynamiquement par JavaScript -->
                 </div>
                 
-                <p class="affiliation-note" data-translate="affiliation_note">
+                <p class="products-note" data-translate="products_note">
                     Note: Ces liens sont des liens d'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.
                 </p>
+            </div>
+        </div>
+
+        <!-- Legal Section -->
+        <div id="legalSection" class="section-hidden">
+            <div class="legal-section">
+                <h1 class="legal-title" data-translate="legal_title">Mentions Légales & Politique de Confidentialité</h1>
+                
+                <div class="legal-content">
+                    <h2 data-translate="legal_editor">Éditeur du site</h2>
+                    <p data-translate="legal_editor_content">
+                        Le site "Image Resizer pour The Frame" est édité par [Nom de l'entreprise ou de l'individu], 
+                        [statut juridique], au capital de [montant du capital] euros, immatriculée au Registre du Commerce 
+                        et des Sociétés de [ville] sous le numéro [numéro RCS], dont le siège social est situé [adresse complète].
+                    </p>
+                    
+                    <h2 data-translate="legal_publication">Directeur de la publication</h2>
+                    <p data-translate="legal_publication_content">
+                        [Nom du directeur de publication], en qualité de [fonction].
+                    </p>
+                    
+                    <h2 data-translate="legal_hosting">Hébergement</h2>
+                    <p data-translate="legal_hosting_content">
+                        Ce site est hébergé par [Nom de l'hébergeur], [adresse de l'hébergeur].
+                    </p>
+                    
+                    <h2 data-translate="legal_contact">Contact</h2>
+                    <p data-translate="legal_contact_content">
+                        Pour toute question ou demande d'information concernant le site, ou pour signaler un contenu, 
+                        l'utilisateur peut contacter l'éditeur à l'adresse e-mail suivante : [adresse email de contact].
+                    </p>
+                    
+                    <h2 data-translate="rgpd_title">Protection des données personnelles et conformité RGPD</h2>
+                    
+                    <h3 data-translate="rgpd_data_collection">Collecte des données</h3>
+                    <p data-translate="rgpd_data_collection_content">
+                        Le site "Image Resizer pour The Frame" s'engage à protéger la vie privée de ses utilisateurs. 
+                        Conformément au Règlement Général sur la Protection des Données (RGPD), nous informons nos utilisateurs que :
+                    </p>
+                    <ul>
+                        <li data-translate="rgpd_point1">Aucune image téléchargée sur ce site n'est stockée sur nos serveurs</li>
+                        <li data-translate="rgpd_point2">Le traitement des images s'effectue entièrement dans votre navigateur</li>
+                        <li data-translate="rgpd_point3">Aucune donnée personnelle n'est collectée sans votre consentement explicite</li>
+                        <li data-translate="rgpd_point4">Aucun cookie de suivi n'est utilisé sur ce site</li>
+                        <li data-translate="rgpd_point5">Les images sont traitées localement et ne quittent jamais votre appareil</li>
+                    </ul>
+                    
+                    <h3 data-translate="rgpd_data_usage">Utilisation des données</h3>
+                    <p data-translate="rgpd_data_usage_content">
+                        Les seules données potentiellement collectées sont des données de navigation anonymisées 
+                        à des fins statistiques, et éventuellement votre adresse email si vous choisissez de nous contacter.
+                    </p>
+                    
+                    <h3 data-translate="rgpd_user_rights">Droits des utilisateurs</h3>
+                    <p data-translate="rgpd_user_rights_content">
+                        Conformément à la réglementation en vigueur, vous disposez des droits suivants concernant vos données personnelles :
+                    </p>
+                    <ul>
+                        <li data-translate="rgpd_right1">Droit d'accès et de rectification</li>
+                        <li data-translate="rgpd_right2">Droit à l'effacement</li>
+                        <li data-translate="rgpd_right3">Droit à la limitation du traitement</li>
+                        <li data-translate="rgpd_right4">Droit d'opposition</li>
+                        <li data-translate="rgpd_right5">Droit à la portabilité des données</li>
+                    </ul>
+                    <p data-translate="rgpd_rights_contact">
+                        Pour exercer ces droits, vous pouvez nous contacter à l'adresse : [adresse email dédiée à la protection des données].
+                    </p>
+                    
+                    <h2 data-translate="cookies_title">Cookies</h2>
+                    <p data-translate="cookies_content">
+                        Ce site n'utilise aucun cookie de suivi. Seuls des cookies techniques essentiels au fonctionnement 
+                        du site peuvent être utilisés, et ceux-ci ne contiennent aucune information personnelle identifiable.
+                    </p>
+                    
+                    <h2 data-translate="intellectual_property_title">Propriété intellectuelle</h2>
+                    <p data-translate="intellectual_property_content">
+                        L'ensemble des éléments constituant le site (textes, graphismes, logiciels, photographies, images, vidéos, sons, 
+                        plans, logos, marques, etc.) sont la propriété exclusive de l'éditeur ou de ses partenaires. Toute reproduction, 
+                        représentation, utilisation ou adaptation, sous quelque forme que ce soit, de tout ou partie de ces éléments, 
+                        y compris les applications informatiques, sans l'accord préalable et écrit de l'éditeur, sont strictement interdites.
+                    </p>
+                    
+                    <h2 data-translate="liability_title">Responsabilité</h2>
+                    <p data-translate="liability_content">
+                        L'éditeur du site ne pourra être tenu responsable des dommages directs ou indirects causés au matériel de l'utilisateur, 
+                        lors de l'accès au site. L'utilisateur du site s'engage à accéder au site en utilisant un matériel récent, ne contenant 
+                        pas de virus et avec un navigateur de dernière génération mis à jour.
+                    </p>
+                    
+                    <h2 data-translate="affiliate_links_title">Liens d'affiliation</h2>
+                    <p data-translate="affiliate_links_content">
+                        Certains liens présents sur ce site sont des liens d'affiliation. Cela signifie que si vous effectuez un achat via ces liens, 
+                        nous pouvons percevoir une commission, sans aucun coût supplémentaire pour vous. Ces commissions nous aident à financer 
+                        le maintien et le développement de ce service gratuit.
+                    </p>
+                    
+                    <h2 data-translate="changes_title">Modification des mentions légales</h2>
+                    <p data-translate="changes_content">
+                        L'éditeur se réserve le droit de modifier à tout moment les présentes mentions légales. 
+                        L'utilisateur est donc invité à les consulter régulièrement.
+                    </p>
+                    
+                    <button class="back-btn" id="backFromLegalBtn" data-translate="back_to_home">
+                        <i class="fas fa-arrow-left"></i> Retour à l'accueil
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -971,6 +1137,9 @@
     <footer>
         <div class="container">
             <p data-translate="footer_text">Outil de redimensionnement d'images pour Samsung The Frame - Design inspiré de Spotify</p>
+            <div class="footer-links">
+                <a href="#" id="legalLink" data-translate="legal_link">Mentions légales & Politique de confidentialité</a>
+            </div>
         </div>
     </footer>
 
@@ -981,7 +1150,7 @@
                 // Titres généraux
                 'app_title': 'Image Resizer pour The Frame',
                 'resizer_btn': 'Redimensionneur d\'images',
-                'affiliation_btn': 'Liens d\'affiliation',
+                'products_btn': 'Produits recommandés',
                 
                 // Étapes
                 'steps_title': 'Étapes de redimensionnement',
@@ -1027,16 +1196,51 @@
                 'restart': 'Recommencer',
                 'resizing_in_progress': 'Redimensionnement en cours...',
                 
-                // Section affiliation
-                'affiliation_title': 'Achetez votre Samsung The Frame',
-                'affiliation_subtitle': 'Découvrez les offres disponibles sur Amazon et le site officiel Samsung',
-                'amazon_title': 'Amazon',
-                'amazon_desc': 'Achetez votre Samsung The Frame sur Amazon avec la livraison rapide et les avis vérifiés des clients.',
-                'view_amazon': 'Voir sur Amazon',
-                'samsung_title': 'Samsung Officiel',
-                'samsung_desc': 'Commandez directement sur le site Samsung pour bénéficier des dernières promotions et de la garantie constructeur.',
-                'view_samsung': 'Site officiel Samsung',
-                'affiliation_note': 'Note: Ces liens sont des liens d\'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.',
+                // Section produits
+                'products_title': 'Accessoires recommandés pour Samsung The Frame',
+                'products_subtitle': 'Découvrez notre sélection d\'accessoires compatibles avec votre TV The Frame',
+                'products_note': 'Note: Ces liens sont des liens d\'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.',
+                
+                // Section mentions légales
+                'legal_title': 'Mentions Légales & Politique de Confidentialité',
+                'legal_link': 'Mentions légales & Politique de confidentialité',
+                'legal_editor': 'Éditeur du site',
+                'legal_editor_content': 'Le site "Image Resizer pour The Frame" est édité par [Nom de l\'entreprise ou de l\'individu], [statut juridique], au capital de [montant du capital] euros, immatriculée au Registre du Commerce et des Sociétés de [ville] sous le numéro [numéro RCS], dont le siège social est situé [adresse complète].',
+                'legal_publication': 'Directeur de la publication',
+                'legal_publication_content': '[Nom du directeur de publication], en qualité de [fonction].',
+                'legal_hosting': 'Hébergement',
+                'legal_hosting_content': 'Ce site est hébergé par [Nom de l\'hébergeur], [adresse de l\'hébergeur].',
+                'legal_contact': 'Contact',
+                'legal_contact_content': 'Pour toute question ou demande d\'information concernant le site, ou pour signaler un contenu, l\'utilisateur peut contacter l\'éditeur à l\'adresse e-mail suivante : [adresse email de contact].',
+                'rgpd_title': 'Protection des données personnelles et conformité RGPD',
+                'rgpd_data_collection': 'Collecte des données',
+                'rgpd_data_collection_content': 'Le site "Image Resizer pour The Frame" s\'engage à protéger la vie privée de ses utilisateurs. Conformément au Règlement Général sur la Protection des Données (RGPD), nous informons nos utilisateurs que :',
+                'rgpd_point1': 'Aucune image téléchargée sur ce site n\'est stockée sur nos serveurs',
+                'rgpd_point2': 'Le traitement des images s\'effectue entièrement dans votre navigateur',
+                'rgpd_point3': 'Aucune donnée personnelle n\'est collectée sans votre consentement explicite',
+                'rgpd_point4': 'Aucun cookie de suivi n\'est utilisé sur ce site',
+                'rgpd_point5': 'Les images sont traitées localement et ne quittent jamais votre appareil',
+                'rgpd_data_usage': 'Utilisation des données',
+                'rgpd_data_usage_content': 'Les seules données potentiellement collectées sont des données de navigation anonymisées à des fins statistiques, et éventuellement votre adresse email si vous choisissez de nous contacter.',
+                'rgpd_user_rights': 'Droits des utilisateurs',
+                'rgpd_user_rights_content': 'Conformément à la réglementation en vigueur, vous disposez des droits suivants concernant vos données personnelles :',
+                'rgpd_right1': 'Droit d\'accès et de rectification',
+                'rgpd_right2': 'Droit à l\'effacement',
+                'rgpd_right3': 'Droit à la limitation du traitement',
+                'rgpd_right4': 'Droit d\'opposition',
+                'rgpd_right5': 'Droit à la portabilité des données',
+                'rgpd_rights_contact': 'Pour exercer ces droits, vous pouvez nous contacter à l\'adresse : [adresse email dédiée à la protection des données].',
+                'cookies_title': 'Cookies',
+                'cookies_content': 'Ce site n\'utilise aucun cookie de suivi. Seuls des cookies techniques essentiels au fonctionnement du site peuvent être utilisés, et ceux-ci ne contiennent aucune information personnelle identifiable.',
+                'intellectual_property_title': 'Propriété intellectuelle',
+                'intellectual_property_content': 'L\'ensemble des éléments constituant le site (textes, graphismes, logiciels, photographies, images, vidéos, sons, plans, logos, marques, etc.) sont la propriété exclusive de l\'éditeur ou de ses partenaires. Toute reproduction, représentation, utilisation ou adaptation, sous quelque forme que ce soit, de tout ou partie de ces éléments, y compris les applications informatiques, sans l\'accord préalable et écrit de l\'éditeur, sont strictement interdites.',
+                'liability_title': 'Responsabilité',
+                'liability_content': 'L\'éditeur du site ne pourra être tenu responsable des dommages directs ou indirects causés au matériel de l\'utilisateur, lors de l\'accès au site. L\'utilisateur du site s\'engage à accéder au site en utilisant un matériel récent, ne contenant pas de virus et avec un navigateur de dernière génération mis à jour.',
+                'affiliate_links_title': 'Liens d\'affiliation',
+                'affiliate_links_content': 'Certains liens présents sur ce site sont des liens d\'affiliation. Cela signifie que si vous effectuez un achat via ces liens, nous pouvons percevoir une commission, sans aucun coût supplémentaire pour vous. Ces commissions nous aident à financer le maintien et le développement de ce service gratuit.',
+                'changes_title': 'Modification des mentions légales',
+                'changes_content': 'L\'éditeur se réserve le droit de modifier à tout moment les présentes mentions légales. L\'utilisateur est donc invité à les consulter régulièrement.',
+                'back_to_home': 'Retour à l\'accueil',
                 
                 // Footer
                 'footer_text': 'Outil de redimensionnement d\'images pour Samsung The Frame - Design inspiré de Spotify'
@@ -1045,7 +1249,7 @@
                 // General titles
                 'app_title': 'Image Resizer for The Frame',
                 'resizer_btn': 'Image Resizer',
-                'affiliation_btn': 'Affiliate Links',
+                'products_btn': 'Recommended Products',
                 
                 // Steps
                 'steps_title': 'Resizing Steps',
@@ -1091,16 +1295,51 @@
                 'restart': 'Start over',
                 'resizing_in_progress': 'Resizing in progress...',
                 
-                // Affiliation section
-                'affiliation_title': 'Buy your Samsung The Frame',
-                'affiliation_subtitle': 'Discover available offers on Amazon and the official Samsung website',
-                'amazon_title': 'Amazon',
-                'amazon_desc': 'Buy your Samsung The Frame on Amazon with fast delivery and verified customer reviews.',
-                'view_amazon': 'View on Amazon',
-                'samsung_title': 'Official Samsung',
-                'samsung_desc': 'Order directly from the Samsung website to benefit from the latest promotions and manufacturer warranty.',
-                'view_samsung': 'Official Samsung site',
-                'affiliation_note': 'Note: These are affiliate links. If you make a purchase through these links, I may receive a small commission at no extra cost to you.',
+                // Products section
+                'products_title': 'Recommended Accessories for Samsung The Frame',
+                'products_subtitle': 'Discover our selection of accessories compatible with your The Frame TV',
+                'products_note': 'Note: These are affiliate links. If you make a purchase through these links, I may receive a small commission at no extra cost to you.',
+                
+                // Legal section
+                'legal_title': 'Legal Notice & Privacy Policy',
+                'legal_link': 'Legal Notice & Privacy Policy',
+                'legal_editor': 'Website Publisher',
+                'legal_editor_content': 'The website "Image Resizer for The Frame" is published by [Company or Individual Name], [legal status], with a capital of [capital amount] euros, registered with the Trade and Companies Register of [city] under number [RCS number], whose registered office is located at [full address].',
+                'legal_publication': 'Publication Director',
+                'legal_publication_content': '[Publication Director Name], in their capacity as [function].',
+                'legal_hosting': 'Hosting',
+                'legal_hosting_content': 'This site is hosted by [Hosting Provider Name], [hosting provider address].',
+                'legal_contact': 'Contact',
+                'legal_contact_content': 'For any questions or requests for information regarding the site, or to report content, the user can contact the publisher at the following email address: [contact email address].',
+                'rgpd_title': 'Personal Data Protection and GDPR Compliance',
+                'rgpd_data_collection': 'Data Collection',
+                'rgpd_data_collection_content': 'The "Image Resizer for The Frame" website is committed to protecting the privacy of its users. In accordance with the General Data Protection Regulation (GDPR), we inform our users that:',
+                'rgpd_point1': 'No images uploaded to this site are stored on our servers',
+                'rgpd_point2': 'Image processing is done entirely in your browser',
+                'rgpd_point3': 'No personal data is collected without your explicit consent',
+                'rgpd_point4': 'No tracking cookies are used on this site',
+                'rgpd_point5': 'Images are processed locally and never leave your device',
+                'rgpd_data_usage': 'Data Usage',
+                'rgpd_data_usage_content': 'The only data potentially collected is anonymized browsing data for statistical purposes, and possibly your email address if you choose to contact us.',
+                'rgpd_user_rights': 'User Rights',
+                'rgpd_user_rights_content': 'In accordance with applicable regulations, you have the following rights regarding your personal data:',
+                'rgpd_right1': 'Right of access and rectification',
+                'rgpd_right2': 'Right to erasure',
+                'rgpd_right3': 'Right to restriction of processing',
+                'rgpd_right4': 'Right to object',
+                'rgpd_right5': 'Right to data portability',
+                'rgpd_rights_contact': 'To exercise these rights, you can contact us at: [email address dedicated to data protection].',
+                'cookies_title': 'Cookies',
+                'cookies_content': 'This site does not use any tracking cookies. Only technical cookies essential to the functioning of the site may be used, and these do not contain any identifiable personal information.',
+                'intellectual_property_title': 'Intellectual Property',
+                'intellectual_property_content': 'All elements constituting the site (texts, graphics, software, photographs, images, videos, sounds, plans, logos, brands, etc.) are the exclusive property of the publisher or its partners. Any reproduction, representation, use or adaptation, in any form whatsoever, of all or part of these elements, including computer applications, without the prior written consent of the publisher, is strictly prohibited.',
+                'liability_title': 'Liability',
+                'liability_content': 'The site publisher cannot be held responsible for direct or indirect damage caused to the user\'s equipment when accessing the site. The user of the site undertakes to access the site using recent equipment, free of viruses and with an up-to-date latest generation browser.',
+                'affiliate_links_title': 'Affiliate Links',
+                'affiliate_links_content': 'Some links on this site are affiliate links. This means that if you make a purchase through these links, we may receive a commission, at no additional cost to you. These commissions help us fund the maintenance and development of this free service.',
+                'changes_title': 'Modification of Legal Notice',
+                'changes_content': 'The publisher reserves the right to modify these legal notices at any time. The user is therefore invited to consult them regularly.',
+                'back_to_home': 'Back to home',
                 
                 // Footer
                 'footer_text': 'Image resizing tool for Samsung The Frame - Design inspired by Spotify'
@@ -1109,7 +1348,7 @@
                 // Títulos generales
                 'app_title': 'Redimensionador de Imágenes para The Frame',
                 'resizer_btn': 'Redimensionador de Imágenes',
-                'affiliation_btn': 'Enlaces de Afiliados',
+                'products_btn': 'Productos Recomendados',
                 
                 // Pasos
                 'steps_title': 'Pasos de Redimensionamiento',
@@ -1155,16 +1394,51 @@
                 'restart': 'Comenzar de nuevo',
                 'resizing_in_progress': 'Redimensionando...',
                 
-                // Sección de afiliación
-                'affiliation_title': 'Compra tu Samsung The Frame',
-                'affiliation_subtitle': 'Descubre las ofertas disponibles en Amazon y el sitio oficial de Samsung',
-                'amazon_title': 'Amazon',
-                'amazon_desc': 'Compra tu Samsung The Frame en Amazon con entrega rápida y reseñas verificadas de clientes.',
-                'view_amazon': 'Ver en Amazon',
-                'samsung_title': 'Samsung Oficial',
-                'samsung_desc': 'Ordena directamente desde el sitio web de Samsung para beneficiarte de las últimas promociones y la garantía del fabricante.',
-                'view_samsung': 'Sitio oficial Samsung',
-                'affiliation_note': 'Nota: Estos son enlaces de afiliados. Si realizas una compra a través de estos enlaces, puedo recibir una pequeña comisión sin costo adicional para ti.',
+                // Sección de productos
+                'products_title': 'Accesorios Recomendados para Samsung The Frame',
+                'products_subtitle': 'Descubre nuestra selección de accesorios compatibles con tu TV The Frame',
+                'products_note': 'Nota: Estos son enlaces de afiliados. Si realizas una compra a través de estos enlaces, puedo recibir una pequeña comisión sin costo adicional para ti.',
+                
+                // Sección legal
+                'legal_title': 'Aviso Legal y Política de Privacidad',
+                'legal_link': 'Aviso Legal y Política de Privacidad',
+                'legal_editor': 'Editor del sitio',
+                'legal_editor_content': 'El sitio "Image Resizer para The Frame" es editado por [Nombre de la empresa o individuo], [estatus legal], con un capital de [monto del capital] euros, registrado en el Registro Mercantil de [ciudad] bajo el número [número RCS], cuya sede social está situada en [dirección completa].',
+                'legal_publication': 'Director de publicación',
+                'legal_publication_content': '[Nombre del director de publicación], en su calidad de [función].',
+                'legal_hosting': 'Alojamiento',
+                'legal_hosting_content': 'Este sitio está alojado por [Nombre del proveedor de alojamiento], [dirección del proveedor de alojamiento].',
+                'legal_contact': 'Contacto',
+                'legal_contact_content': 'Para cualquier pregunta o solicitud de información sobre el sitio, o para informar sobre un contenido, el usuario puede contactar al editor en la siguiente dirección de correo electrónico: [dirección de correo electrónico de contacto].',
+                'rgpd_title': 'Protección de datos personales y cumplimiento del RGPD',
+                'rgpd_data_collection': 'Recopilación de datos',
+                'rgpd_data_collection_content': 'El sitio "Image Resizer para The Frame" se compromete a proteger la privacidad de sus usuarios. De conformidad con el Reglamento General de Protección de Datos (RGPD), informamos a nuestros usuarios que:',
+                'rgpd_point1': 'Ninguna imagen cargada en este sitio se almacena en nuestros servidores',
+                'rgpd_point2': 'El procesamiento de imágenes se realiza completamente en su navegador',
+                'rgpd_point3': 'No se recopilan datos personales sin su consentimiento explícito',
+                'rgpd_point4': 'No se utilizan cookies de seguimiento en este sitio',
+                'rgpd_point5': 'Las imágenes se procesan localmente y nunca salen de su dispositivo',
+                'rgpd_data_usage': 'Uso de datos',
+                'rgpd_data_usage_content': 'Los únicos datos potencialmente recopilados son datos de navegación anónimos con fines estadísticos, y posiblemente su dirección de correo electrónico si elige contactarnos.',
+                'rgpd_user_rights': 'Derechos de los usuarios',
+                'rgpd_user_rights_content': 'De conformidad con la normativa aplicable, tiene los siguientes derechos con respecto a sus datos personales:',
+                'rgpd_right1': 'Derecho de acceso y rectificación',
+                'rgpd_right2': 'Derecho al borrado',
+                'rgpd_right3': 'Derecho a la limitación del tratamiento',
+                'rgpd_right4': 'Derecho de oposición',
+                'rgpd_right5': 'Derecho a la portabilidad de los datos',
+                'rgpd_rights_contact': 'Para ejercer estos derechos, puede contactarnos en: [dirección de correo electrónico dedicada a la protección de datos].',
+                'cookies_title': 'Cookies',
+                'cookies_content': 'Este sitio no utiliza cookies de seguimiento. Solo se pueden utilizar cookies técnicas esenciales para el funcionamiento del sitio, y estas no contienen información personal identificable.',
+                'intellectual_property_title': 'Propiedad intelectual',
+                'intellectual_property_content': 'Todos los elementos que constituyen el sitio (textos, gráficos, software, fotografías, imágenes, videos, sonidos, planos, logotipos, marcas, etc.) son propiedad exclusiva del editor o de sus socios. Queda estrictamente prohibida cualquier reproducción, representación, uso o adaptación, en cualquier forma que sea, de la totalidad o parte de estos elementos, incluidas las aplicaciones informáticas, sin el acuerdo previo y por escrito del editor.',
+                'liability_title': 'Responsabilidad',
+                'liability_content': 'El editor del sitio no podrá ser considerado responsable de los daños directos o indirectos causados al equipo del usuario, durante el acceso al sitio. El usuario del sitio se compromete a acceder al sitio utilizando un equipo reciente, que no contenga virus y con un navegador de última generación actualizado.',
+                'affiliate_links_title': 'Enlaces de afiliados',
+                'affiliate_links_content': 'Algunos enlaces presentes en este sitio son enlaces de afiliados. Esto significa que si realiza una compra a través de estos enlaces, podemos percibir una comisión, sin ningún costo adicional para usted. Estas comisiones nos ayudan a financiar el mantenimiento y desarrollo de este servicio gratuito.',
+                'changes_title': 'Modificación del aviso legal',
+                'changes_content': 'El editor se reserva el derecho de modificar en cualquier momento el presente aviso legal. Por lo tanto, se invita al usuario a consultarlo regularmente.',
+                'back_to_home': 'Volver al inicio',
                 
                 // Pie de página
                 'footer_text': 'Herramienta de redimensionamiento de imágenes para Samsung The Frame - Diseño inspirado en Spotify'
@@ -1173,7 +1447,7 @@
                 // Allgemeine Titel
                 'app_title': 'Bildgrößenänderer für The Frame',
                 'resizer_btn': 'Bildgrößenänderer',
-                'affiliation_btn': 'Affiliate-Links',
+                'products_btn': 'Empfohlene Produkte',
                 
                 // Schritte
                 'steps_title': 'Schritte zur Größenänderung',
@@ -1219,21 +1493,114 @@
                 'restart': 'Neu starten',
                 'resizing_in_progress': 'Größenänderung läuft...',
                 
-                // Affiliate-Bereich
-                'affiliation_title': 'Kaufen Sie Ihren Samsung The Frame',
-                'affiliation_subtitle': 'Entdecken Sie verfügbare Angebote auf Amazon und der offiziellen Samsung-Website',
-                'amazon_title': 'Amazon',
-                'amazon_desc': 'Kaufen Sie Ihren Samsung The Frame bei Amazon mit schneller Lieferung und verifizierten Kundenbewertungen.',
-                'view_amazon': 'Auf Amazon ansehen',
-                'samsung_title': 'Offizielles Samsung',
-                'samsung_desc': 'Bestellen Sie direkt auf der Samsung-Website, um von den neuesten Promotionen und der Herstellergarantie zu profitieren.',
-                'view_samsung': 'Offizielle Samsung-Website',
-                'affiliation_note': 'Hinweis: Dies sind Affiliate-Links. Wenn Sie einen Kauf über diese Links tätigen, erhalte ich möglicherweise eine kleine Provision ohne zusätzliche Kosten für Sie.',
+                // Produkte-Bereich
+                'products_title': 'Empfohlenes Zubehör für Samsung The Frame',
+                'products_subtitle': 'Entdecken Sie unsere Auswahl an Zubehör, das mit Ihrem The Frame TV kompatibel ist',
+                'products_note': 'Hinweis: Dies sind Affiliate-Links. Wenn Sie einen Kauf über diese Links tätigen, erhalte ich möglicherweise eine kleine Provision ohne zusätzliche Kosten für Sie.',
+                
+                // Rechtsbereich
+                'legal_title': 'Impressum & Datenschutzerklärung',
+                'legal_link': 'Impressum & Datenschutzerklärung',
+                'legal_editor': 'Herausgeber der Website',
+                'legal_editor_content': 'Die Website "Bildgrößenänderer für The Frame" wird herausgegeben von [Firmen- oder Einzelpersonenname], [Rechtsstatus], mit einem Kapital von [Kapitalbetrag] Euro, eingetragen im Handelsregister von [Stadt] unter der Nummer [RCS-Nummer], deren eingetragener Sitz sich in [vollständige Adresse] befindet.',
+                'legal_publication': 'Veröffentlichungsleiter',
+                'legal_publication_content': '[Name des Veröffentlichungsleiters], in seiner Eigenschaft als [Funktion].',
+                'legal_hosting': 'Hosting',
+                'legal_hosting_content': 'Diese Seite wird gehostet von [Name des Hosting-Anbieters], [Adresse des Hosting-Anbieters].',
+                'legal_contact': 'Kontakt',
+                'legal_contact_content': 'Bei Fragen oder Informationsanfragen bezüglich der Website oder zur Meldung von Inhalten kann der Nutzer den Herausgeber unter der folgenden E-Mail-Adresse kontaktieren: [Kontakt-E-Mail-Adresse].',
+                'rgpd_title': 'Schutz personenbezogener Daten und DSGVO-Konformität',
+                'rgpd_data_collection': 'Datenerfassung',
+                'rgpd_data_collection_content': 'Die Website "Bildgrößenänderer für The Frame" verpflichtet sich, die Privatsphäre ihrer Nutzer zu schützen. Gemäß der Datenschutz-Grundverordnung (DSGVO) informieren wir unsere Nutzer, dass:',
+                'rgpd_point1': 'Keine auf diese Seite hochgeladenen Bilder werden auf unseren Servern gespeichert',
+                'rgpd_point2': 'Die Bildverarbeitung erfolgt vollständig in Ihrem Browser',
+                'rgpd_point3': 'Ohne Ihre ausdrückliche Zustimmung werden keine personenbezogenen Daten erhoben',
+                'rgpd_point4': 'Auf dieser Seite werden keine Tracking-Cookies verwendet',
+                'rgpd_point5': 'Bilder werden lokal verarbeitet und verlassen niemals Ihr Gerät',
+                'rgpd_data_usage': 'Datennutzung',
+                'rgpd_data_usage_content': 'Die einzigen potenziell erfassten Daten sind anonymisierte Navigationsdaten für statistische Zwecke und möglicherweise Ihre E-Mail-Adresse, wenn Sie sich entscheiden, uns zu kontaktieren.',
+                'rgpd_user_rights': 'Benutzerrechte',
+                'rgpd_user_rights_content': 'Gemäß den geltenden Vorschriften haben Sie folgende Rechte in Bezug auf Ihre personenbezogenen Daten:',
+                'rgpd_right1': 'Recht auf Auskunft und Berichtigung',
+                'rgpd_right2': 'Recht auf Löschung',
+                'rgpd_right3': 'Recht auf Einschränkung der Verarbeitung',
+                'rgpd_right4': 'Widerspruchsrecht',
+                'rgpd_right5': 'Recht auf Datenübertragbarkeit',
+                'rgpd_rights_contact': 'Um diese Rechte auszuüben, können Sie uns unter folgender Adresse kontaktieren: [für den Datenschutz zuständige E-Mail-Adresse].',
+                'cookies_title': 'Cookies',
+                'cookies_content': 'Diese Seite verwendet keine Tracking-Cookies. Es können nur technische Cookies verwendet werden, die für die Funktion der Seite wesentlich sind und keine identifizierbaren persönlichen Informationen enthalten.',
+                'intellectual_property_title': 'Geistiges Eigentum',
+                'intellectual_property_content': 'Alle Elemente, die die Seite bilden (Texte, Grafiken, Software, Fotografien, Bilder, Videos, Sounds, Pläne, Logos, Marken usw.) sind ausschließliches Eigentum des Herausgebers oder seiner Partner. Jede Vervielfältigung, Darstellung, Verwendung oder Anpassung, in welcher Form auch immer, aller oder eines Teils dieser Elemente, einschließlich Computeranwendungen, ohne vorherige schriftliche Zustimmung des Herausgebers, ist strengstens untersagt.',
+                'liability_title': 'Haftung',
+                'liability_content': 'Der Herausgeber der Seite kann nicht für direkte oder indirekte Schäden haftbar gemacht werden, die der Ausrüstung des Benutzers beim Zugriff auf die Seite entstehen. Der Benutzer der Seite verpflichtet sich, mit einer aktuellen, virenfreien Ausrüstung und einem aktualisierten Browser der neuesten Generation auf die Seite zuzugreifen.',
+                'affiliate_links_title': 'Affiliate-Links',
+                'affiliate_links_content': 'Einige Links auf dieser Seite sind Affiliate-Links. Das bedeutet, dass wir eine Provision erhalten können, wenn Sie einen Kauf über diese Links tätigen, ohne dass Ihnen zusätzliche Kosten entstehen. Diese Provisionen helfen uns, die Wartung und Entwicklung dieses kostenlosen Dienstes zu finanzieren.',
+                'changes_title': 'Änderung des Impressums',
+                'changes_content': 'Der Herausgeber behält sich das Recht vor, dieses Impressum jederzeit zu ändern. Der Benutzer wird daher eingeladen, es regelmäßig zu konsultieren.',
+                'back_to_home': 'Zurück zur Startseite',
                 
                 // Fußzeile
                 'footer_text': 'Bildgrößenänderungstool für Samsung The Frame - Design inspiriert von Spotify'
             }
         };
+
+        // Données des produits
+        const products = [
+            {
+                id: 1,
+                name: "Support mural sans fil Samsung",
+                category: "Support",
+                description: "Support mural officiel Samsung pour une installation élégante et sans fil de votre TV The Frame.",
+                price: "€89,99",
+                image: "https://images.samsung.com/is/image/samsung/p5/fr/tvs/the-frame/accessories/wm45b-wall-mount-kit.png",
+                link: "https://www.amazon.fr/dp/B08C1Y7W5H"
+            },
+            {
+                id: 2,
+                name: "Cadres décoratifs interchangeables",
+                category: "Cadres",
+                description: "Collection de cadres colorés pour personnaliser l'apparence de votre TV The Frame selon votre décoration.",
+                price: "À partir de €99",
+                image: "https://images.samsung.com/is/image/samsung/p5/fr/tvs/the-frame/accessories/bezel-studio-gray.png",
+                link: "https://www.amazon.fr/dp/B08C1ZQ6L7"
+            },
+            {
+                id: 3,
+                name: "Câble One Connect invisible 5m",
+                category: "Câbles",
+                description: "Câble de connexion longueur 5m pour relier votre TV The Frame au boîtier One Connect sans encombrement visible.",
+                price: "€129,99",
+                image: "https://images.samsung.com/is/image/samsung/p5/fr/tvs/the-frame/accessories/one-connect-cable-5m.png",
+                link: "https://www.amazon.fr/dp/B08C1ZQ6L8"
+            },
+            {
+                id: 4,
+                name: "Kit de nettoyage écran premium",
+                category: "Entretien",
+                description: "Kit spécialement conçu pour nettoyer en toute sécurité l'écran de votre TV The Frame sans laisser de traces.",
+                price: "€24,99",
+                image: "https://m.media-amazon.com/images/I/71K8Fg+L7SL._AC_SL1500_.jpg",
+                link: "https://www.amazon.fr/dp/B08C1ZQ6L9"
+            },
+            {
+                id: 5,
+                name: "Support pivotant universel",
+                category: "Support",
+                description: "Support mural pivotant permettant d'ajuster l'angle de vision de votre TV The Frame selon vos besoins.",
+                price: "€59,99",
+                image: "https://m.media-amazon.com/images/I/71z9Vf8Jw2L._AC_SL1500_.jpg",
+                link: "https://www.amazon.fr/dp/B08C1ZQ6M0"
+            },
+            {
+                id: 6,
+                name: "Barre de son Samsung HW-Q600A",
+                category: "Audio",
+                description: "Barre de son compatible avec votre TV The Frame pour une expérience audio immersive et de qualité.",
+                price: "€399,99",
+                image: "https://images.samsung.com/is/image/samsung/p5/fr/audio/hw-q600a-za-front-black-01.png",
+                link: "https://www.amazon.fr/dp/B08C1ZQ6M1"
+            }
+        ];
 
         document.addEventListener('DOMContentLoaded', function() {
             // Références aux éléments DOM
@@ -1254,6 +1621,9 @@
             const fileFormat = document.getElementById('fileFormat');
             const loadingIndicator = document.getElementById('loadingIndicator');
             const progressBar = document.getElementById('progressBar');
+            const productsGrid = document.getElementById('productsGrid');
+            const legalLink = document.getElementById('legalLink');
+            const backFromLegalBtn = document.getElementById('backFromLegalBtn');
             
             // Boutons de navigation
             const nextStep1Btn = document.getElementById('nextStep1Btn');
@@ -1280,9 +1650,10 @@
             
             // Navigation principale
             const resizerBtn = document.getElementById('resizerBtn');
-            const affiliationBtn = document.getElementById('affiliationBtn');
+            const productsBtn = document.getElementById('productsBtn');
             const resizerSection = document.getElementById('resizerSection');
-            const affiliationSection = document.getElementById('affiliationSection');
+            const productsSection = document.getElementById('productsSection');
+            const legalSection = document.getElementById('legalSection');
             
             // Sélecteur de langue
             const languageSelect = document.getElementById('languageSelect');
@@ -1294,6 +1665,27 @@
             let targetHeight = 1080;
             let currentStep = 1;
             let currentLanguage = 'fr';
+            
+            // Fonction pour générer les produits
+            function generateProducts() {
+                productsGrid.innerHTML = '';
+                
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x200/282828/FFFFFF?text=Image+Non+Disponible'">
+                        <div class="product-content">
+                            <div class="product-category">${product.category}</div>
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-description">${product.description}</p>
+                            <div class="product-price">${product.price}</div>
+                            <a href="${product.link}" class="product-link" target="_blank" data-translate="view_product">Voir le produit</a>
+                        </div>
+                    `;
+                    productsGrid.appendChild(productCard);
+                });
+            }
             
             // Fonction de traduction
             function translatePage(lang) {
@@ -1422,16 +1814,37 @@
             // Navigation principale
             resizerBtn.addEventListener('click', () => {
                 resizerBtn.classList.add('active');
-                affiliationBtn.classList.remove('active');
+                productsBtn.classList.remove('active');
                 resizerSection.classList.remove('section-hidden');
-                affiliationSection.classList.add('section-hidden');
+                productsSection.classList.add('section-hidden');
+                legalSection.classList.add('section-hidden');
             });
             
-            affiliationBtn.addEventListener('click', () => {
-                affiliationBtn.classList.add('active');
+            productsBtn.addEventListener('click', () => {
+                productsBtn.classList.add('active');
                 resizerBtn.classList.remove('active');
-                affiliationSection.classList.remove('section-hidden');
+                productsSection.classList.remove('section-hidden');
                 resizerSection.classList.add('section-hidden');
+                legalSection.classList.add('section-hidden');
+            });
+            
+            // Navigation vers les mentions légales
+            legalLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                resizerBtn.classList.remove('active');
+                productsBtn.classList.remove('active');
+                legalSection.classList.remove('section-hidden');
+                resizerSection.classList.add('section-hidden');
+                productsSection.classList.add('section-hidden');
+            });
+            
+            // Retour depuis les mentions légales
+            backFromLegalBtn.addEventListener('click', () => {
+                resizerBtn.classList.add('active');
+                productsBtn.classList.remove('active');
+                resizerSection.classList.remove('section-hidden');
+                productsSection.classList.add('section-hidden');
+                legalSection.classList.add('section-hidden');
             });
             
             // Gestion du glisser-déposer et du clic pour télécharger
@@ -1696,7 +2109,7 @@
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
                 }, 'image/jpeg', 0.95);
-            });
+            }
             
             // Fonction utilitaire pour formater la taille du fichier
             function formatFileSize(bytes) {
@@ -1722,6 +2135,9 @@
             const savedLanguage = localStorage.getItem('language') || 'fr';
             languageSelect.value = savedLanguage;
             translatePage(savedLanguage);
+            
+            // Générer les produits
+            generateProducts();
             
             // Initialiser la barre de progression
             updateProgressBar();
