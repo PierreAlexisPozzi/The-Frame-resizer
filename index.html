@@ -748,7 +748,7 @@
                 <div class="logo-icon">
                     <i class="fas fa-tv"></i>
                 </div>
-                <h1>Image Resizer pour The Frame</h1>
+                <h1 data-translate="app_title">Image Resizer pour The Frame</h1>
             </div>
             
             <!-- Language Selector -->
@@ -764,15 +764,15 @@
 
         <!-- Navigation -->
         <div class="main-nav">
-            <button class="nav-btn active" id="resizerBtn">Redimensionneur d'images</button>
-            <button class="nav-btn" id="affiliationBtn">Liens d'affiliation</button>
+            <button class="nav-btn active" id="resizerBtn" data-translate="resizer_btn">Redimensionneur d'images</button>
+            <button class="nav-btn" id="affiliationBtn" data-translate="affiliation_btn">Liens d'affiliation</button>
         </div>
 
         <!-- Resizer Section -->
         <div id="resizerSection">
             <!-- Cards Section -->
             <div class="cards-section">
-                <h2 class="section-title">Étapes de redimensionnement</h2>
+                <h2 class="section-title" data-translate="steps_title">Étapes de redimensionnement</h2>
                 <div class="cards-container-wrapper">
                     <button class="step-nav prev" id="stepNavPrev">
                         <i class="fas fa-chevron-left"></i>
@@ -782,29 +782,29 @@
                             <div class="card-icon upload-icon">
                                 <i class="fas fa-upload"></i>
                             </div>
-                            <h3>1. Téléchargez votre image</h3>
-                            <p>Sélectionnez votre image depuis votre appareil</p>
+                            <h3 data-translate="step1_title">1. Téléchargez votre image</h3>
+                            <p data-translate="step1_desc">Sélectionnez votre image depuis votre appareil</p>
                         </div>
                         <div class="card" id="step2Card">
                             <div class="card-icon dimension-icon">
                                 <i class="fas fa-expand-alt"></i>
                             </div>
-                            <h3>2. Sélectionnez la dimension</h3>
-                            <p>Choisissez le modèle de votre TV The Frame Samsung</p>
+                            <h3 data-translate="step2_title">2. Sélectionnez la dimension</h3>
+                            <p data-translate="step2_desc">Choisissez le modèle de votre TV The Frame Samsung</p>
                         </div>
                         <div class="card" id="step3Card">
                             <div class="card-icon preview-icon">
                                 <i class="fas fa-eye"></i>
                             </div>
-                            <h3>3. Vérifiez l'aperçu</h3>
-                            <p>Contrôlez le résultat avant le téléchargement</p>
+                            <h3 data-translate="step3_title">3. Vérifiez l'aperçu</h3>
+                            <p data-translate="step3_desc">Contrôlez le résultat avant le téléchargement</p>
                         </div>
                         <div class="card" id="step4Card">
                             <div class="card-icon download-icon">
                                 <i class="fas fa-download"></i>
                             </div>
-                            <h3>4. Téléchargez</h3>
-                            <p>Récupérez votre image parfaitement dimensionnée</p>
+                            <h3 data-translate="step4_title">4. Téléchargez</h3>
+                            <p data-translate="step4_desc">Récupérez votre image parfaitement dimensionnée</p>
                         </div>
                     </div>
                     <button class="step-nav next" id="stepNavNext">
@@ -819,31 +819,31 @@
                     <div class="progress" id="progressBar"></div>
                 </div>
                 <div class="progress-labels">
-                    <span>Étape 1</span>
-                    <span>Étape 2</span>
-                    <span>Étape 3</span>
-                    <span>Étape 4</span>
+                    <span data-translate="step1_label">Étape 1</span>
+                    <span data-translate="step2_label">Étape 2</span>
+                    <span data-translate="step3_label">Étape 3</span>
+                    <span data-translate="step4_label">Étape 4</span>
                 </div>
             </div>
 
             <!-- Upload Section -->
             <div class="content-section" id="step1Content">
-                <h2 class="section-title">Télécharger votre image</h2>
+                <h2 class="section-title" data-translate="upload_title">Télécharger votre image</h2>
                 
                 <div class="upload-area" id="uploadArea">
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Cliquez pour sélectionner votre image</p>
+                    <p data-translate="upload_text">Cliquez pour sélectionner votre image</p>
                     <input type="file" id="fileInput" accept="image/*" style="display: none;">
                 </div>
                 
                 <div class="selected-files" id="selectedFiles"></div>
                 
-                <button id="nextStep1Btn" disabled>Continuer vers l'étape 2</button>
+                <button id="nextStep1Btn" disabled data-translate="continue_step2">Continuer vers l'étape 2</button>
             </div>
             
             <!-- Dimension Selection Section -->
             <div class="content-section section-hidden" id="step2Content">
-                <h2 class="section-title">Sélectionnez la dimension de votre TV</h2>
+                <h2 class="section-title" data-translate="dimension_title">Sélectionnez la dimension de votre TV</h2>
                 
                 <div class="dimension-options">
                     <div class="dimension-option active" data-width="1920" data-height="1080">
@@ -867,66 +867,66 @@
                         <div class="dimension-size">3840 × 2160</div>
                     </div>
                     <div class="dimension-option" id="customOption">
-                        <div class="dimension-name">Personnalisé</div>
-                        <div class="dimension-size">Autre dimension</div>
+                        <div class="dimension-name" data-translate="custom_dimension">Personnalisé</div>
+                        <div class="dimension-size" data-translate="other_dimension">Autre dimension</div>
                     </div>
                 </div>
                 
                 <div class="custom-dimension" id="customDimension">
-                    <h4>Dimensions personnalisées</h4>
+                    <h4 data-translate="custom_dimensions">Dimensions personnalisées</h4>
                     <div class="custom-inputs">
-                        <input type="number" id="customWidth" placeholder="Largeur" min="1">
-                        <input type="number" id="customHeight" placeholder="Hauteur" min="1">
+                        <input type="number" id="customWidth" placeholder="Largeur" min="1" data-translate-placeholder="width_placeholder">
+                        <input type="number" id="customHeight" placeholder="Hauteur" min="1" data-translate-placeholder="height_placeholder">
                     </div>
                 </div>
                 
                 <div class="action-buttons">
-                    <button id="prevStep2Btn">Retour à l'étape 1</button>
-                    <button id="nextStep2Btn">Continuer vers l'aperçu</button>
+                    <button id="prevStep2Btn" data-translate="back_step1">Retour à l'étape 1</button>
+                    <button id="nextStep2Btn" data-translate="continue_preview">Continuer vers l'aperçu</button>
                 </div>
             </div>
             
             <!-- Preview Section -->
             <div class="content-section section-hidden" id="step3Content">
-                <h2 class="section-title">Aperçu et téléchargement</h2>
+                <h2 class="section-title" data-translate="preview_title">Aperçu et téléchargement</h2>
                 
                 <div class="preview-container">
                     <canvas id="previewCanvas"></canvas>
-                    <p id="placeholderText">L'image redimensionnée apparaîtra ici</p>
+                    <p id="placeholderText" data-translate="preview_placeholder">L'image redimensionnée apparaîtra ici</p>
                 </div>
                 
                 <div class="preview-info">
                     <div class="info-item">
-                        <span class="info-label">Dimensions originales:</span>
+                        <span class="info-label" data-translate="original_dimensions">Dimensions originales:</span>
                         <span id="originalDimensions">-</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">Nouvelles dimensions:</span>
+                        <span class="info-label" data-translate="new_dimensions">Nouvelles dimensions:</span>
                         <span id="newDimensions">-</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">Taille du fichier:</span>
+                        <span class="info-label" data-translate="file_size">Taille du fichier:</span>
                         <span id="fileSize">-</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">Format:</span>
+                        <span class="info-label" data-translate="file_format">Format:</span>
                         <span id="fileFormat">-</span>
                     </div>
                 </div>
                 
                 <div class="action-buttons">
-                    <button id="prevStep3Btn">Retour aux dimensions</button>
+                    <button id="prevStep3Btn" data-translate="back_dimensions">Retour aux dimensions</button>
                     <button class="download-btn" id="downloadBtn" disabled>
-                        <i class="fas fa-download"></i> Télécharger l'image redimensionnée
+                        <i class="fas fa-download"></i> <span data-translate="download_resized">Télécharger l'image redimensionnée</span>
                     </button>
                     <button class="restart-btn" id="restartBtn">
-                        <i class="fas fa-redo"></i> Recommencer
+                        <i class="fas fa-redo"></i> <span data-translate="restart">Recommencer</span>
                     </button>
                 </div>
                 
                 <div class="loading" id="loadingIndicator">
                     <div class="spinner"></div>
-                    <p>Redimensionnement en cours...</p>
+                    <p data-translate="resizing_in_progress">Redimensionnement en cours...</p>
                 </div>
             </div>
         </div>
@@ -934,17 +934,17 @@
         <!-- Affiliation Section -->
         <div id="affiliationSection" class="section-hidden">
             <div class="affiliation-section">
-                <h2 class="affiliation-title">Achetez votre Samsung The Frame</h2>
-                <p class="affiliation-subtitle">Découvrez les offres disponibles sur Amazon et le site officiel Samsung</p>
+                <h2 class="affiliation-title" data-translate="affiliation_title">Achetez votre Samsung The Frame</h2>
+                <p class="affiliation-subtitle" data-translate="affiliation_subtitle">Découvrez les offres disponibles sur Amazon et le site officiel Samsung</p>
                 
                 <div class="affiliation-cards">
                     <div class="affiliation-card">
                         <div class="affiliation-icon amazon-icon">
                             <i class="fab fa-amazon"></i>
                         </div>
-                        <h3>Amazon</h3>
-                        <p>Achetez votre Samsung The Frame sur Amazon avec la livraison rapide et les avis vérifiés des clients.</p>
-                        <a href="https://www.amazon.fr/s?k=Samsung+The+Frame+TV" class="affiliation-link" target="_blank">
+                        <h3 data-translate="amazon_title">Amazon</h3>
+                        <p data-translate="amazon_desc">Achetez votre Samsung The Frame sur Amazon avec la livraison rapide et les avis vérifiés des clients.</p>
+                        <a href="https://www.amazon.fr/s?k=Samsung+The+Frame+TV" class="affiliation-link" target="_blank" data-translate="view_amazon">
                             Voir sur Amazon
                         </a>
                     </div>
@@ -953,15 +953,15 @@
                         <div class="affiliation-icon samsung-icon">
                             <i class="fas fa-tv"></i>
                         </div>
-                        <h3>Samsung Officiel</h3>
-                        <p>Commandez directement sur le site Samsung pour bénéficier des dernières promotions et de la garantie constructeur.</p>
-                        <a href="https://www.samsung.com/fr/tvs/the-frame/" class="affiliation-link" target="_blank">
+                        <h3 data-translate="samsung_title">Samsung Officiel</h3>
+                        <p data-translate="samsung_desc">Commandez directement sur le site Samsung pour bénéficier des dernières promotions et de la garantie constructeur.</p>
+                        <a href="https://www.samsung.com/fr/tvs/the-frame/" class="affiliation-link" target="_blank" data-translate="view_samsung">
                             Site officiel Samsung
                         </a>
                     </div>
                 </div>
                 
-                <p class="affiliation-note">
+                <p class="affiliation-note" data-translate="affiliation_note">
                     Note: Ces liens sont des liens d'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.
                 </p>
             </div>
@@ -970,11 +970,271 @@
 
     <footer>
         <div class="container">
-            <p>Outil de redimensionnement d'images pour Samsung The Frame - Design inspiré de Spotify</p>
+            <p data-translate="footer_text">Outil de redimensionnement d'images pour Samsung The Frame - Design inspiré de Spotify</p>
         </div>
     </footer>
 
     <script>
+        // Système de traduction
+        const translations = {
+            fr: {
+                // Titres généraux
+                'app_title': 'Image Resizer pour The Frame',
+                'resizer_btn': 'Redimensionneur d\'images',
+                'affiliation_btn': 'Liens d\'affiliation',
+                
+                // Étapes
+                'steps_title': 'Étapes de redimensionnement',
+                'step1_title': '1. Téléchargez votre image',
+                'step1_desc': 'Sélectionnez votre image depuis votre appareil',
+                'step2_title': '2. Sélectionnez la dimension',
+                'step2_desc': 'Choisissez le modèle de votre TV The Frame Samsung',
+                'step3_title': '3. Vérifiez l\'aperçu',
+                'step3_desc': 'Contrôlez le résultat avant le téléchargement',
+                'step4_title': '4. Téléchargez',
+                'step4_desc': 'Récupérez votre image parfaitement dimensionnée',
+                
+                // Labels des étapes
+                'step1_label': 'Étape 1',
+                'step2_label': 'Étape 2',
+                'step3_label': 'Étape 3',
+                'step4_label': 'Étape 4',
+                
+                // Section upload
+                'upload_title': 'Télécharger votre image',
+                'upload_text': 'Cliquez pour sélectionner votre image',
+                'continue_step2': 'Continuer vers l\'étape 2',
+                
+                // Section dimensions
+                'dimension_title': 'Sélectionnez la dimension de votre TV',
+                'custom_dimension': 'Personnalisé',
+                'other_dimension': 'Autre dimension',
+                'custom_dimensions': 'Dimensions personnalisées',
+                'width_placeholder': 'Largeur',
+                'height_placeholder': 'Hauteur',
+                'back_step1': 'Retour à l\'étape 1',
+                'continue_preview': 'Continuer vers l\'aperçu',
+                
+                // Section aperçu
+                'preview_title': 'Aperçu et téléchargement',
+                'preview_placeholder': 'L\'image redimensionnée apparaîtra ici',
+                'original_dimensions': 'Dimensions originales:',
+                'new_dimensions': 'Nouvelles dimensions:',
+                'file_size': 'Taille du fichier:',
+                'file_format': 'Format:',
+                'back_dimensions': 'Retour aux dimensions',
+                'download_resized': 'Télécharger l\'image redimensionnée',
+                'restart': 'Recommencer',
+                'resizing_in_progress': 'Redimensionnement en cours...',
+                
+                // Section affiliation
+                'affiliation_title': 'Achetez votre Samsung The Frame',
+                'affiliation_subtitle': 'Découvrez les offres disponibles sur Amazon et le site officiel Samsung',
+                'amazon_title': 'Amazon',
+                'amazon_desc': 'Achetez votre Samsung The Frame sur Amazon avec la livraison rapide et les avis vérifiés des clients.',
+                'view_amazon': 'Voir sur Amazon',
+                'samsung_title': 'Samsung Officiel',
+                'samsung_desc': 'Commandez directement sur le site Samsung pour bénéficier des dernières promotions et de la garantie constructeur.',
+                'view_samsung': 'Site officiel Samsung',
+                'affiliation_note': 'Note: Ces liens sont des liens d\'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.',
+                
+                // Footer
+                'footer_text': 'Outil de redimensionnement d\'images pour Samsung The Frame - Design inspiré de Spotify'
+            },
+            en: {
+                // General titles
+                'app_title': 'Image Resizer for The Frame',
+                'resizer_btn': 'Image Resizer',
+                'affiliation_btn': 'Affiliate Links',
+                
+                // Steps
+                'steps_title': 'Resizing Steps',
+                'step1_title': '1. Upload your image',
+                'step1_desc': 'Select your image from your device',
+                'step2_title': '2. Select the dimension',
+                'step2_desc': 'Choose your Samsung The Frame TV model',
+                'step3_title': '3. Check the preview',
+                'step3_desc': 'Check the result before downloading',
+                'step4_title': '4. Download',
+                'step4_desc': 'Get your perfectly sized image',
+                
+                // Step labels
+                'step1_label': 'Step 1',
+                'step2_label': 'Step 2',
+                'step3_label': 'Step 3',
+                'step4_label': 'Step 4',
+                
+                // Upload section
+                'upload_title': 'Upload your image',
+                'upload_text': 'Click to select your image',
+                'continue_step2': 'Continue to step 2',
+                
+                // Dimension section
+                'dimension_title': 'Select your TV dimension',
+                'custom_dimension': 'Custom',
+                'other_dimension': 'Other dimension',
+                'custom_dimensions': 'Custom dimensions',
+                'width_placeholder': 'Width',
+                'height_placeholder': 'Height',
+                'back_step1': 'Back to step 1',
+                'continue_preview': 'Continue to preview',
+                
+                // Preview section
+                'preview_title': 'Preview and download',
+                'preview_placeholder': 'The resized image will appear here',
+                'original_dimensions': 'Original dimensions:',
+                'new_dimensions': 'New dimensions:',
+                'file_size': 'File size:',
+                'file_format': 'Format:',
+                'back_dimensions': 'Back to dimensions',
+                'download_resized': 'Download resized image',
+                'restart': 'Start over',
+                'resizing_in_progress': 'Resizing in progress...',
+                
+                // Affiliation section
+                'affiliation_title': 'Buy your Samsung The Frame',
+                'affiliation_subtitle': 'Discover available offers on Amazon and the official Samsung website',
+                'amazon_title': 'Amazon',
+                'amazon_desc': 'Buy your Samsung The Frame on Amazon with fast delivery and verified customer reviews.',
+                'view_amazon': 'View on Amazon',
+                'samsung_title': 'Official Samsung',
+                'samsung_desc': 'Order directly from the Samsung website to benefit from the latest promotions and manufacturer warranty.',
+                'view_samsung': 'Official Samsung site',
+                'affiliation_note': 'Note: These are affiliate links. If you make a purchase through these links, I may receive a small commission at no extra cost to you.',
+                
+                // Footer
+                'footer_text': 'Image resizing tool for Samsung The Frame - Design inspired by Spotify'
+            },
+            es: {
+                // Títulos generales
+                'app_title': 'Redimensionador de Imágenes para The Frame',
+                'resizer_btn': 'Redimensionador de Imágenes',
+                'affiliation_btn': 'Enlaces de Afiliados',
+                
+                // Pasos
+                'steps_title': 'Pasos de Redimensionamiento',
+                'step1_title': '1. Sube tu imagen',
+                'step1_desc': 'Selecciona tu imagen desde tu dispositivo',
+                'step2_title': '2. Selecciona la dimensión',
+                'step2_desc': 'Elige tu modelo de TV Samsung The Frame',
+                'step3_title': '3. Verifica la vista previa',
+                'step3_desc': 'Controla el resultado antes de descargar',
+                'step4_title': '4. Descarga',
+                'step4_desc': 'Obtén tu imagen perfectamente dimensionada',
+                
+                // Etiquetas de pasos
+                'step1_label': 'Paso 1',
+                'step2_label': 'Paso 2',
+                'step3_label': 'Paso 3',
+                'step4_label': 'Paso 4',
+                
+                // Sección de subida
+                'upload_title': 'Subir tu imagen',
+                'upload_text': 'Haz clic para seleccionar tu imagen',
+                'continue_step2': 'Continuar al paso 2',
+                
+                // Sección de dimensiones
+                'dimension_title': 'Selecciona la dimensión de tu TV',
+                'custom_dimension': 'Personalizado',
+                'other_dimension': 'Otra dimensión',
+                'custom_dimensions': 'Dimensiones personalizadas',
+                'width_placeholder': 'Ancho',
+                'height_placeholder': 'Alto',
+                'back_step1': 'Volver al paso 1',
+                'continue_preview': 'Continuar a la vista previa',
+                
+                // Sección de vista previa
+                'preview_title': 'Vista previa y descarga',
+                'preview_placeholder': 'La imagen redimensionada aparecerá aquí',
+                'original_dimensions': 'Dimensiones originales:',
+                'new_dimensions': 'Nuevas dimensiones:',
+                'file_size': 'Tamaño del archivo:',
+                'file_format': 'Formato:',
+                'back_dimensions': 'Volver a dimensiones',
+                'download_resized': 'Descargar imagen redimensionada',
+                'restart': 'Comenzar de nuevo',
+                'resizing_in_progress': 'Redimensionando...',
+                
+                // Sección de afiliación
+                'affiliation_title': 'Compra tu Samsung The Frame',
+                'affiliation_subtitle': 'Descubre las ofertas disponibles en Amazon y el sitio oficial de Samsung',
+                'amazon_title': 'Amazon',
+                'amazon_desc': 'Compra tu Samsung The Frame en Amazon con entrega rápida y reseñas verificadas de clientes.',
+                'view_amazon': 'Ver en Amazon',
+                'samsung_title': 'Samsung Oficial',
+                'samsung_desc': 'Ordena directamente desde el sitio web de Samsung para beneficiarte de las últimas promociones y la garantía del fabricante.',
+                'view_samsung': 'Sitio oficial Samsung',
+                'affiliation_note': 'Nota: Estos son enlaces de afiliados. Si realizas una compra a través de estos enlaces, puedo recibir una pequeña comisión sin costo adicional para ti.',
+                
+                // Pie de página
+                'footer_text': 'Herramienta de redimensionamiento de imágenes para Samsung The Frame - Diseño inspirado en Spotify'
+            },
+            de: {
+                // Allgemeine Titel
+                'app_title': 'Bildgrößenänderer für The Frame',
+                'resizer_btn': 'Bildgrößenänderer',
+                'affiliation_btn': 'Affiliate-Links',
+                
+                // Schritte
+                'steps_title': 'Schritte zur Größenänderung',
+                'step1_title': '1. Laden Sie Ihr Bild hoch',
+                'step1_desc': 'Wählen Sie Ihr Bild von Ihrem Gerät aus',
+                'step2_title': '2. Wählen Sie die Dimension',
+                'step2_desc': 'Wählen Sie Ihr Samsung The Frame TV-Modell',
+                'step3_title': '3. Überprüfen Sie die Vorschau',
+                'step3_desc': 'Überprüfen Sie das Ergebnis vor dem Herunterladen',
+                'step4_title': '4. Herunterladen',
+                'step4_desc': 'Holen Sie sich Ihr perfekt dimensioniertes Bild',
+                
+                // Schrittbeschriftungen
+                'step1_label': 'Schritt 1',
+                'step2_label': 'Schritt 2',
+                'step3_label': 'Schritt 3',
+                'step4_label': 'Schritt 4',
+                
+                // Upload-Bereich
+                'upload_title': 'Laden Sie Ihr Bild hoch',
+                'upload_text': 'Klicken Sie, um Ihr Bild auszuwählen',
+                'continue_step2': 'Weiter zu Schritt 2',
+                
+                // Dimensionsbereich
+                'dimension_title': 'Wählen Sie Ihre TV-Dimension',
+                'custom_dimension': 'Benutzerdefiniert',
+                'other_dimension': 'Andere Dimension',
+                'custom_dimensions': 'Benutzerdefinierte Dimensionen',
+                'width_placeholder': 'Breite',
+                'height_placeholder': 'Höhe',
+                'back_step1': 'Zurück zu Schritt 1',
+                'continue_preview': 'Weiter zur Vorschau',
+                
+                // Vorschaubereich
+                'preview_title': 'Vorschau und Download',
+                'preview_placeholder': 'Das angepasste Bild wird hier angezeigt',
+                'original_dimensions': 'Originalgröße:',
+                'new_dimensions': 'Neue Größe:',
+                'file_size': 'Dateigröße:',
+                'file_format': 'Format:',
+                'back_dimensions': 'Zurück zu Dimensionen',
+                'download_resized': 'Angepasstes Bild herunterladen',
+                'restart': 'Neu starten',
+                'resizing_in_progress': 'Größenänderung läuft...',
+                
+                // Affiliate-Bereich
+                'affiliation_title': 'Kaufen Sie Ihren Samsung The Frame',
+                'affiliation_subtitle': 'Entdecken Sie verfügbare Angebote auf Amazon und der offiziellen Samsung-Website',
+                'amazon_title': 'Amazon',
+                'amazon_desc': 'Kaufen Sie Ihren Samsung The Frame bei Amazon mit schneller Lieferung und verifizierten Kundenbewertungen.',
+                'view_amazon': 'Auf Amazon ansehen',
+                'samsung_title': 'Offizielles Samsung',
+                'samsung_desc': 'Bestellen Sie direkt auf der Samsung-Website, um von den neuesten Promotionen und der Herstellergarantie zu profitieren.',
+                'view_samsung': 'Offizielle Samsung-Website',
+                'affiliation_note': 'Hinweis: Dies sind Affiliate-Links. Wenn Sie einen Kauf über diese Links tätigen, erhalte ich möglicherweise eine kleine Provision ohne zusätzliche Kosten für Sie.',
+                
+                // Fußzeile
+                'footer_text': 'Bildgrößenänderungstool für Samsung The Frame - Design inspiriert von Spotify'
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             // Références aux éléments DOM
             const fileInput = document.getElementById('fileInput');
@@ -1033,6 +1293,45 @@
             let targetWidth = 1920;
             let targetHeight = 1080;
             let currentStep = 1;
+            let currentLanguage = 'fr';
+            
+            // Fonction de traduction
+            function translatePage(lang) {
+                currentLanguage = lang;
+                
+                // Mettre à jour tous les éléments avec data-translate
+                document.querySelectorAll('[data-translate]').forEach(element => {
+                    const key = element.getAttribute('data-translate');
+                    if (translations[lang] && translations[lang][key]) {
+                        element.textContent = translations[lang][key];
+                    }
+                });
+                
+                // Mettre à jour les placeholders
+                document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                    const key = element.getAttribute('data-translate-placeholder');
+                    if (translations[lang] && translations[lang][key]) {
+                        element.placeholder = translations[lang][key];
+                    }
+                });
+                
+                // Mettre à jour les textes dans les boutons avec des icônes
+                const downloadBtnText = document.querySelector('#downloadBtn span');
+                if (downloadBtnText && translations[lang] && translations[lang]['download_resized']) {
+                    downloadBtnText.textContent = translations[lang]['download_resized'];
+                }
+                
+                const restartBtnText = document.querySelector('#restartBtn span');
+                if (restartBtnText && translations[lang] && translations[lang]['restart']) {
+                    restartBtnText.textContent = translations[lang]['restart'];
+                }
+                
+                // Mettre à jour le sélecteur de langue
+                languageSelect.value = lang;
+                
+                // Sauvegarder la langue dans le localStorage
+                localStorage.setItem('language', lang);
+            }
             
             // Mettre à jour la barre de progression
             function updateProgressBar() {
@@ -1090,9 +1389,15 @@
                 selectedFilesContainer.innerHTML = '';
                 uploadArea.innerHTML = `
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Cliquez pour sélectionner votre image</p>
+                    <p data-translate="upload_text">Cliquez pour sélectionner votre image</p>
                     <input type="file" id="fileInput" accept="image/*" style="display: none;">
                 `;
+                // Retraduire le texte de l'upload area
+                const uploadText = uploadArea.querySelector('p');
+                if (uploadText && translations[currentLanguage] && translations[currentLanguage]['upload_text']) {
+                    uploadText.textContent = translations[currentLanguage]['upload_text'];
+                }
+                
                 nextStep1Btn.disabled = true;
                 downloadBtn.disabled = true;
                 placeholderText.style.display = 'block';
@@ -1225,16 +1530,29 @@
                 if (!selectedFile) {
                     uploadArea.innerHTML = `
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Cliquez pour sélectionner votre image</p>
+                        <p data-translate="upload_text">Cliquez pour sélectionner votre image</p>
                         <input type="file" id="fileInput" accept="image/*" style="display: none;">
                     `;
+                    // Retraduire le texte de l'upload area
+                    const uploadText = uploadArea.querySelector('p');
+                    if (uploadText && translations[currentLanguage] && translations[currentLanguage]['upload_text']) {
+                        uploadText.textContent = translations[currentLanguage]['upload_text'];
+                    }
                     return;
                 }
                 
+                const fileSelectedText = translations[currentLanguage] && translations[currentLanguage]['upload_text'] 
+                    ? translations[currentLanguage]['upload_text'] 
+                    : 'Fichier sélectionné';
+                    
+                const clickToChangeText = translations[currentLanguage] && translations[currentLanguage]['upload_text'] 
+                    ? 'Cliquez pour changer'
+                    : 'Click to change';
+                
                 uploadArea.innerHTML = `
                     <i class="fas fa-check-circle"></i>
-                    <p>Fichier sélectionné: ${selectedFile.name}</p>
-                    <p style="font-size: 0.8rem; margin-top: 10px; color: var(--spotify-green);">Cliquez pour changer</p>
+                    <p>${fileSelectedText}: ${selectedFile.name}</p>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: var(--spotify-green);">${clickToChangeText}</p>
                 `;
                 
                 const fileItem = document.createElement('div');
@@ -1392,11 +1710,18 @@
             // Gestion du changement de langue
             languageSelect.addEventListener('change', function() {
                 const selectedLanguage = this.value;
-                // Ici, vous pouvez implémenter la logique de changement de langue
-                // Pour l'instant, nous allons simplement afficher une alerte
-                alert(`Langue changée en: ${this.options[this.selectedIndex].text}`);
-                // Dans une implémentation réelle, vous chargeriez les traductions appropriées
+                translatePage(selectedLanguage);
+                
+                // Mettre à jour les textes dynamiques
+                if (selectedFile) {
+                    updateSelectedFilesList();
+                }
             });
+            
+            // Initialiser la langue depuis le localStorage ou utiliser le français par défaut
+            const savedLanguage = localStorage.getItem('language') || 'fr';
+            languageSelect.value = savedLanguage;
+            translatePage(savedLanguage);
             
             // Initialiser la barre de progression
             updateProgressBar();
