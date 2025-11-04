@@ -88,6 +88,7 @@
             padding: 8px 12px;
             font-size: 0.9rem;
             cursor: pointer;
+            width: 140px;
         }
         
         .language-selector select:focus {
@@ -100,7 +101,6 @@
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
-            flex-wrap: wrap;
         }
         
         .nav-btn {
@@ -113,7 +113,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             transition: all 0.3s;
-            margin: 0 10px 10px;
+            margin: 0 10px;
         }
         
         .nav-btn:hover {
@@ -625,59 +625,6 @@
             transform: scale(1.03);
         }
         
-        /* Legal Section */
-        .legal-section {
-            background: linear-gradient(180deg, #3a3a3a 0%, var(--spotify-dark) 100%);
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-        
-        .legal-title {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-        
-        .legal-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .legal-section h2 {
-            margin: 25px 0 15px;
-            color: var(--spotify-green);
-            font-size: 1.4rem;
-        }
-        
-        .legal-section h3 {
-            margin: 20px 0 12px;
-            font-size: 1.2rem;
-        }
-        
-        .legal-section p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        
-        .legal-section ul {
-            margin: 15px 0;
-            padding-left: 20px;
-        }
-        
-        .legal-section li {
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        
-        .highlight-box {
-            background-color: var(--spotify-light-black);
-            border-left: 4px solid var(--spotify-green);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
         /* Footer */
         footer {
             background-color: var(--spotify-black);
@@ -687,23 +634,113 @@
             color: var(--spotify-gray);
             border-top: 1px solid var(--spotify-dark-gray);
             font-size: 0.8rem;
+            position: relative;
         }
         
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+        .legal-links {
             margin-top: 10px;
         }
         
-        .footer-link {
+        .legal-link {
             color: var(--spotify-gray);
             text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.75rem;
             transition: color 0.3s;
         }
         
-        .footer-link:hover {
+        .legal-link:hover {
             color: var(--spotify-green);
+            text-decoration: underline;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .modal-content {
+            background-color: var(--spotify-dark);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--spotify-dark-gray);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--spotify-white);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--spotify-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: var(--spotify-white);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-body {
+            color: var(--spotify-gray);
+            line-height: 1.7;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section h3 {
+            color: var(--spotify-white);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .modal-section p {
+            margin-bottom: 10px;
+        }
+        
+        .modal-section ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .modal-section li {
+            margin-bottom: 8px;
         }
         
         /* Responsive */
@@ -743,9 +780,10 @@
                 height: 200px;
             }
             
-            .footer-links {
-                flex-direction: column;
-                gap: 10px;
+            .modal-content {
+                margin: 10% auto;
+                padding: 20px;
+                width: 95%;
             }
         }
         
@@ -774,6 +812,12 @@
             
             .products-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .legal-links {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
             }
         }
         
@@ -836,10 +880,10 @@
             <!-- Language Selector -->
             <div class="language-selector">
                 <select id="languageSelect">
-                    <option value="fr">Français</option>
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                    <option value="de">Deutsch</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="de">🇩🇪 Deutsch</option>
                 </select>
             </div>
         </div>
@@ -848,7 +892,6 @@
         <div class="main-nav">
             <button class="nav-btn active" id="resizerBtn" data-translate="resizer_btn">Redimensionneur d'images</button>
             <button class="nav-btn" id="productsBtn" data-translate="products_btn">Produits recommandés</button>
-            <button class="nav-btn" id="legalBtn" data-translate="legal_btn">Mentions légales</button>
         </div>
 
         <!-- Resizer Section -->
@@ -1029,76 +1072,70 @@
                 </p>
             </div>
         </div>
+    </div>
 
-        <!-- Legal Section -->
-        <div id="legalSection" class="section-hidden">
-            <div class="legal-section">
-                <h1 class="legal-title" data-translate="legal_title">Mentions légales & Politique de confidentialité</h1>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p data-translate="footer_text">Outil de redimensionnement d'images pour Samsung The Frame - Design inspiré de Spotify</p>
+            <div class="legal-links">
+                <a href="#" class="legal-link" id="legalLink" data-translate="legal_link">Mentions légales & RGPD</a>
+                <a href="#" class="legal-link" id="privacyLink" data-translate="privacy_link">Politique de confidentialité</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal pour les mentions légales -->
+    <div class="modal" id="legalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" data-translate="legal_title">Mentions légales & RGPD</h2>
+                <button class="close-modal" id="closeLegalModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 data-translate="legal_section1_title">Éditeur du site</h3>
+                    <p data-translate="legal_section1_content">Le présent site est édité par [Nom de l'entreprise], société [forme juridique] au capital de [montant du capital] €, immatriculée au RCS de [ville] sous le numéro [numéro RCS], dont le siège social est situé [adresse complète].</p>
+                </div>
                 
-                <div class="legal-content">
-                    <div class="highlight-box">
-                        <p data-translate="legal_highlight"><strong>Important :</strong> Votre vie privée est notre priorité. Toutes les images que vous téléchargez sont traitées localement dans votre navigateur et ne sont jamais envoyées à nos serveurs. Aucune donnée personnelle n'est collectée, stockée ou partagée.</p>
-                    </div>
-
-                    <h2 data-translate="legal_editor">Éditeur du site</h2>
-                    <p data-translate="legal_editor_content">Ce site est édité à titre personnel. Pour toute question concernant ce site, vous pouvez nous contacter via le formulaire de contact disponible sur cette page.</p>
-
-                    <h2 data-translate="legal_hosting">Hébergement</h2>
-                    <p data-translate="legal_hosting_content">Ce site est hébergé sur des serveurs sécurisés. L'hébergeur ne collecte aucune information personnelle via ce site.</p>
-
-                    <h2 data-translate="legal_data">Protection des données personnelles</h2>
-                    <p data-translate="legal_data_intro">Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, nous vous informons que :</p>
-                    
-                    <h3 data-translate="legal_data_collection">Collecte des données</h3>
-                    <p data-translate="legal_data_collection_content">Ce site ne collecte aucune donnée personnelle identifiable. Aucune inscription ni création de compte n'est nécessaire pour utiliser nos services.</p>
-                    
-                    <h3 data-translate="legal_images">Traitement des images</h3>
-                    <p data-translate="legal_images_content"><strong>Les images que vous téléchargez pour redimensionnement sont traitées exclusivement dans votre navigateur.</strong> Aucune image n'est envoyée à nos serveurs, stockée ou conservée d'aucune manière. Le processus de redimensionnement s'effectue entièrement en local sur votre appareil.</p>
-                    
-                    <h3 data-translate="legal_cookies">Cookies</h3>
-                    <p data-translate="legal_cookies_content">Ce site utilise uniquement des cookies techniques essentiels au fonctionnement de l'application :</p>
-                    <ul>
-                        <li data-translate="legal_cookie_lang">Préférence de langue (pour mémoriser votre choix de langue)</li>
-                        <li data-translate="legal_cookie_session">Cookies de session (pour le bon fonctionnement du redimensionneur d'images)</li>
-                    </ul>
-                    <p data-translate="legal_cookies_none">Aucun cookie de suivi ou de marketing n'est utilisé.</p>
-
-                    <h2 data-translate="legal_affiliation">Liens d'affiliation</h2>
-                    <p data-translate="legal_affiliation_content">Certains liens présents sur ce site sont des liens d'affiliation. Cela signifie que si vous effectuez un achat via ces liens, je peux recevoir une petite commission sans frais supplémentaires pour vous. Ces commissions aident à financer le maintien et le développement de ce service gratuit.</p>
-
-                    <h2 data-translate="legal_rights">Vos droits</h2>
-                    <p data-translate="legal_rights_content">Conformément à la réglementation sur la protection des données, vous disposez des droits suivants :</p>
-                    <ul>
-                        <li data-translate="legal_right_access">Droit d'accès à vos données</li>
-                        <li data-translate="legal_right_rectification">Droit de rectification</li>
-                        <li data-translate="legal_right_erasure">Droit à l'effacement</li>
-                        <li data-translate="legal_right_portability">Droit à la portabilité des données</li>
-                        <li data-translate="legal_right_restriction">Droit à la limitation du traitement</li>
-                        <li data-translate="legal_right_object">Droit d'opposition</li>
-                    </ul>
-                    <p data-translate="legal_rights_contact">Pour exercer ces droits, vous pouvez nous contacter via le formulaire de contact.</p>
-
-                    <h2 data-translate="legal_contact">Contact</h2>
-                    <p data-translate="legal_contact_content">Pour toute question relative à cette politique de confidentialité ou pour exercer vos droits, vous pouvez nous contacter à l'adresse email suivante : <strong>contact@theframeresizer.com</strong></p>
-
-                    <h2 data-translate="legal_changes">Modifications de la politique de confidentialité</h2>
-                    <p data-translate="legal_changes_content">Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Les changements éventuels seront publiés sur cette page.</p>
-
-                    <p data-translate="legal_last_update"><em>Dernière mise à jour : 15 novembre 2023</em></p>
+                <div class="modal-section">
+                    <h3 data-translate="legal_section2_title">Directeur de la publication</h3>
+                    <p data-translate="legal_section2_content">Le directeur de la publication est [Nom Prénom], en qualité de [fonction].</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 data-translate="legal_section3_title">Hébergement</h3>
+                    <p data-translate="legal_section3_content">Le site est hébergé par [Nom de l'hébergeur], [adresse de l'hébergeur].</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 data-translate="legal_section4_title">Propriété intellectuelle</h3>
+                    <p data-translate="legal_section4_content">L'ensemble des éléments constituant le site (textes, graphismes, logiciels, photographies, images, vidéos, sons, plans, logos, marques, etc.) sont la propriété exclusive de [Nom de l'entreprise] ou de ses partenaires et sont protégés par le droit d'auteur, le droit des marques et le droit des dessins et modèles.</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 data-translate="legal_section5_title">Protection des données personnelles</h3>
+                    <p data-translate="legal_section5_content">Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition aux données vous concernant.</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 data-translate="legal_section6_title">Traitement des images</h3>
+                    <p data-translate="legal_section6_content">Notre outil de redimensionnement d'images fonctionne entièrement dans votre navigateur. Aucune image que vous téléchargez n'est envoyée à nos serveurs ou stockée sur nos systèmes. Toutes les opérations de traitement d'image sont effectuées localement sur votre appareil.</p>
+                    <p data-translate="legal_section6_content2">Nous ne collectons, ne stockons ni ne traitons aucune donnée personnelle liée aux images que vous téléchargez. Vos images restent entièrement sous votre contrôle et sont supprimées de la mémoire de votre navigateur lorsque vous quittez la page ou fermez l'onglet.</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 data-translate="legal_section7_title">Cookies</h3>
+                    <p data-translate="legal_section7_content">Ce site utilise des cookies pour améliorer votre expérience utilisateur et mémoriser vos préférences (comme la langue sélectionnée). Ces cookies sont stockés localement sur votre appareil et ne contiennent aucune information personnelle identifiable.</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 data-translate="legal_section8_title">Contact</h3>
+                    <p data-translate="legal_section8_content">Pour toute question relative aux présentes mentions légales ou à la protection de vos données, vous pouvez nous contacter à l'adresse suivante : [adresse email de contact].</p>
                 </div>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="container">
-            <p data-translate="footer_text">Outil de redimensionnement d'images pour Samsung The Frame - Design inspiré de Spotify</p>
-            <div class="footer-links">
-                <a href="#" class="footer-link" id="footerLegalLink" data-translate="footer_legal_link">Mentions légales</a>
-                <a href="#" class="footer-link" id="footerContactLink" data-translate="footer_contact_link">Contact</a>
-            </div>
-        </div>
-    </footer>
 
     <script>
         // Système de traduction
@@ -1108,7 +1145,6 @@
                 'app_title': 'Image Resizer pour The Frame',
                 'resizer_btn': 'Redimensionneur d\'images',
                 'products_btn': 'Produits recommandés',
-                'legal_btn': 'Mentions légales',
                 
                 // Étapes
                 'steps_title': 'Étapes de redimensionnement',
@@ -1159,52 +1195,36 @@
                 'products_subtitle': 'Découvrez notre sélection d\'accessoires compatibles avec votre TV The Frame',
                 'products_note': 'Note: Ces liens sont des liens d\'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.',
                 
-                // Section mentions légales
-                'legal_title': 'Mentions légales & Politique de confidentialité',
-                'legal_highlight': 'Important : Votre vie privée est notre priorité. Toutes les images que vous téléchargez sont traitées localement dans votre navigateur et ne sont jamais envoyées à nos serveurs. Aucune donnée personnelle n\'est collectée, stockée ou partagée.',
-                'legal_editor': 'Éditeur du site',
-                'legal_editor_content': 'Ce site est édité à titre personnel. Pour toute question concernant ce site, vous pouvez nous contacter via le formulaire de contact disponible sur cette page.',
-                'legal_hosting': 'Hébergement',
-                'legal_hosting_content': 'Ce site est hébergé sur des serveurs sécurisés. L\'hébergeur ne collecte aucune information personnelle via ce site.',
-                'legal_data': 'Protection des données personnelles',
-                'legal_data_intro': 'Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, nous vous informons que :',
-                'legal_data_collection': 'Collecte des données',
-                'legal_data_collection_content': 'Ce site ne collecte aucune donnée personnelle identifiable. Aucune inscription ni création de compte n\'est nécessaire pour utiliser nos services.',
-                'legal_images': 'Traitement des images',
-                'legal_images_content': 'Les images que vous téléchargez pour redimensionnement sont traitées exclusivement dans votre navigateur. Aucune image n\'est envoyée à nos serveurs, stockée ou conservée d\'aucune manière. Le processus de redimensionnement s\'effectue entièrement en local sur votre appareil.',
-                'legal_cookies': 'Cookies',
-                'legal_cookies_content': 'Ce site utilise uniquement des cookies techniques essentiels au fonctionnement de l\'application :',
-                'legal_cookie_lang': 'Préférence de langue (pour mémoriser votre choix de langue)',
-                'legal_cookie_session': 'Cookies de session (pour le bon fonctionnement du redimensionneur d\'images)',
-                'legal_cookies_none': 'Aucun cookie de suivi ou de marketing n\'est utilisé.',
-                'legal_affiliation': 'Liens d\'affiliation',
-                'legal_affiliation_content': 'Certains liens présents sur ce site sont des liens d\'affiliation. Cela signifie que si vous effectuez un achat via ces liens, je peux recevoir une petite commission sans frais supplémentaires pour vous. Ces commissions aident à financer le maintien et le développement de ce service gratuit.',
-                'legal_rights': 'Vos droits',
-                'legal_rights_content': 'Conformément à la réglementation sur la protection des données, vous disposez des droits suivants :',
-                'legal_right_access': 'Droit d\'accès à vos données',
-                'legal_right_rectification': 'Droit de rectification',
-                'legal_right_erasure': 'Droit à l\'effacement',
-                'legal_right_portability': 'Droit à la portabilité des données',
-                'legal_right_restriction': 'Droit à la limitation du traitement',
-                'legal_right_object': 'Droit d\'opposition',
-                'legal_rights_contact': 'Pour exercer ces droits, vous pouvez nous contacter via le formulaire de contact.',
-                'legal_contact': 'Contact',
-                'legal_contact_content': 'Pour toute question relative à cette politique de confidentialité ou pour exercer vos droits, vous pouvez nous contacter à l\'adresse email suivante : contact@theframeresizer.com',
-                'legal_changes': 'Modifications de la politique de confidentialité',
-                'legal_changes_content': 'Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Les changements éventuels seront publiés sur cette page.',
-                'legal_last_update': 'Dernière mise à jour : 15 novembre 2023',
-                
                 // Footer
                 'footer_text': 'Outil de redimensionnement d\'images pour Samsung The Frame - Design inspiré de Spotify',
-                'footer_legal_link': 'Mentions légales',
-                'footer_contact_link': 'Contact'
+                'legal_link': 'Mentions légales & RGPD',
+                'privacy_link': 'Politique de confidentialité',
+                
+                // Modal mentions légales
+                'legal_title': 'Mentions légales & RGPD',
+                'legal_section1_title': 'Éditeur du site',
+                'legal_section1_content': 'Le présent site est édité par [Nom de l\'entreprise], société [forme juridique] au capital de [montant du capital] €, immatriculée au RCS de [ville] sous le numéro [numéro RCS], dont le siège social est situé [adresse complète].',
+                'legal_section2_title': 'Directeur de la publication',
+                'legal_section2_content': 'Le directeur de la publication est [Nom Prénom], en qualité de [fonction].',
+                'legal_section3_title': 'Hébergement',
+                'legal_section3_content': 'Le site est hébergé par [Nom de l\'hébergeur], [adresse de l\'hébergeur].',
+                'legal_section4_title': 'Propriété intellectuelle',
+                'legal_section4_content': 'L\'ensemble des éléments constituant le site (textes, graphismes, logiciels, photographies, images, vidéos, sons, plans, logos, marques, etc.) sont la propriété exclusive de [Nom de l\'entreprise] ou de ses partenaires et sont protégés par le droit d\'auteur, le droit des marques et le droit des dessins et modèles.',
+                'legal_section5_title': 'Protection des données personnelles',
+                'legal_section5_content': 'Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d\'un droit d\'accès, de rectification, de suppression et d\'opposition aux données vous concernant.',
+                'legal_section6_title': 'Traitement des images',
+                'legal_section6_content': 'Notre outil de redimensionnement d\'images fonctionne entièrement dans votre navigateur. Aucune image que vous téléchargez n\'est envoyée à nos serveurs ou stockée sur nos systèmes. Toutes les opérations de traitement d\'image sont effectuées localement sur votre appareil.',
+                'legal_section6_content2': 'Nous ne collectons, ne stockons ni ne traitons aucune donnée personnelle liée aux images que vous téléchargez. Vos images restent entièrement sous votre contrôle et sont supprimées de la mémoire de votre navigateur lorsque vous quittez la page ou fermez l\'onglet.',
+                'legal_section7_title': 'Cookies',
+                'legal_section7_content': 'Ce site utilise des cookies pour améliorer votre expérience utilisateur et mémoriser vos préférences (comme la langue sélectionnée). Ces cookies sont stockés localement sur votre appareil et ne contiennent aucune information personnelle identifiable.',
+                'legal_section8_title': 'Contact',
+                'legal_section8_content': 'Pour toute question relative aux présentes mentions légales ou à la protection de vos données, vous pouvez nous contacter à l\'adresse suivante : [adresse email de contact].'
             },
             en: {
                 // General titles
                 'app_title': 'Image Resizer for The Frame',
                 'resizer_btn': 'Image Resizer',
                 'products_btn': 'Recommended Products',
-                'legal_btn': 'Legal Notice',
                 
                 // Steps
                 'steps_title': 'Resizing Steps',
@@ -1255,52 +1275,36 @@
                 'products_subtitle': 'Discover our selection of accessories compatible with your The Frame TV',
                 'products_note': 'Note: These are affiliate links. If you make a purchase through these links, I may receive a small commission at no extra cost to you.',
                 
-                // Legal section
-                'legal_title': 'Legal Notice & Privacy Policy',
-                'legal_highlight': 'Important: Your privacy is our priority. All images you upload are processed locally in your browser and are never sent to our servers. No personal data is collected, stored or shared.',
-                'legal_editor': 'Site Editor',
-                'legal_editor_content': 'This site is published on a personal basis. For any questions regarding this site, you can contact us via the contact form available on this page.',
-                'legal_hosting': 'Hosting',
-                'legal_hosting_content': 'This site is hosted on secure servers. The host does not collect any personal information through this site.',
-                'legal_data': 'Personal Data Protection',
-                'legal_data_intro': 'In accordance with the General Data Protection Regulation (GDPR) and the Data Protection Act, we inform you that:',
-                'legal_data_collection': 'Data collection',
-                'legal_data_collection_content': 'This site does not collect any identifiable personal data. No registration or account creation is required to use our services.',
-                'legal_images': 'Image processing',
-                'legal_images_content': 'The images you upload for resizing are processed exclusively in your browser. No images are sent to our servers, stored or retained in any way. The resizing process takes place entirely locally on your device.',
-                'legal_cookies': 'Cookies',
-                'legal_cookies_content': 'This site uses only technical cookies essential for the application to function:',
-                'legal_cookie_lang': 'Language preference (to remember your language choice)',
-                'legal_cookie_session': 'Session cookies (for the proper functioning of the image resizer)',
-                'legal_cookies_none': 'No tracking or marketing cookies are used.',
-                'legal_affiliation': 'Affiliate links',
-                'legal_affiliation_content': 'Some links on this site are affiliate links. This means that if you make a purchase through these links, I may receive a small commission at no extra cost to you. These commissions help fund the maintenance and development of this free service.',
-                'legal_rights': 'Your rights',
-                'legal_rights_content': 'In accordance with data protection regulations, you have the following rights:',
-                'legal_right_access': 'Right to access your data',
-                'legal_right_rectification': 'Right to rectification',
-                'legal_right_erasure': 'Right to erasure',
-                'legal_right_portability': 'Right to data portability',
-                'legal_right_restriction': 'Right to restriction of processing',
-                'legal_right_object': 'Right to object',
-                'legal_rights_contact': 'To exercise these rights, you can contact us via the contact form.',
-                'legal_contact': 'Contact',
-                'legal_contact_content': 'For any questions regarding this privacy policy or to exercise your rights, you can contact us at the following email address: contact@theframeresizer.com',
-                'legal_changes': 'Changes to the privacy policy',
-                'legal_changes_content': 'We reserve the right to modify this privacy policy at any time. Any changes will be published on this page.',
-                'legal_last_update': 'Last updated: November 15, 2023',
-                
                 // Footer
                 'footer_text': 'Image resizing tool for Samsung The Frame - Design inspired by Spotify',
-                'footer_legal_link': 'Legal Notice',
-                'footer_contact_link': 'Contact'
+                'legal_link': 'Legal Notice & GDPR',
+                'privacy_link': 'Privacy Policy',
+                
+                // Modal legal notice
+                'legal_title': 'Legal Notice & GDPR',
+                'legal_section1_title': 'Site Editor',
+                'legal_section1_content': 'This site is published by [Company Name], a [legal form] company with a capital of [capital amount] €, registered with the RCS of [city] under number [RCS number], whose registered office is located at [full address].',
+                'legal_section2_title': 'Publication Director',
+                'legal_section2_content': 'The publication director is [First Name Last Name], in his capacity as [position].',
+                'legal_section3_title': 'Hosting',
+                'legal_section3_content': 'The site is hosted by [Host Name], [host address].',
+                'legal_section4_title': 'Intellectual Property',
+                'legal_section4_content': 'All elements making up the site (texts, graphics, software, photographs, images, videos, sounds, plans, logos, brands, etc.) are the exclusive property of [Company Name] or its partners and are protected by copyright, trademark law and design law.',
+                'legal_section5_title': 'Personal Data Protection',
+                'legal_section5_content': 'In accordance with the General Data Protection Regulation (GDPR) and the Data Protection Act, you have the right to access, rectify, delete and object to data concerning you.',
+                'legal_section6_title': 'Image Processing',
+                'legal_section6_content': 'Our image resizing tool works entirely in your browser. No images you upload are sent to our servers or stored on our systems. All image processing operations are performed locally on your device.',
+                'legal_section6_content2': 'We do not collect, store or process any personal data related to the images you upload. Your images remain entirely under your control and are deleted from your browser\'s memory when you leave the page or close the tab.',
+                'legal_section7_title': 'Cookies',
+                'legal_section7_content': 'This site uses cookies to improve your user experience and remember your preferences (such as the selected language). These cookies are stored locally on your device and do not contain any personally identifiable information.',
+                'legal_section8_title': 'Contact',
+                'legal_section8_content': 'For any questions regarding these legal notices or the protection of your data, you can contact us at the following address: [contact email address].'
             },
             es: {
                 // Títulos generales
                 'app_title': 'Redimensionador de Imágenes para The Frame',
                 'resizer_btn': 'Redimensionador de Imágenes',
                 'products_btn': 'Productos Recomendados',
-                'legal_btn': 'Aviso Legal',
                 
                 // Pasos
                 'steps_title': 'Pasos de Redimensionamiento',
@@ -1351,45 +1355,110 @@
                 'products_subtitle': 'Descubre nuestra selección de accesorios compatibles con tu TV The Frame',
                 'products_note': 'Nota: Estos son enlaces de afiliados. Si realizas una compra a través de estos enlaces, puedo recibir una pequeña comisión sin costo adicional para ti.',
                 
-                // Sección legal
-                'legal_title': 'Aviso Legal y Política de Privacidad',
-                'legal_highlight': 'Importante: Su privacidad es nuestra prioridad. Todas las imágenes que suba se procesan localmente en su navegador y nunca se envían a nuestros servidores. No se recopila, almacena ni comparte ningún dato personal.',
-                'legal_editor': 'Editor del sitio',
-                'legal_editor_content': 'Este sitio se edita a título personal. Para cualquier pregunta sobre este sitio, puede contactarnos a través del formulario de contacto disponible en esta página.',
-                'legal_hosting': 'Alojamiento',
-                'legal_hosting_content': 'Este sitio está alojado en servidores seguros. El anfitrión no recopila ninguna información personal a través de este sitio.',
-                'legal_data': 'Protección de datos personales',
-                'legal_data_intro': 'De acuerdo con el Reglamento General de Protección de Datos (RGPD) y la Ley de Protección de Datos, le informamos que:',
-                'legal_data_collection': 'Recopilación de datos',
-                'legal_data_collection_content': 'Este sitio no recopila ningún dato personal identificable. No es necesario registrarse ni crear una cuenta para utilizar nuestros servicios.',
-                'legal_images': 'Procesamiento de imágenes',
-                'legal_images_content': 'Las imágenes que sube para redimensionar se procesan exclusivamente en su navegador. Ninguna imagen se envía a nuestros servidores, se almacena o se conserva de ninguna manera. El proceso de redimensionamiento se realiza completamente de forma local en su dispositivo.',
-                'legal_cookies': 'Cookies',
-                'legal_cookies_content': 'Este sitio utiliza únicamente cookies técnicas esenciales para el funcionamiento de la aplicación:',
-                'legal_cookie_lang': 'Preferencia de idioma (para recordar su elección de idioma)',
-                'legal_cookie_session': 'Cookies de sesión (para el correcto funcionamiento del redimensionador de imágenes)',
-                'legal_cookies_none': 'No se utilizan cookies de seguimiento o marketing.',
-                'legal_affiliation': 'Enlaces de afiliados',
-                'legal_affiliation_content': 'Algunos enlaces presentes en este sitio son enlaces de afiliados. Esto significa que si realiza una compra a través de estos enlaces, puedo recibir una pequeña comisión sin costo adicional para usted. Estas comisiones ayudan a financiar el mantenimiento y desarrollo de este servicio gratuito.',
-                'legal_rights': 'Sus derechos',
-                'legal_rights_content': 'De acuerdo con la normativa de protección de datos, usted tiene los siguientes derechos:',
-                'legal_right_access': 'Derecho de acceso a sus datos',
-                'legal_right_rectification': 'Derecho de rectificación',
-                'legal_right_erasure': 'Derecho de supresión',
-                'legal_right_portability': 'Derecho a la portabilidad de los datos',
-                'legal_right_restriction': 'Derecho a la limitación del tratamiento',
-                'legal_right_object': 'Derecho de oposición',
-                'legal_rights_contact': 'Para ejercer estos derechos, puede contactarnos a través del formulario de contacto.',
-                'legal_contact': 'Contacto',
-                'legal_contact_content': 'Para cualquier pregunta relativa a esta política de privacidad o para ejercer sus derechos, puede contactarnos en la siguiente dirección de correo electrónico: contact@theframeresizer.com',
-                'legal_changes': 'Modificaciones de la política de privacidad',
-                'legal_changes_content': 'Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento. Los posibles cambios se publicarán en esta página.',
-                'legal_last_update': 'Última actualización: 15 de noviembre de 2023',
-                
                 // Footer
                 'footer_text': 'Herramienta de redimensionamiento de imágenes para Samsung The Frame - Diseño inspirado en Spotify',
-                'footer_legal_link': 'Aviso Legal',
-                'footer_contact_link': 'Contacto'
+                'legal_link': 'Aviso Legal & RGPD',
+                'privacy_link': 'Política de Privacidad',
+                
+                // Modal aviso legal
+                'legal_title': 'Aviso Legal & RGPD',
+                'legal_section1_title': 'Editor del sitio',
+                'legal_section1_content': 'El presente sitio es editado por [Nombre de la empresa], sociedad [forma jurídica] con un capital de [monto del capital] €, inscrita en el RCS de [ciudad] bajo el número [número RCS], cuya sede social se encuentra en [dirección completa].',
+                'legal_section2_title': 'Director de publicación',
+                'legal_section2_content': 'El director de publicación es [Nombre Apellido], en calidad de [cargo].',
+                'legal_section3_title': 'Alojamiento',
+                'legal_section3_content': 'El sitio está alojado por [Nombre del alojador], [dirección del alojador].',
+                'legal_section4_title': 'Propiedad intelectual',
+                'legal_section4_content': 'Todos los elementos que constituyen el sitio (textos, gráficos, software, fotografías, imágenes, videos, sonidos, planos, logotipos, marcas, etc.) son propiedad exclusiva de [Nombre de la empresa] o de sus socios y están protegidos por derechos de autor, derechos de marca y derechos de diseño.',
+                'legal_section5_title': 'Protección de datos personales',
+                'legal_section5_content': 'De conformidad con el Reglamento General de Protección de Datos (RGPD) y la Ley de Informática y Libertades, usted tiene derecho a acceder, rectificar, suprimir y oponerse a los datos que le conciernen.',
+                'legal_section6_title': 'Procesamiento de imágenes',
+                'legal_section6_content': 'Nuestra herramienta de redimensionamiento de imágenes funciona completamente en su navegador. Ninguna imagen que cargue se envía a nuestros servidores o se almacena en nuestros sistemas. Todas las operaciones de procesamiento de imágenes se realizan localmente en su dispositivo.',
+                'legal_section6_content2': 'No recopilamos, almacenamos ni procesamos ningún dato personal relacionado con las imágenes que carga. Sus imágenes permanecen completamente bajo su control y se eliminan de la memoria de su navegador cuando sale de la página o cierra la pestaña.',
+                'legal_section7_title': 'Cookies',
+                'legal_section7_content': 'Este sitio utiliza cookies para mejorar su experiencia de usuario y recordar sus preferencias (como el idioma seleccionado). Estas cookies se almacenan localmente en su dispositivo y no contienen información personal identificable.',
+                'legal_section8_title': 'Contacto',
+                'legal_section8_content': 'Para cualquier pregunta relacionada con este aviso legal o la protección de sus datos, puede contactarnos en la siguiente dirección: [dirección de correo electrónico de contacto].'
+            },
+            de: {
+                // Allgemeine Titel
+                'app_title': 'Bildgrößenänderer für The Frame',
+                'resizer_btn': 'Bildgrößenänderer',
+                'products_btn': 'Empfohlene Produkte',
+                
+                // Schritte
+                'steps_title': 'Schritte zur Größenänderung',
+                'step1_title': '1. Laden Sie Ihr Bild hoch',
+                'step1_desc': 'Wählen Sie Ihr Bild von Ihrem Gerät aus',
+                'step2_title': '2. Wählen Sie die Dimension',
+                'step2_desc': 'Wählen Sie Ihr Samsung The Frame TV-Modell',
+                'step3_title': '3. Überprüfen Sie die Vorschau',
+                'step3_desc': 'Überprüfen Sie das Ergebnis vor dem Herunterladen',
+                'step4_title': '4. Herunterladen',
+                'step4_desc': 'Holen Sie sich Ihr perfekt dimensioniertes Bild',
+                
+                // Schrittbeschriftungen
+                'step1_label': 'Schritt 1',
+                'step2_label': 'Schritt 2',
+                'step3_label': 'Schritt 3',
+                'step4_label': 'Schritt 4',
+                
+                // Upload-Bereich
+                'upload_title': 'Laden Sie Ihr Bild hoch',
+                'upload_text': 'Klicken Sie, um Ihr Bild auszuwählen',
+                'continue_step2': 'Weiter zu Schritt 2',
+                
+                // Dimensionsbereich
+                'dimension_title': 'Wählen Sie Ihre TV-Dimension',
+                'custom_dimension': 'Benutzerdefiniert',
+                'other_dimension': 'Andere Dimension',
+                'custom_dimensions': 'Benutzerdefinierte Dimensionen',
+                'width_placeholder': 'Breite',
+                'height_placeholder': 'Höhe',
+                'back_step1': 'Zurück zu Schritt 1',
+                'continue_preview': 'Weiter zur Vorschau',
+                
+                // Vorschaubereich
+                'preview_title': 'Vorschau und Download',
+                'preview_placeholder': 'Das angepasste Bild wird hier angezeigt',
+                'original_dimensions': 'Originalgröße:',
+                'new_dimensions': 'Neue Größe:',
+                'file_size': 'Dateigröße:',
+                'file_format': 'Format:',
+                'back_dimensions': 'Zurück zu Dimensionen',
+                'download_resized': 'Angepasstes Bild herunterladen',
+                'restart': 'Neu starten',
+                'resizing_in_progress': 'Größenänderung läuft...',
+                
+                // Produkte-Bereich
+                'products_title': 'Empfohlenes Zubehör für Samsung The Frame',
+                'products_subtitle': 'Entdecken Sie unsere Auswahl an Zubehör, das mit Ihrem The Frame TV kompatibel ist',
+                'products_note': 'Hinweis: Dies sind Affiliate-Links. Wenn Sie einen Kauf über diese Links tätigen, erhalte ich möglicherweise eine kleine Provision ohne zusätzliche Kosten für Sie.',
+                
+                // Footer
+                'footer_text': 'Bildgrößenänderungstool für Samsung The Frame - Design inspiriert von Spotify',
+                'legal_link': 'Impressum & DSGVO',
+                'privacy_link': 'Datenschutzrichtlinie',
+                
+                // Modal Impressum
+                'legal_title': 'Impressum & DSGVO',
+                'legal_section1_title': 'Herausgeber der Website',
+                'legal_section1_content': 'Diese Website wird herausgegeben von [Firmenname], einer [Rechtsform] mit einem Kapital von [Kapitalbetrag] €, eingetragen im Handelsregister von [Stadt] unter der Nummer [Handelsregisternummer], deren Hauptsitz sich unter [vollständige Adresse] befindet.',
+                'legal_section2_title': 'Verantwortlicher für die Veröffentlichung',
+                'legal_section2_content': 'Der Verantwortliche für die Veröffentlichung ist [Vorname Nachname], in seiner Eigenschaft als [Position].',
+                'legal_section3_title': 'Hosting',
+                'legal_section3_content': 'Die Website wird gehostet von [Host-Name], [Host-Adresse].',
+                'legal_section4_title': 'Geistiges Eigentum',
+                'legal_section4_content': 'Alle Elemente, aus denen die Website besteht (Texte, Grafiken, Software, Fotografien, Bilder, Videos, Töne, Pläne, Logos, Marken usw.), sind das ausschließliche Eigentum von [Firmenname] oder seinen Partnern und sind urheberrechtlich, markenrechtlich und durch Designrechte geschützt.',
+                'legal_section5_title': 'Schutz personenbezogener Daten',
+                'legal_section5_content': 'Gemäß der Datenschutz-Grundverordnung (DSGVO) und dem Datenschutzgesetz haben Sie das Recht auf Zugang, Berichtigung, Löschung und Widerspruch zu Ihren betreffenden Daten.',
+                'legal_section6_title': 'Bildverarbeitung',
+                'legal_section6_content': 'Unser Bildgrößenänderungstool arbeitet vollständig in Ihrem Browser. Keine der von Ihnen hochgeladenen Bilder wird an unsere Server gesendet oder auf unseren Systemen gespeichert. Alle Bildverarbeitungsvorgänge werden lokal auf Ihrem Gerät durchgeführt.',
+                'legal_section6_content2': 'Wir erfassen, speichern oder verarbeiten keine personenbezogenen Daten in Bezug auf die von Ihnen hochgeladenen Bilder. Ihre Bilder bleiben vollständig unter Ihrer Kontrolle und werden aus dem Speicher Ihres Browsers gelöscht, wenn Sie die Seite verlassen oder den Tab schließen.',
+                'legal_section7_title': 'Cookies',
+                'legal_section7_content': 'Diese Website verwendet Cookies, um Ihre Benutzererfahrung zu verbessern und Ihre Präferenzen (wie die ausgewählte Sprache) zu speichern. Diese Cookies werden lokal auf Ihrem Gerät gespeichert und enthalten keine persönlich identifizierbaren Informationen.',
+                'legal_section8_title': 'Kontakt',
+                'legal_section8_content': 'Bei Fragen zu diesen rechtlichen Hinweisen oder zum Schutz Ihrer Daten können Sie uns unter der folgenden Adresse kontaktieren: [Kontakt-E-Mail-Adresse].'
             }
         };
 
@@ -1498,17 +1567,17 @@
             // Navigation principale
             const resizerBtn = document.getElementById('resizerBtn');
             const productsBtn = document.getElementById('productsBtn');
-            const legalBtn = document.getElementById('legalBtn');
             const resizerSection = document.getElementById('resizerSection');
             const productsSection = document.getElementById('productsSection');
-            const legalSection = document.getElementById('legalSection');
-            
-            // Footer links
-            const footerLegalLink = document.getElementById('footerLegalLink');
-            const footerContactLink = document.getElementById('footerContactLink');
             
             // Sélecteur de langue
             const languageSelect = document.getElementById('languageSelect');
+            
+            // Modal
+            const legalModal = document.getElementById('legalModal');
+            const legalLink = document.getElementById('legalLink');
+            const privacyLink = document.getElementById('privacyLink');
+            const closeLegalModal = document.getElementById('closeLegalModal');
             
             let selectedFile = null;
             let originalImage = null;
@@ -1575,6 +1644,17 @@
                 
                 // Sauvegarder la langue dans le localStorage
                 localStorage.setItem('language', lang);
+            }
+            
+            // Fonctions pour gérer le modal
+            function openLegalModal() {
+                legalModal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement
+            }
+            
+            function closeLegalModalFunc() {
+                legalModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Rétablir le défilement
             }
             
             // Mettre à jour la barre de progression
@@ -1667,41 +1747,35 @@
             resizerBtn.addEventListener('click', () => {
                 resizerBtn.classList.add('active');
                 productsBtn.classList.remove('active');
-                legalBtn.classList.remove('active');
                 resizerSection.classList.remove('section-hidden');
                 productsSection.classList.add('section-hidden');
-                legalSection.classList.add('section-hidden');
             });
             
             productsBtn.addEventListener('click', () => {
                 productsBtn.classList.add('active');
                 resizerBtn.classList.remove('active');
-                legalBtn.classList.remove('active');
                 productsSection.classList.remove('section-hidden');
                 resizerSection.classList.add('section-hidden');
-                legalSection.classList.add('section-hidden');
             });
             
-            legalBtn.addEventListener('click', () => {
-                legalBtn.classList.add('active');
-                resizerBtn.classList.remove('active');
-                productsBtn.classList.remove('active');
-                legalSection.classList.remove('section-hidden');
-                resizerSection.classList.add('section-hidden');
-                productsSection.classList.add('section-hidden');
-            });
-            
-            // Footer links
-            footerLegalLink.addEventListener('click', (e) => {
+            // Gestion du modal
+            legalLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                legalBtn.click();
+                openLegalModal();
             });
             
-            footerContactLink.addEventListener('click', (e) => {
+            privacyLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                // Pour l'instant, rediriger vers la page des mentions légales
-                // Dans une version future, on pourrait ajouter une section contact
-                legalBtn.click();
+                openLegalModal();
+            });
+            
+            closeLegalModal.addEventListener('click', closeLegalModalFunc);
+            
+            // Fermer le modal en cliquant en dehors
+            window.addEventListener('click', function(e) {
+                if (e.target === legalModal) {
+                    closeLegalModalFunc();
+                }
             });
             
             // Gestion du glisser-déposer et du clic pour télécharger
