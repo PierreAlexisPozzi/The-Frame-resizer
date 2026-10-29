@@ -3,1076 +3,1472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0e0e0f">
     <title>Image Resizer pour The Frame</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --spotify-black: #191414;
-            --spotify-dark: #1e1e1e;
-            --spotify-light-black: #282828;
-            --spotify-green: #1DB954;
-            --spotify-white: #FFFFFF;
-            --spotify-gray: #b3b3b3;
-            --spotify-dark-gray: #535353;
-            --accent-blue: #2D46B9;
-            --accent-purple: #AF2896;
+            --bg: #0e0e0f;
+            --bg-elev: #161617;
+            --surface: #1c1c1e;
+            --surface-2: #242426;
+            --surface-3: #2f2f32;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.16);
+            --text: #ffffff;
+            --muted: #a1a1a6;
+            --subtle: #78787d;
+            --accent: #1DB954;
+            --accent-hover: #1ed760;
+            --accent-soft: rgba(29, 185, 84, 0.14);
+            --on-accent: #07140c;
+            --blue: #2D46B9;
+            --purple: #AF2896;
+            --warn: #f5a524;
+            --warn-soft: rgba(245, 165, 36, 0.12);
+            --danger: #ff5c6c;
+            --radius-sm: 8px;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+            --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+            --topbar-h: 64px;
+            color-scheme: dark;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        [hidden] {
+            display: none !important;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
-            background-color: var(--spotify-black);
-            color: var(--spotify-white);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background:
+                radial-gradient(1200px 600px at 50% -240px, rgba(45, 70, 185, 0.22), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.5;
             min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Header */
-        .header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--spotify-dark-gray);
-            position: relative;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-align: center;
-        }
-        
-        /* Language Selector */
-        .language-selector {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .language-selector select {
-            background-color: var(--spotify-light-black);
-            color: var(--spotify-white);
-            border: 1px solid var(--spotify-dark-gray);
-            border-radius: 4px;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            width: 140px;
-        }
-        
-        .language-selector select:focus {
-            outline: none;
-            border-color: var(--spotify-green);
-        }
-        
-        /* Navigation */
-        .main-nav {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        
-        .nav-btn {
-            background-color: var(--spotify-light-black);
-            color: var(--spotify-white);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin: 0 10px;
-        }
-        
-        .nav-btn:hover {
-            background-color: var(--spotify-green);
-            color: var(--spotify-black);
-        }
-        
-        .nav-btn.active {
-            background-color: var(--spotify-green);
-            color: var(--spotify-black);
-        }
-        
-        /* Cards Section */
-        .cards-section {
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .section-title {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-align: center;
-        }
-        
-        .cards-container-wrapper {
-            position: relative;
+
+        body:has(dialog[open]) {
             overflow: hidden;
         }
-        
-        .cards-container {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            scroll-behavior: smooth;
-            scrollbar-width: none; /* Firefox */
-        }
-        
-        .cards-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Edge */
-        }
-        
-        .card {
-            background-color: var(--spotify-light-black);
-            border-radius: 8px;
-            padding: 15px;
-            transition: all 0.3s;
+
+        button {
+            font: inherit;
+            color: inherit;
+            background: none;
+            border: 0;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            min-width: 250px;
-            flex-shrink: 0;
         }
-        
-        .card.active {
-            border: 2px solid var(--spotify-green);
-        }
-        
-        .card.completed::after {
-            content: '✓';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 25px;
-            height: 25px;
-            background-color: var(--spotify-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--spotify-black);
-        }
-        
-        .card:hover {
-            background-color: #3a3a3a;
-            transform: translateY(-5px);
-        }
-        
-        .card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .upload-icon {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-        }
-        
-        .dimension-icon {
-            background: linear-gradient(135deg, var(--spotify-green), #1ed760);
-        }
-        
-        .preview-icon {
-            background: linear-gradient(135deg, #ff9a00, #ff6a00);
-        }
-        
-        .download-icon {
-            background: linear-gradient(135deg, #ff375f, #ff2e6c);
-        }
-        
-        .card h3 {
-            font-size: 1rem;
-            margin-bottom: 8px;
-        }
-        
-        .card p {
-            color: var(--spotify-gray);
-            font-size: 0.85rem;
-        }
-        
-        /* Navigation arrows for steps */
-        .step-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 35px;
-            height: 35px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.3s;
-            opacity: 0.7;
-        }
-        
-        .step-nav:hover {
-            opacity: 1;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-        
-        .step-nav.prev {
-            left: 5px;
-        }
-        
-        .step-nav.next {
-            right: 5px;
-        }
-        
-        .step-nav:disabled {
-            opacity: 0.3;
+
+        button:disabled {
             cursor: not-allowed;
         }
-        
-        .step-nav:disabled:hover {
-            background-color: rgba(0, 0, 0, 0.5);
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
-        
-        /* Progress bar - repositionnée entre les étapes et le contenu */
-        .progress-section {
-            margin: 25px 0;
-            padding: 0 10px;
-        }
-        
-        .progress-bar {
+
+        .container {
             width: 100%;
-            height: 6px;
-            background-color: var(--spotify-dark-gray);
-            border-radius: 3px;
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .i {
+            width: 1.15em;
+            height: 1.15em;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
             overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
         }
-        
-        .progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--spotify-green));
-            border-radius: 3px;
-            width: 0%;
-            transition: width 0.5s ease;
+
+        /* Top bar */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(14, 14, 15, 0.78);
+            backdrop-filter: saturate(160%) blur(14px);
+            -webkit-backdrop-filter: saturate(160%) blur(14px);
+            border-bottom: 1px solid var(--border);
         }
-        
-        .progress-labels {
+
+        .topbar-inner {
             display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            font-size: 0.8rem;
-            color: var(--spotify-gray);
-        }
-        
-        /* Content sections */
-        .content-section {
-            background: linear-gradient(180deg, #3a3a3a 0%, var(--spotify-dark) 100%);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        /* Upload section */
-        .upload-area {
-            border: 2px dashed var(--spotify-dark-gray);
-            border-radius: 8px;
-            padding: 40px 15px;
-            text-align: center;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .upload-area:hover {
-            border-color: var(--spotify-green);
-            background-color: rgba(29, 185, 84, 0.05);
-        }
-        
-        .upload-area i {
-            font-size: 2.5rem;
-            color: var(--spotify-green);
-            margin-bottom: 10px;
-        }
-        
-        .upload-area p {
-            font-size: 0.9rem;
-        }
-        
-        /* Selected files */
-        .selected-files {
-            margin-top: 15px;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-        
-        .file-item {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 10px;
-            background-color: var(--spotify-light-black);
-            border-radius: 4px;
-            margin-bottom: 8px;
+            gap: 16px;
+            min-height: var(--topbar-h);
         }
-        
-        .file-info {
+
+        .brand {
             display: flex;
             align-items: center;
             gap: 10px;
-            overflow: hidden;
+            min-width: 0;
+            margin-right: auto;
+            color: inherit;
+            text-decoration: none;
+            font-weight: 700;
         }
-        
-        .file-name {
+
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            box-shadow: 0 4px 14px rgba(175, 40, 150, 0.35);
+        }
+
+        .brand-name {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 200px;
         }
-        
-        .file-icon {
-            color: var(--spotify-green);
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
         }
-        
-        .remove-file {
-            background: none;
-            border: none;
-            color: var(--spotify-gray);
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
+
+        .tab {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .remove-file:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--spotify-white);
-        }
-        
-        /* Dimension selector */
-        .dimension-selector {
-            margin-top: 20px;
-        }
-        
-        .dimension-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .dimension-option {
-            background-color: var(--spotify-light-black);
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-        
-        .dimension-option:hover {
-            transform: translateY(-3px);
-            background-color: #3a3a3a;
-        }
-        
-        .dimension-option.active {
-            border-color: var(--spotify-green);
-            background-color: rgba(29, 185, 84, 0.1);
-        }
-        
-        .dimension-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .dimension-size {
-            font-size: 0.8rem;
-            color: var(--spotify-gray);
-        }
-        
-        .custom-dimension {
-            margin-top: 15px;
-            display: none;
-        }
-        
-        .custom-inputs {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .custom-inputs input {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            background-color: var(--spotify-light-black);
-            color: var(--spotify-white);
-            font-size: 0.9rem;
-        }
-        
-        input::placeholder {
-            color: var(--spotify-gray);
-        }
-        
-        button {
-            background-color: var(--spotify-green);
-            color: var(--spotify-black);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 700;
-            transition: all 0.3s;
-            margin-top: 15px;
-            width: 100%;
-            letter-spacing: 1px;
-        }
-        
-        button:hover {
-            background-color: #1ed760;
-            transform: scale(1.03);
-        }
-        
-        .download-btn {
-            background-color: var(--accent-blue);
-            color: white;
-        }
-        
-        .download-btn:hover {
-            background-color: #3a5bd9;
-        }
-        
-        /* Preview section */
-        .preview-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 250px;
-            background-color: var(--spotify-black);
-            border-radius: 8px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        #previewImage {
-            max-width: 100%;
-            max-height: 100%;
-            display: none;
-        }
-        
-        .preview-info {
-            background-color: var(--spotify-light-black);
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-        
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .info-label {
-            font-weight: bold;
-            color: var(--spotify-gray);
-        }
-        
-        /* Products Section */
-        .products-section {
-            background: linear-gradient(180deg, #3a3a3a 0%, var(--spotify-dark) 100%);
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-        
-        .products-title {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-        
-        .products-subtitle {
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--spotify-gray);
-            font-size: 1.1rem;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .product-card {
-            background-color: var(--spotify-light-black);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid var(--spotify-dark-gray);
-        }
-        
-        .product-content {
-            padding: 20px;
-        }
-        
-        .product-category {
-            color: var(--spotify-green);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        
-        .product-name {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 0.875rem;
             font-weight: 600;
+            color: var(--muted);
+            white-space: nowrap;
+            transition: color 0.2s, background-color 0.25s var(--ease);
         }
-        
-        .product-description {
-            color: var(--spotify-gray);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            line-height: 1.5;
+
+        .tab:hover {
+            color: var(--text);
         }
-        
-        .product-price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--spotify-green);
+
+        .tab.active {
+            background: var(--accent);
+            color: var(--on-accent);
         }
-        
-        .product-link {
-            display: block;
-            background-color: var(--spotify-green);
-            color: var(--spotify-black);
+
+        .lang select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center / 14px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text);
+            font: inherit;
+            font-size: 0.875rem;
+            padding: 8px 34px 8px 14px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .lang select:hover {
+            border-color: var(--border-strong);
+        }
+
+        main {
+            flex: 1;
+            padding-top: 40px;
+            padding-bottom: 48px;
+        }
+
+        .view {
+            animation: fadeUp 0.35s var(--ease);
+        }
+
+        /* Intro */
+        .intro {
             text-align: center;
-            padding: 12px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
+            margin-bottom: 24px;
         }
-        
-        .product-link:hover {
-            background-color: #1ed760;
-            transform: scale(1.03);
+
+        .intro h1 {
+            font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            font-weight: 800;
         }
-        
-        /* Footer */
-        footer {
-            background-color: var(--spotify-black);
-            padding: 15px 0;
-            margin-top: 30px;
-            text-align: center;
-            color: var(--spotify-gray);
-            border-top: 1px solid var(--spotify-dark-gray);
-            font-size: 0.8rem;
-            position: relative;
+
+        .lead {
+            color: var(--muted);
+            margin-top: 8px;
         }
-        
-        .legal-links {
-            margin-top: 10px;
+
+        /* Stepper */
+        .stepper {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 28px;
         }
-        
-        .legal-link {
-            color: var(--spotify-gray);
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 0.75rem;
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--subtle);
+            font-size: 0.85rem;
+            font-weight: 600;
             transition: color 0.3s;
         }
-        
-        .legal-link:hover {
-            color: var(--spotify-green);
-            text-decoration: underline;
+
+        .step + .step::before {
+            content: "";
+            width: clamp(24px, 8vw, 64px);
+            height: 2px;
+            border-radius: 2px;
+            margin: 0 12px;
+            background: var(--surface-3);
+            transition: background-color 0.4s var(--ease);
         }
-        
-        /* Modal */
-        .modal {
+
+        .step.done + .step::before {
+            background: var(--accent);
+        }
+
+        .step-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--surface-3);
+            font-size: 0.8rem;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s, color 0.3s;
+        }
+
+        .step-dot .i {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+            width: 14px;
+            height: 14px;
+            stroke-width: 3;
+        }
+
+        .step.active,
+        .step.done {
+            color: var(--text);
+        }
+
+        .step.active .step-dot {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+
+        .step.done .step-dot {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--on-accent);
+        }
+
+        .step.done .step-num {
+            display: none;
+        }
+
+        .step.done .step-dot .i {
+            display: block;
+        }
+
+        /* Panels */
+        .panel {
+            background: linear-gradient(180deg, var(--surface) 0%, var(--bg-elev) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+
+        /* Dropzone */
+        .dropzone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            max-width: 760px;
+            min-height: 320px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            border: 2px dashed var(--border-strong);
+            cursor: pointer;
+            animation: fadeUp 0.35s var(--ease);
+            transition: border-color 0.2s, background-color 0.2s, transform 0.2s var(--ease);
+        }
+
+        .dropzone:hover,
+        .is-dragging .dropzone {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .dropzone:active {
+            transform: scale(0.995);
+        }
+
+        .dz-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin-bottom: 12px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            transition: transform 0.3s var(--ease);
+        }
+
+        .dz-icon .i {
+            width: 28px;
+            height: 28px;
+        }
+
+        .dropzone:hover .dz-icon {
+            transform: translateY(-4px);
+        }
+
+        .dz-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .dz-sub {
+            color: var(--muted);
+        }
+
+        .link-like {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .dz-hint {
+            margin-top: 12px;
+            color: var(--subtle);
+            font-size: 0.8rem;
+        }
+
+        /* Editor */
+        .editor {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 340px;
+            gap: 20px;
+            align-items: start;
+            animation: fadeUp 0.4s var(--ease);
+        }
+
+        .stage-panel {
+            padding: 16px;
+        }
+
+        .stage-wrap {
+            display: flex;
+            justify-content: center;
+            padding: 8px;
+        }
+
+        .stage {
+            position: relative;
+            max-width: 100%;
+            background: #000;
+            border-radius: 3px;
+            box-shadow: 0 0 0 7px #2a2a2c, 0 0 0 8px rgba(255, 255, 255, 0.06), 0 24px 50px rgba(0, 0, 0, 0.55);
+        }
+
+        .stage canvas {
+            display: block;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 20px;
-            box-sizing: border-box;
+            border-radius: 3px;
         }
-        
-        .modal-content {
-            background-color: var(--spotify-dark);
-            margin: 5% auto;
-            padding: 30px;
+
+        .stage.is-draggable canvas {
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .stage.dragging canvas {
+            cursor: grabbing;
+        }
+
+        .stage-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px 16px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+            font-size: 0.85rem;
+        }
+
+        .dims {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .dims strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .dims .i {
+            color: var(--subtle);
+        }
+
+        .hint {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+        }
+
+        .link-btn {
+            color: var(--accent);
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .link-btn:hover {
+            text-decoration: underline;
+        }
+
+        .warning {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 14px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            background: var(--warn-soft);
+            border: 1px solid rgba(245, 165, 36, 0.25);
+            color: #ffd28a;
+            font-size: 0.85rem;
+            animation: fadeUp 0.3s var(--ease);
+        }
+
+        .warning .i {
+            margin-top: 2px;
+            color: var(--warn);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: sticky;
+            top: calc(var(--topbar-h) + 16px);
+        }
+
+        .file-chip {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
             border-radius: 12px;
-            width: 90%;
-            max-width: 800px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
         }
-        
+
+        .file-chip img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #000;
+            flex-shrink: 0;
+        }
+
+        .file-chip-text {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+
+        .file-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-sub {
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            color: var(--muted);
+            transition: background-color 0.2s, color 0.2s, transform 0.3s var(--ease);
+        }
+
+        .icon-btn:hover {
+            background: var(--surface-3);
+            color: var(--text);
+        }
+
+        .icon-btn:hover .i {
+            transform: rotate(-90deg);
+            transition: transform 0.4s var(--ease);
+        }
+
+        .field {
+            border: 0;
+            min-width: 0;
+        }
+
+        .field legend {
+            padding: 0;
+            margin-bottom: 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .chips {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .chip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 4px;
+            border-radius: 10px;
+            background: var(--surface-2);
+            border: 1.5px solid transparent;
+            line-height: 1.2;
+            transition: background-color 0.2s, border-color 0.2s, transform 0.15s var(--ease);
+        }
+
+        .chip:hover {
+            background: var(--surface-3);
+        }
+
+        .chip:active {
+            transform: scale(0.95);
+        }
+
+        .chip.active {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .chip-main {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .chip-sub {
+            margin-top: 2px;
+            font-size: 0.68rem;
+            color: var(--muted);
+        }
+
+        .chip.active .chip-sub {
+            color: var(--accent);
+        }
+
+        .custom {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            animation: fadeUp 0.25s var(--ease);
+        }
+
+        .input {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            background: var(--surface-2);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            transition: border-color 0.2s;
+        }
+
+        .input:focus-within {
+            border-color: var(--accent);
+        }
+
+        .input.invalid {
+            border-color: var(--danger);
+        }
+
+        .input input {
+            width: 100%;
+            padding: 9px 0;
+            background: none;
+            border: 0;
+            outline: none;
+            color: var(--text);
+            font: inherit;
+            font-variant-numeric: tabular-nums;
+            -moz-appearance: textfield;
+        }
+
+        .input input::-webkit-outer-spin-button,
+        .input input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .input input::placeholder {
+            color: var(--subtle);
+        }
+
+        .unit,
+        .times {
+            color: var(--subtle);
+            font-size: 0.8rem;
+        }
+
+        .custom-hint {
+            margin-top: 6px;
+            font-size: 0.75rem;
+            color: var(--subtle);
+        }
+
+        .segmented {
+            --idx: 0;
+            --n: 2;
+            position: relative;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 1fr;
+            padding: 4px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: opacity 0.2s;
+        }
+
+        .segmented::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            left: 4px;
+            width: calc((100% - 8px) / var(--n));
+            border-radius: 9px;
+            background: var(--surface-3);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 0 0 1px var(--border-strong);
+            transform: translateX(calc(var(--idx) * 100%));
+            transition: transform 0.3s var(--ease);
+        }
+
+        .seg {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            padding: 8px 6px;
+            border-radius: 9px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .seg-row {
+            flex-direction: row;
+            gap: 8px;
+        }
+
+        .seg:hover,
+        .seg.active {
+            color: var(--text);
+        }
+
+        .seg small {
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--subtle);
+        }
+
+        .field:disabled .segmented {
+            opacity: 0.4;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s var(--ease), opacity 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--on-accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 6px 20px rgba(29, 185, 84, 0.3);
+        }
+
+        .btn-lg {
+            width: 100%;
+            padding: 15px 22px;
+            font-size: 1rem;
+        }
+
+        .btn-sm {
+            padding: 9px 14px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .btn .spinner {
+            display: none;
+        }
+
+        .btn.is-busy {
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        .btn.is-busy .spinner {
+            display: block;
+        }
+
+        .btn.is-busy .i {
+            display: none;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2.5px solid currentColor;
+            border-right-color: transparent;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .next-steps {
+            padding: 14px;
+            border-radius: 12px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            color: #c8f5d8;
+            font-size: 0.85rem;
+            animation: fadeUp 0.35s var(--ease);
+        }
+
+        .next-steps strong {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .privacy-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 24px;
+            color: var(--subtle);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* Products */
+        .products-head {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .products-title {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .products-subtitle {
+            margin-top: 8px;
+            color: var(--muted);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow);
+        }
+
+        .product-media {
+            aspect-ratio: 16 / 10;
+            display: grid;
+            place-items: center;
+            background: var(--surface-2);
+            color: var(--subtle);
+        }
+
+        .product-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 16px;
+            background: #f5f5f7;
+        }
+
+        .product-media .i {
+            width: 40px;
+            height: 40px;
+            stroke-width: 1.5;
+        }
+
+        .product-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 18px;
+        }
+
+        .product-category {
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .product-name {
+            font-size: 1.05rem;
+            line-height: 1.3;
+        }
+
+        .product-description {
+            flex: 1;
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        .product-footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px 12px;
+            margin-top: 10px;
+        }
+
+        .product-price {
+            font-weight: 800;
+            font-size: 1.05rem;
+        }
+
+        .products-note {
+            max-width: 640px;
+            margin: 28px auto 0;
+            text-align: center;
+            color: var(--subtle);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 0;
+            text-align: center;
+            color: var(--subtle);
+            font-size: 0.8rem;
+        }
+
+        .legal-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px 20px;
+            margin-top: 8px;
+        }
+
+        .legal-link {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .legal-link:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* Modal */
+        .modal {
+            width: 100%;
+            max-width: min(760px, calc(100% - 32px));
+            max-height: calc(100vh - 48px);
+            max-height: calc(100dvh - 48px);
+            margin: auto;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: inherit;
+        }
+
+        .modal::backdrop {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal[open] {
+            animation: modalIn 0.3s var(--ease);
+        }
+
+        .modal[open]::backdrop {
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 48px);
+            max-height: calc(100dvh - 48px);
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--spotify-dark-gray);
+            gap: 16px;
+            padding: 16px 16px 16px 22px;
+            border-bottom: 1px solid var(--border);
         }
-        
+
         .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--spotify-white);
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--spotify-gray);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .close-modal:hover {
-            color: var(--spotify-white);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .modal-body {
-            color: var(--spotify-gray);
-            line-height: 1.7;
-        }
-        
-        .modal-section {
-            margin-bottom: 25px;
-        }
-        
-        .modal-section h3 {
-            color: var(--spotify-white);
-            margin-bottom: 10px;
             font-size: 1.2rem;
         }
-        
-        .modal-section p {
-            margin-bottom: 10px;
+
+        .modal-body {
+            padding: 22px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            color: var(--muted);
+            line-height: 1.7;
         }
-        
-        .modal-section ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
+
+        .modal-section {
+            scroll-margin-top: 16px;
         }
-        
-        .modal-section li {
-            margin-bottom: 8px;
+
+        .modal-section + .modal-section {
+            margin-top: 22px;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .language-selector {
-                position: static;
-                transform: none;
-                align-self: flex-end;
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .dimension-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .custom-inputs {
-                flex-direction: column;
-            }
-            
-            .step-nav {
-                display: none;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            .preview-container {
-                height: 200px;
-            }
-            
-            .modal-content {
-                margin: 10% auto;
-                padding: 20px;
-                width: 95%;
-            }
+
+        .modal-section h3 {
+            margin-bottom: 6px;
+            color: var(--text);
+            font-size: 1rem;
         }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .logo h1 {
-                font-size: 1.3rem;
-            }
-            
-            .card {
-                min-width: 220px;
-                padding: 12px;
-            }
-            
-            .main-nav {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .nav-btn {
-                margin: 5px 0;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .legal-links {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
+
+        .modal-section p + p {
+            margin-top: 8px;
         }
-        
-        /* Loading animation */
-        .loading {
-            display: none;
-            text-align: center;
-            margin: 15px 0;
+
+        /* Toasts */
+        .toast-region {
+            position: fixed;
+            left: 50%;
+            bottom: 20px;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: min(460px, calc(100% - 32px));
+            transform: translateX(-50%);
+            pointer-events: none;
         }
-        
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-left-color: var(--spotify-green);
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: #2a2a2d;
+            border: 1px solid var(--border-strong);
+            box-shadow: var(--shadow);
+            font-size: 0.9rem;
+            word-break: break-word;
+            animation: toastIn 0.35s var(--ease);
         }
-        
+
+        .toast-success .i {
+            color: var(--accent);
+        }
+
+        .toast-error .i {
+            color: var(--danger);
+        }
+
+        .toast.leaving {
+            animation: toastOut 0.25s ease forwards;
+        }
+
+        /* Drag overlay */
+        .drop-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            display: grid;
+            place-items: center;
+            background: rgba(14, 14, 15, 0.82);
+            backdrop-filter: blur(6px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+
+        .is-dragging .drop-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drop-overlay-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 48px 64px;
+            border: 2px dashed var(--accent);
+            border-radius: 24px;
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .drop-overlay-inner .i {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(12px); }
+        }
+
+        @keyframes toastOut {
+            to { opacity: 0; transform: translateY(8px); }
+        }
+
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        
-        .action-buttons {
-            display: flex;
-            gap: 10px;
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .editor {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                position: static;
+            }
+
+            .controls .btn-lg {
+                position: sticky;
+                bottom: 12px;
+                z-index: 5;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+            }
         }
-        
-        .action-buttons button {
-            margin-top: 0;
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .topbar {
+                position: static;
+            }
+
+            .topbar-inner {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 10px 0;
+            }
+
+            .brand {
+                flex: 1 1 0;
+                font-size: 0.95rem;
+            }
+
+            .tabs {
+                order: 3;
+                width: 100%;
+            }
+
+            .tab {
+                flex: 1;
+                justify-content: center;
+            }
+
+            main {
+                padding-top: 20px;
+            }
+
+            .panel {
+                padding: 16px;
+            }
+
+            .stage-panel {
+                padding: 12px;
+            }
+
+            .dropzone {
+                min-height: 240px;
+            }
+
+            .step-label {
+                display: none;
+            }
+
+            .step.active .step-label {
+                display: inline;
+            }
         }
-        
-        .restart-btn {
-            background-color: var(--spotify-dark-gray);
-            color: var(--spotify-white);
-        }
-        
-        .restart-btn:hover {
-            background-color: var(--spotify-gray);
-        }
-        
-        /* Hide sections by default */
-        .section-hidden {
-            display: none;
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-tv"></i>
-                </div>
-                <h1 data-translate="app_title">Image Resizer pour The Frame</h1>
-            </div>
-            
-            <!-- Language Selector -->
-            <div class="language-selector">
+    <!-- Icônes (sprite SVG) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-tv" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="m17 2-5 5-5-5"/></symbol>
+        <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></symbol>
+        <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+        <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+        <symbol id="i-crop" viewBox="0 0 24 24"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></symbol>
+        <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+        <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+        <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3"/><path d="M12 9v4M12 17h.01"/></symbol>
+        <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+        <symbol id="i-move" viewBox="0 0 24 24"><path d="m5 9-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></symbol>
+        <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+        <symbol id="i-landscape" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/></symbol>
+        <symbol id="i-portrait" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/></symbol>
+    </svg>
+
+    <!-- Overlay de glisser-déposer (toute la page) -->
+    <div class="drop-overlay" aria-hidden="true">
+        <div class="drop-overlay-inner">
+            <svg class="i"><use href="#i-upload"/></svg>
+            <span data-translate="drop_overlay">Déposez votre image</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a href="#" class="brand" id="brandLink">
+                <span class="brand-mark"><svg class="i"><use href="#i-tv"/></svg></span>
+                <span class="brand-name" data-translate="app_title">Image Resizer pour The Frame</span>
+            </a>
+
+            <nav class="tabs" role="tablist">
+                <button class="tab active" id="resizerBtn" role="tab" aria-selected="true" aria-controls="resizerSection">
+                    <svg class="i"><use href="#i-crop"/></svg>
+                    <span data-translate="tab_resizer">Redimensionner</span>
+                </button>
+                <button class="tab" id="productsBtn" role="tab" aria-selected="false" aria-controls="productsSection">
+                    <svg class="i"><use href="#i-bag"/></svg>
+                    <span data-translate="tab_products">Accessoires</span>
+                </button>
+            </nav>
+
+            <label class="lang">
+                <span class="sr-only">Language</span>
                 <select id="languageSelect">
                     <option value="fr">🇫🇷 Français</option>
                     <option value="en">🇬🇧 English</option>
                     <option value="es">🇪🇸 Español</option>
                     <option value="de">🇩🇪 Deutsch</option>
                 </select>
-            </div>
+            </label>
         </div>
+    </header>
 
-        <!-- Navigation -->
-        <div class="main-nav">
-            <button class="nav-btn active" id="resizerBtn" data-translate="resizer_btn">Redimensionneur d'images</button>
-            <button class="nav-btn" id="productsBtn" data-translate="products_btn">Produits recommandés</button>
-        </div>
-
+    <main class="container">
         <!-- Resizer Section -->
-        <div id="resizerSection">
-            <!-- Cards Section -->
-            <div class="cards-section">
-                <h2 class="section-title" data-translate="steps_title">Étapes de redimensionnement</h2>
-                <div class="cards-container-wrapper">
-                    <button class="step-nav prev" id="stepNavPrev">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="cards-container" id="cardsContainer">
-                        <div class="card active" id="step1Card">
-                            <div class="card-icon upload-icon">
-                                <i class="fas fa-upload"></i>
-                            </div>
-                            <h3 data-translate="step1_title">1. Téléchargez votre image</h3>
-                            <p data-translate="step1_desc">Sélectionnez votre image depuis votre appareil</p>
-                        </div>
-                        <div class="card" id="step2Card">
-                            <div class="card-icon dimension-icon">
-                                <i class="fas fa-expand-alt"></i>
-                            </div>
-                            <h3 data-translate="step2_title">2. Sélectionnez la dimension</h3>
-                            <p data-translate="step2_desc">Choisissez le modèle de votre TV The Frame Samsung</p>
-                        </div>
-                        <div class="card" id="step3Card">
-                            <div class="card-icon preview-icon">
-                                <i class="fas fa-eye"></i>
-                            </div>
-                            <h3 data-translate="step3_title">3. Vérifiez l'aperçu</h3>
-                            <p data-translate="step3_desc">Contrôlez le résultat avant le téléchargement</p>
-                        </div>
-                        <div class="card" id="step4Card">
-                            <div class="card-icon download-icon">
-                                <i class="fas fa-download"></i>
-                            </div>
-                            <h3 data-translate="step4_title">4. Téléchargez</h3>
-                            <p data-translate="step4_desc">Récupérez votre image parfaitement dimensionnée</p>
-                        </div>
-                    </div>
-                    <button class="step-nav next" id="stepNavNext">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+        <section id="resizerSection" class="view" role="tabpanel" aria-labelledby="resizerBtn">
+            <div class="intro">
+                <h1 data-translate="app_heading">Vos images au format parfait pour The Frame</h1>
+                <p class="lead" data-translate="app_tagline">Importez, ajustez, téléchargez. Tout se passe dans votre navigateur.</p>
             </div>
 
-            <!-- Progress Bar - repositionnée entre les étapes et le contenu -->
-            <div class="progress-section">
-                <div class="progress-bar">
-                    <div class="progress" id="progressBar"></div>
+            <ol class="stepper" id="stepper">
+                <li class="step active" data-step="1">
+                    <span class="step-dot"><span class="step-num">1</span><svg class="i"><use href="#i-check"/></svg></span>
+                    <span class="step-label" data-translate="step1_label">Importer</span>
+                </li>
+                <li class="step" data-step="2">
+                    <span class="step-dot"><span class="step-num">2</span><svg class="i"><use href="#i-check"/></svg></span>
+                    <span class="step-label" data-translate="step2_label">Ajuster</span>
+                </li>
+                <li class="step" data-step="3">
+                    <span class="step-dot"><span class="step-num">3</span><svg class="i"><use href="#i-check"/></svg></span>
+                    <span class="step-label" data-translate="step3_label">Télécharger</span>
+                </li>
+            </ol>
+
+            <!-- Étape 1 : import -->
+            <div class="panel dropzone" id="uploadArea" role="button" tabindex="0">
+                <span class="dz-icon"><svg class="i"><use href="#i-upload"/></svg></span>
+                <p class="dz-title" data-translate="drop_title">Glissez-déposez votre image ici</p>
+                <p class="dz-sub"><span data-translate="drop_or">ou</span> <span class="link-like" data-translate="drop_browse">parcourez vos fichiers</span></p>
+                <p class="dz-hint" data-translate="drop_hint">JPG, PNG, WebP… · Astuce : collez une image avec Ctrl+V</p>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" hidden>
+
+            <!-- Étapes 2 et 3 : réglages, aperçu en direct et téléchargement -->
+            <div class="editor" id="editor" hidden>
+                <div class="panel stage-panel">
+                    <div class="stage-wrap" id="stageWrap">
+                        <div class="stage" id="stage">
+                            <canvas id="previewCanvas" tabindex="0" data-translate-label="preview_label"></canvas>
+                        </div>
+                    </div>
+                    <div class="stage-toolbar">
+                        <div class="dims">
+                            <span><span data-translate="original">Original</span> <strong id="originalDimensions">-</strong></span>
+                            <svg class="i"><use href="#i-arrow"/></svg>
+                            <span><span data-translate="output">Sortie</span> <strong id="newDimensions">-</strong></span>
+                        </div>
+                        <p class="hint" id="dragHint" hidden>
+                            <svg class="i"><use href="#i-move"/></svg>
+                            <span data-translate="drag_hint">Glissez l'aperçu pour recadrer</span>
+                            <button type="button" class="link-btn" id="recenterBtn" data-translate="recenter">Recentrer</button>
+                        </p>
+                    </div>
+                    <p class="warning" id="upscaleWarning" hidden>
+                        <svg class="i"><use href="#i-alert"/></svg>
+                        <span id="upscaleText"></span>
+                    </p>
                 </div>
-                <div class="progress-labels">
-                    <span data-translate="step1_label">Étape 1</span>
-                    <span data-translate="step2_label">Étape 2</span>
-                    <span data-translate="step3_label">Étape 3</span>
-                    <span data-translate="step4_label">Étape 4</span>
-                </div>
+
+                <aside class="panel controls">
+                    <div class="file-chip">
+                        <img id="thumb" alt="">
+                        <div class="file-chip-text">
+                            <span class="file-name" id="fileName"></span>
+                            <span class="file-sub" id="fileSub"></span>
+                        </div>
+                        <button type="button" class="icon-btn" id="changeBtn" data-translate-label="change_image">
+                            <svg class="i"><use href="#i-refresh"/></svg>
+                        </button>
+                    </div>
+
+                    <fieldset class="field">
+                        <legend data-translate="tv_size">Taille de votre TV</legend>
+                        <div class="chips" id="sizeChips" role="radiogroup"></div>
+                        <div id="customDimension" hidden>
+                            <div class="custom">
+                                <label class="input" id="customWidthField">
+                                    <span class="sr-only" data-translate="width">Largeur</span>
+                                    <input type="number" id="customWidth" min="16" max="8192" step="1" inputmode="numeric" data-translate-placeholder="width">
+                                    <span class="unit">px</span>
+                                </label>
+                                <span class="times">×</span>
+                                <label class="input" id="customHeightField">
+                                    <span class="sr-only" data-translate="height">Hauteur</span>
+                                    <input type="number" id="customHeight" min="16" max="8192" step="1" inputmode="numeric" data-translate-placeholder="height">
+                                    <span class="unit">px</span>
+                                </label>
+                            </div>
+                            <p class="custom-hint" data-translate="custom_hint">Entre 16 et 8192 px</p>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="field" id="orientationField">
+                        <legend data-translate="orientation">Orientation</legend>
+                        <div class="segmented" role="radiogroup" style="--n: 2">
+                            <button type="button" class="seg seg-row" role="radio" data-orientation="landscape">
+                                <svg class="i"><use href="#i-landscape"/></svg>
+                                <span data-translate="landscape">Paysage</span>
+                            </button>
+                            <button type="button" class="seg seg-row" role="radio" data-orientation="portrait">
+                                <svg class="i"><use href="#i-portrait"/></svg>
+                                <span data-translate="portrait">Portrait</span>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="field">
+                        <legend data-translate="framing">Cadrage</legend>
+                        <div class="segmented" role="radiogroup" style="--n: 3">
+                            <button type="button" class="seg" role="radio" data-fit="cover">
+                                <span data-translate="fit_cover">Remplir</span>
+                                <small data-translate="fit_cover_desc">Recadrée</small>
+                            </button>
+                            <button type="button" class="seg" role="radio" data-fit="contain">
+                                <span data-translate="fit_contain">Entière</span>
+                                <small data-translate="fit_contain_desc">Bandes noires</small>
+                            </button>
+                            <button type="button" class="seg" role="radio" data-fit="blur">
+                                <span data-translate="fit_blur">Fond flou</span>
+                                <small data-translate="fit_blur_desc">Bords assortis</small>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    <button type="button" class="btn btn-primary btn-lg" id="downloadBtn">
+                        <svg class="i"><use href="#i-download"/></svg>
+                        <span class="spinner" aria-hidden="true"></span>
+                        <span id="downloadLabel" data-translate="download">Télécharger l'image</span>
+                    </button>
+
+                    <div class="next-steps" id="nextSteps" hidden>
+                        <strong><svg class="i"><use href="#i-tv"/></svg><span data-translate="next_title">Et maintenant ?</span></strong>
+                        <span data-translate="next_text"></span>
+                    </div>
+                </aside>
             </div>
 
-            <!-- Upload Section -->
-            <div class="content-section" id="step1Content">
-                <h2 class="section-title" data-translate="upload_title">Télécharger votre image</h2>
-                
-                <div class="upload-area" id="uploadArea">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p data-translate="upload_text">Cliquez pour sélectionner votre image</p>
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                </div>
-                
-                <div class="selected-files" id="selectedFiles"></div>
-                
-                <button id="nextStep1Btn" disabled data-translate="continue_step2">Continuer vers l'étape 2</button>
-            </div>
-            
-            <!-- Dimension Selection Section -->
-            <div class="content-section section-hidden" id="step2Content">
-                <h2 class="section-title" data-translate="dimension_title">Sélectionnez la dimension de votre TV</h2>
-                
-                <div class="dimension-options">
-                    <div class="dimension-option active" data-width="1920" data-height="1080">
-                        <div class="dimension-name">43"</div>
-                        <div class="dimension-size">1920 × 1080</div>
-                    </div>
-                    <div class="dimension-option" data-width="3840" data-height="2160">
-                        <div class="dimension-name">50"</div>
-                        <div class="dimension-size">3840 × 2160</div>
-                    </div>
-                    <div class="dimension-option" data-width="3840" data-height="2160">
-                        <div class="dimension-name">55"</div>
-                        <div class="dimension-size">3840 × 2160</div>
-                    </div>
-                    <div class="dimension-option" data-width="3840" data-height="2160">
-                        <div class="dimension-name">65"</div>
-                        <div class="dimension-size">3840 × 2160</div>
-                    </div>
-                    <div class="dimension-option" data-width="3840" data-height="2160">
-                        <div class="dimension-name">75"</div>
-                        <div class="dimension-size">3840 × 2160</div>
-                    </div>
-                    <div class="dimension-option" id="customOption">
-                        <div class="dimension-name" data-translate="custom_dimension">Personnalisé</div>
-                        <div class="dimension-size" data-translate="other_dimension">Autre dimension</div>
-                    </div>
-                </div>
-                
-                <div class="custom-dimension" id="customDimension">
-                    <h4 data-translate="custom_dimensions">Dimensions personnalisées</h4>
-                    <div class="custom-inputs">
-                        <input type="number" id="customWidth" placeholder="Largeur" min="1" data-translate-placeholder="width_placeholder">
-                        <input type="number" id="customHeight" placeholder="Hauteur" min="1" data-translate-placeholder="height_placeholder">
-                    </div>
-                </div>
-                
-                <div class="action-buttons">
-                    <button id="prevStep2Btn" data-translate="back_step1">Retour à l'étape 1</button>
-                    <button id="nextStep2Btn" data-translate="continue_preview">Continuer vers l'aperçu</button>
-                </div>
-            </div>
-            
-            <!-- Preview Section -->
-            <div class="content-section section-hidden" id="step3Content">
-                <h2 class="section-title" data-translate="preview_title">Aperçu et téléchargement</h2>
-                
-                <div class="preview-container">
-                    <canvas id="previewCanvas"></canvas>
-                    <p id="placeholderText" data-translate="preview_placeholder">L'image redimensionnée apparaîtra ici</p>
-                </div>
-                
-                <div class="preview-info">
-                    <div class="info-item">
-                        <span class="info-label" data-translate="original_dimensions">Dimensions originales:</span>
-                        <span id="originalDimensions">-</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label" data-translate="new_dimensions">Nouvelles dimensions:</span>
-                        <span id="newDimensions">-</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label" data-translate="file_size">Taille du fichier:</span>
-                        <span id="fileSize">-</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label" data-translate="file_format">Format:</span>
-                        <span id="fileFormat">-</span>
-                    </div>
-                </div>
-                
-                <div class="action-buttons">
-                    <button id="prevStep3Btn" data-translate="back_dimensions">Retour aux dimensions</button>
-                    <button class="download-btn" id="downloadBtn" disabled>
-                        <i class="fas fa-download"></i> <span data-translate="download_resized">Télécharger l'image redimensionnée</span>
-                    </button>
-                    <button class="restart-btn" id="restartBtn">
-                        <i class="fas fa-redo"></i> <span data-translate="restart">Recommencer</span>
-                    </button>
-                </div>
-                
-                <div class="loading" id="loadingIndicator">
-                    <div class="spinner"></div>
-                    <p data-translate="resizing_in_progress">Redimensionnement en cours...</p>
-                </div>
-            </div>
-        </div>
+            <p class="privacy-note">
+                <svg class="i"><use href="#i-lock"/></svg>
+                <span data-translate="privacy_badge">Traitement 100 % local : vos images ne quittent jamais votre appareil.</span>
+            </p>
+        </section>
 
         <!-- Products Section -->
-        <div id="productsSection" class="section-hidden">
-            <div class="products-section">
+        <section id="productsSection" class="view" role="tabpanel" aria-labelledby="productsBtn" hidden>
+            <div class="products-head">
                 <h2 class="products-title" data-translate="products_title">Accessoires recommandés pour Samsung The Frame</h2>
                 <p class="products-subtitle" data-translate="products_subtitle">Découvrez notre sélection d'accessoires compatibles avec votre TV The Frame</p>
-                
-                <div class="products-grid" id="productsGrid">
-                    <!-- Les produits seront générés dynamiquement par JavaScript -->
-                </div>
-                
-                <p class="products-note" data-translate="products_note">
-                    Note: Ces liens sont des liens d'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.
-                </p>
             </div>
-        </div>
-    </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Les produits sont générés dynamiquement par JavaScript -->
+            </div>
+
+            <p class="products-note" data-translate="products_note"></p>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -1086,11 +1482,13 @@
     </footer>
 
     <!-- Modal pour les mentions légales -->
-    <div class="modal" id="legalModal">
+    <dialog class="modal" id="legalModal" aria-labelledby="legalTitle">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" data-translate="legal_title">Mentions légales & RGPD</h2>
-                <button class="close-modal" id="closeLegalModal">&times;</button>
+                <h2 class="modal-title" id="legalTitle" data-translate="legal_title">Mentions légales & RGPD</h2>
+                <button type="button" class="icon-btn" id="closeLegalModal" data-translate-label="close">
+                    <svg class="i"><use href="#i-x"/></svg>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="modal-section">
@@ -1135,72 +1533,70 @@
                 </div>
             </div>
         </div>
-    </div>
+    </dialog>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div>
 
     <script>
         // Système de traduction
         const translations = {
             fr: {
-                // Titres généraux
+                // Interface
                 'app_title': 'Image Resizer pour The Frame',
-                'resizer_btn': 'Redimensionneur d\'images',
-                'products_btn': 'Produits recommandés',
-                
-                // Étapes
-                'steps_title': 'Étapes de redimensionnement',
-                'step1_title': '1. Téléchargez votre image',
-                'step1_desc': 'Sélectionnez votre image depuis votre appareil',
-                'step2_title': '2. Sélectionnez la dimension',
-                'step2_desc': 'Choisissez le modèle de votre TV The Frame Samsung',
-                'step3_title': '3. Vérifiez l\'aperçu',
-                'step3_desc': 'Contrôlez le résultat avant le téléchargement',
-                'step4_title': '4. Téléchargez',
-                'step4_desc': 'Récupérez votre image parfaitement dimensionnée',
-                
-                // Labels des étapes
-                'step1_label': 'Étape 1',
-                'step2_label': 'Étape 2',
-                'step3_label': 'Étape 3',
-                'step4_label': 'Étape 4',
-                
-                // Section upload
-                'upload_title': 'Télécharger votre image',
-                'upload_text': 'Cliquez pour sélectionner votre image',
-                'continue_step2': 'Continuer vers l\'étape 2',
-                
-                // Section dimensions
-                'dimension_title': 'Sélectionnez la dimension de votre TV',
-                'custom_dimension': 'Personnalisé',
-                'other_dimension': 'Autre dimension',
-                'custom_dimensions': 'Dimensions personnalisées',
-                'width_placeholder': 'Largeur',
-                'height_placeholder': 'Hauteur',
-                'back_step1': 'Retour à l\'étape 1',
-                'continue_preview': 'Continuer vers l\'aperçu',
-                
-                // Section aperçu
-                'preview_title': 'Aperçu et téléchargement',
-                'preview_placeholder': 'L\'image redimensionnée apparaîtra ici',
-                'original_dimensions': 'Dimensions originales:',
-                'new_dimensions': 'Nouvelles dimensions:',
-                'file_size': 'Taille du fichier:',
-                'file_format': 'Format:',
-                'back_dimensions': 'Retour aux dimensions',
-                'download_resized': 'Télécharger l\'image redimensionnée',
-                'restart': 'Recommencer',
-                'resizing_in_progress': 'Redimensionnement en cours...',
-                
-                // Section produits
+                'app_heading': 'Vos images au format parfait pour The Frame',
+                'app_tagline': 'Importez, ajustez, téléchargez. Tout se passe dans votre navigateur.',
+                'tab_resizer': 'Redimensionner',
+                'tab_products': 'Accessoires',
+                'step1_label': 'Importer',
+                'step2_label': 'Ajuster',
+                'step3_label': 'Télécharger',
+                'drop_title': 'Glissez-déposez votre image ici',
+                'drop_or': 'ou',
+                'drop_browse': 'parcourez vos fichiers',
+                'drop_hint': 'JPG, PNG, WebP… · Astuce : collez une image avec Ctrl+V',
+                'drop_overlay': 'Déposez votre image',
+                'preview_label': 'Aperçu de l\'image redimensionnée',
+                'original': 'Original',
+                'output': 'Sortie',
+                'drag_hint': 'Glissez l\'aperçu pour recadrer',
+                'recenter': 'Recentrer',
+                'change_image': 'Changer d\'image',
+                'tv_size': 'Taille de votre TV',
+                'custom': 'Autre',
+                'width': 'Largeur',
+                'height': 'Hauteur',
+                'custom_hint': 'Entre 16 et 8192 px',
+                'orientation': 'Orientation',
+                'landscape': 'Paysage',
+                'portrait': 'Portrait',
+                'framing': 'Cadrage',
+                'fit_cover': 'Remplir',
+                'fit_cover_desc': 'Recadrée',
+                'fit_contain': 'Entière',
+                'fit_contain_desc': 'Bandes noires',
+                'fit_blur': 'Fond flou',
+                'fit_blur_desc': 'Bords assortis',
+                'download': 'Télécharger l\'image',
+                'preparing': 'Préparation…',
+                'upscale_warning': 'Votre image est plus petite que l\'écran : elle sera agrandie à {pct} % et peut paraître floue.',
+                'err_not_image': 'Ce fichier n\'est pas une image.',
+                'err_decode': 'Impossible de lire cette image (format HEIC ?). Convertissez-la en JPEG ou PNG.',
+                'err_export': 'L\'export a échoué. Essayez une dimension plus petite.',
+                'toast_done': 'Image téléchargée : {name}',
+                'next_title': 'Et maintenant ?',
+                'next_text': 'Envoyez l\'image sur votre TV avec l\'app SmartThings (Mode Art › Ajouter vos photos) ou via une clé USB.',
+                'privacy_badge': 'Traitement 100 % local : vos images ne quittent jamais votre appareil.',
+                'units': 'o|Ko|Mo|Go',
+                'view_product': 'Voir le produit',
+                'close': 'Fermer',
+
+                // Produits, footer et mentions légales
                 'products_title': 'Accessoires recommandés pour Samsung The Frame',
                 'products_subtitle': 'Découvrez notre sélection d\'accessoires compatibles avec votre TV The Frame',
                 'products_note': 'Note: Ces liens sont des liens d\'affiliation. Si vous effectuez un achat via ces liens, je pourrais recevoir une petite commission sans frais supplémentaires pour vous.',
-                
-                // Footer
                 'footer_text': 'Outil de redimensionnement d\'images pour Samsung The Frame - Design inspiré de Spotify',
                 'legal_link': 'Mentions légales & RGPD',
                 'privacy_link': 'Politique de confidentialité',
-                
-                // Modal mentions légales
                 'legal_title': 'Mentions légales & RGPD',
                 'legal_section1_title': 'Éditeur du site',
                 'legal_section1_content': 'Le présent site est édité par [Nom de l\'entreprise], société [forme juridique] au capital de [montant du capital] €, immatriculée au RCS de [ville] sous le numéro [numéro RCS], dont le siège social est situé [adresse complète].',
@@ -1221,66 +1617,62 @@
                 'legal_section8_content': 'Pour toute question relative aux présentes mentions légales ou à la protection de vos données, vous pouvez nous contacter à l\'adresse suivante : [adresse email de contact].'
             },
             en: {
-                // General titles
+                // Interface
                 'app_title': 'Image Resizer for The Frame',
-                'resizer_btn': 'Image Resizer',
-                'products_btn': 'Recommended Products',
-                
-                // Steps
-                'steps_title': 'Resizing Steps',
-                'step1_title': '1. Upload your image',
-                'step1_desc': 'Select your image from your device',
-                'step2_title': '2. Select the dimension',
-                'step2_desc': 'Choose your Samsung The Frame TV model',
-                'step3_title': '3. Check the preview',
-                'step3_desc': 'Check the result before downloading',
-                'step4_title': '4. Download',
-                'step4_desc': 'Get your perfectly sized image',
-                
-                // Step labels
-                'step1_label': 'Step 1',
-                'step2_label': 'Step 2',
-                'step3_label': 'Step 3',
-                'step4_label': 'Step 4',
-                
-                // Upload section
-                'upload_title': 'Upload your image',
-                'upload_text': 'Click to select your image',
-                'continue_step2': 'Continue to step 2',
-                
-                // Dimension section
-                'dimension_title': 'Select your TV dimension',
-                'custom_dimension': 'Custom',
-                'other_dimension': 'Other dimension',
-                'custom_dimensions': 'Custom dimensions',
-                'width_placeholder': 'Width',
-                'height_placeholder': 'Height',
-                'back_step1': 'Back to step 1',
-                'continue_preview': 'Continue to preview',
-                
-                // Preview section
-                'preview_title': 'Preview and download',
-                'preview_placeholder': 'The resized image will appear here',
-                'original_dimensions': 'Original dimensions:',
-                'new_dimensions': 'New dimensions:',
-                'file_size': 'File size:',
-                'file_format': 'Format:',
-                'back_dimensions': 'Back to dimensions',
-                'download_resized': 'Download resized image',
-                'restart': 'Start over',
-                'resizing_in_progress': 'Resizing in progress...',
-                
-                // Products section
+                'app_heading': 'Perfectly sized images for The Frame',
+                'app_tagline': 'Import, adjust, download. Everything happens in your browser.',
+                'tab_resizer': 'Resize',
+                'tab_products': 'Accessories',
+                'step1_label': 'Import',
+                'step2_label': 'Adjust',
+                'step3_label': 'Download',
+                'drop_title': 'Drag & drop your image here',
+                'drop_or': 'or',
+                'drop_browse': 'browse your files',
+                'drop_hint': 'JPG, PNG, WebP… · Tip: paste an image with Ctrl+V',
+                'drop_overlay': 'Drop your image',
+                'preview_label': 'Resized image preview',
+                'original': 'Original',
+                'output': 'Output',
+                'drag_hint': 'Drag the preview to reframe',
+                'recenter': 'Recenter',
+                'change_image': 'Change image',
+                'tv_size': 'Your TV size',
+                'custom': 'Other',
+                'width': 'Width',
+                'height': 'Height',
+                'custom_hint': 'Between 16 and 8192 px',
+                'orientation': 'Orientation',
+                'landscape': 'Landscape',
+                'portrait': 'Portrait',
+                'framing': 'Framing',
+                'fit_cover': 'Fill',
+                'fit_cover_desc': 'Cropped',
+                'fit_contain': 'Fit',
+                'fit_contain_desc': 'Black bars',
+                'fit_blur': 'Blurred',
+                'fit_blur_desc': 'Matching edges',
+                'download': 'Download image',
+                'preparing': 'Preparing…',
+                'upscale_warning': 'Your image is smaller than the screen: it will be enlarged to {pct}% and may look blurry.',
+                'err_not_image': 'This file is not an image.',
+                'err_decode': 'Unable to read this image (HEIC format?). Convert it to JPEG or PNG.',
+                'err_export': 'Export failed. Try a smaller size.',
+                'toast_done': 'Image downloaded: {name}',
+                'next_title': 'What next?',
+                'next_text': 'Send the image to your TV with the SmartThings app (Art Mode › Add your photos) or a USB drive.',
+                'privacy_badge': 'Processed 100% locally: your images never leave your device.',
+                'units': 'B|KB|MB|GB',
+                'view_product': 'View product',
+                'close': 'Close',
+
+                // Produits, footer et mentions légales
                 'products_title': 'Recommended Accessories for Samsung The Frame',
                 'products_subtitle': 'Discover our selection of accessories compatible with your The Frame TV',
                 'products_note': 'Note: These are affiliate links. If you make a purchase through these links, I may receive a small commission at no extra cost to you.',
-                
-                // Footer
                 'footer_text': 'Image resizing tool for Samsung The Frame - Design inspired by Spotify',
                 'legal_link': 'Legal Notice & GDPR',
                 'privacy_link': 'Privacy Policy',
-                
-                // Modal legal notice
                 'legal_title': 'Legal Notice & GDPR',
                 'legal_section1_title': 'Site Editor',
                 'legal_section1_content': 'This site is published by [Company Name], a [legal form] company with a capital of [capital amount] €, registered with the RCS of [city] under number [RCS number], whose registered office is located at [full address].',
@@ -1301,66 +1693,62 @@
                 'legal_section8_content': 'For any questions regarding these legal notices or the protection of your data, you can contact us at the following address: [contact email address].'
             },
             es: {
-                // Títulos generales
+                // Interfaz
                 'app_title': 'Redimensionador de Imágenes para The Frame',
-                'resizer_btn': 'Redimensionador de Imágenes',
-                'products_btn': 'Productos Recomendados',
-                
-                // Pasos
-                'steps_title': 'Pasos de Redimensionamiento',
-                'step1_title': '1. Sube tu imagen',
-                'step1_desc': 'Selecciona tu imagen desde tu dispositivo',
-                'step2_title': '2. Selecciona la dimensión',
-                'step2_desc': 'Elige tu modelo de TV Samsung The Frame',
-                'step3_title': '3. Verifica la vista previa',
-                'step3_desc': 'Controla el resultado antes de descargar',
-                'step4_title': '4. Descarga',
-                'step4_desc': 'Obtén tu imagen perfectamente dimensionada',
-                
-                // Etiquetas de pasos
-                'step1_label': 'Paso 1',
-                'step2_label': 'Paso 2',
-                'step3_label': 'Paso 3',
-                'step4_label': 'Paso 4',
-                
-                // Sección de subida
-                'upload_title': 'Subir tu imagen',
-                'upload_text': 'Haz clic para seleccionar tu imagen',
-                'continue_step2': 'Continuar al paso 2',
-                
-                // Sección de dimensiones
-                'dimension_title': 'Selecciona la dimensión de tu TV',
-                'custom_dimension': 'Personalizado',
-                'other_dimension': 'Otra dimensión',
-                'custom_dimensions': 'Dimensiones personalizadas',
-                'width_placeholder': 'Ancho',
-                'height_placeholder': 'Alto',
-                'back_step1': 'Volver al paso 1',
-                'continue_preview': 'Continuar a la vista previa',
-                
-                // Sección de vista previa
-                'preview_title': 'Vista previa y descarga',
-                'preview_placeholder': 'La imagen redimensionada aparecerá aquí',
-                'original_dimensions': 'Dimensiones originales:',
-                'new_dimensions': 'Nuevas dimensiones:',
-                'file_size': 'Tamaño del archivo:',
-                'file_format': 'Formato:',
-                'back_dimensions': 'Volver a dimensiones',
-                'download_resized': 'Descargar imagen redimensionada',
-                'restart': 'Comenzar de nuevo',
-                'resizing_in_progress': 'Redimensionando...',
-                
-                // Sección de productos
+                'app_heading': 'Tus imágenes en el formato perfecto para The Frame',
+                'app_tagline': 'Sube, ajusta, descarga. Todo ocurre en tu navegador.',
+                'tab_resizer': 'Redimensionar',
+                'tab_products': 'Accesorios',
+                'step1_label': 'Subir',
+                'step2_label': 'Ajustar',
+                'step3_label': 'Descargar',
+                'drop_title': 'Arrastra y suelta tu imagen aquí',
+                'drop_or': 'o',
+                'drop_browse': 'explora tus archivos',
+                'drop_hint': 'JPG, PNG, WebP… · Consejo: pega una imagen con Ctrl+V',
+                'drop_overlay': 'Suelta tu imagen',
+                'preview_label': 'Vista previa de la imagen redimensionada',
+                'original': 'Original',
+                'output': 'Salida',
+                'drag_hint': 'Arrastra la vista previa para reencuadrar',
+                'recenter': 'Centrar',
+                'change_image': 'Cambiar imagen',
+                'tv_size': 'Tamaño de tu TV',
+                'custom': 'Otro',
+                'width': 'Ancho',
+                'height': 'Alto',
+                'custom_hint': 'Entre 16 y 8192 px',
+                'orientation': 'Orientación',
+                'landscape': 'Horizontal',
+                'portrait': 'Vertical',
+                'framing': 'Encuadre',
+                'fit_cover': 'Rellenar',
+                'fit_cover_desc': 'Recortada',
+                'fit_contain': 'Completa',
+                'fit_contain_desc': 'Bandas negras',
+                'fit_blur': 'Difuminado',
+                'fit_blur_desc': 'Bordes a juego',
+                'download': 'Descargar imagen',
+                'preparing': 'Preparando…',
+                'upscale_warning': 'Tu imagen es más pequeña que la pantalla: se ampliará al {pct} % y puede verse borrosa.',
+                'err_not_image': 'Este archivo no es una imagen.',
+                'err_decode': 'No se puede leer esta imagen (¿formato HEIC?). Conviértela a JPEG o PNG.',
+                'err_export': 'La exportación falló. Prueba con un tamaño menor.',
+                'toast_done': 'Imagen descargada: {name}',
+                'next_title': '¿Y ahora?',
+                'next_text': 'Envía la imagen a tu TV con la app SmartThings (Modo Arte › Añadir tus fotos) o con una memoria USB.',
+                'privacy_badge': 'Procesamiento 100 % local: tus imágenes nunca salen de tu dispositivo.',
+                'units': 'B|KB|MB|GB',
+                'view_product': 'Ver producto',
+                'close': 'Cerrar',
+
+                // Produits, footer et mentions légales
                 'products_title': 'Accesorios Recomendados para Samsung The Frame',
                 'products_subtitle': 'Descubre nuestra selección de accesorios compatibles con tu TV The Frame',
                 'products_note': 'Nota: Estos son enlaces de afiliados. Si realizas una compra a través de estos enlaces, puedo recibir una pequeña comisión sin costo adicional para ti.',
-                
-                // Footer
                 'footer_text': 'Herramienta de redimensionamiento de imágenes para Samsung The Frame - Diseño inspirado en Spotify',
                 'legal_link': 'Aviso Legal & RGPD',
                 'privacy_link': 'Política de Privacidad',
-                
-                // Modal aviso legal
                 'legal_title': 'Aviso Legal & RGPD',
                 'legal_section1_title': 'Editor del sitio',
                 'legal_section1_content': 'El presente sitio es editado por [Nombre de la empresa], sociedad [forma jurídica] con un capital de [monto del capital] €, inscrita en el RCS de [ciudad] bajo el número [número RCS], cuya sede social se encuentra en [dirección completa].',
@@ -1381,66 +1769,62 @@
                 'legal_section8_content': 'Para cualquier pregunta relacionada con este aviso legal o la protección de sus datos, puede contactarnos en la siguiente dirección: [dirección de correo electrónico de contacto].'
             },
             de: {
-                // Allgemeine Titel
+                // Oberfläche
                 'app_title': 'Bildgrößenänderer für The Frame',
-                'resizer_btn': 'Bildgrößenänderer',
-                'products_btn': 'Empfohlene Produkte',
-                
-                // Schritte
-                'steps_title': 'Schritte zur Größenänderung',
-                'step1_title': '1. Laden Sie Ihr Bild hoch',
-                'step1_desc': 'Wählen Sie Ihr Bild von Ihrem Gerät aus',
-                'step2_title': '2. Wählen Sie die Dimension',
-                'step2_desc': 'Wählen Sie Ihr Samsung The Frame TV-Modell',
-                'step3_title': '3. Überprüfen Sie die Vorschau',
-                'step3_desc': 'Überprüfen Sie das Ergebnis vor dem Herunterladen',
-                'step4_title': '4. Herunterladen',
-                'step4_desc': 'Holen Sie sich Ihr perfekt dimensioniertes Bild',
-                
-                // Schrittbeschriftungen
-                'step1_label': 'Schritt 1',
-                'step2_label': 'Schritt 2',
-                'step3_label': 'Schritt 3',
-                'step4_label': 'Schritt 4',
-                
-                // Upload-Bereich
-                'upload_title': 'Laden Sie Ihr Bild hoch',
-                'upload_text': 'Klicken Sie, um Ihr Bild auszuwählen',
-                'continue_step2': 'Weiter zu Schritt 2',
-                
-                // Dimensionsbereich
-                'dimension_title': 'Wählen Sie Ihre TV-Dimension',
-                'custom_dimension': 'Benutzerdefiniert',
-                'other_dimension': 'Andere Dimension',
-                'custom_dimensions': 'Benutzerdefinierte Dimensionen',
-                'width_placeholder': 'Breite',
-                'height_placeholder': 'Höhe',
-                'back_step1': 'Zurück zu Schritt 1',
-                'continue_preview': 'Weiter zur Vorschau',
-                
-                // Vorschaubereich
-                'preview_title': 'Vorschau und Download',
-                'preview_placeholder': 'Das angepasste Bild wird hier angezeigt',
-                'original_dimensions': 'Originalgröße:',
-                'new_dimensions': 'Neue Größe:',
-                'file_size': 'Dateigröße:',
-                'file_format': 'Format:',
-                'back_dimensions': 'Zurück zu Dimensionen',
-                'download_resized': 'Angepasstes Bild herunterladen',
-                'restart': 'Neu starten',
-                'resizing_in_progress': 'Größenänderung läuft...',
-                
-                // Produkte-Bereich
+                'app_heading': 'Ihre Bilder im perfekten Format für The Frame',
+                'app_tagline': 'Hochladen, anpassen, herunterladen. Alles passiert in Ihrem Browser.',
+                'tab_resizer': 'Größe ändern',
+                'tab_products': 'Zubehör',
+                'step1_label': 'Hochladen',
+                'step2_label': 'Anpassen',
+                'step3_label': 'Herunterladen',
+                'drop_title': 'Bild hierher ziehen und ablegen',
+                'drop_or': 'oder',
+                'drop_browse': 'Dateien durchsuchen',
+                'drop_hint': 'JPG, PNG, WebP… · Tipp: Bild mit Strg+V einfügen',
+                'drop_overlay': 'Bild hier ablegen',
+                'preview_label': 'Vorschau des angepassten Bildes',
+                'original': 'Original',
+                'output': 'Ausgabe',
+                'drag_hint': 'Vorschau ziehen, um den Ausschnitt anzupassen',
+                'recenter': 'Zentrieren',
+                'change_image': 'Bild ändern',
+                'tv_size': 'Größe Ihres TVs',
+                'custom': 'Andere',
+                'width': 'Breite',
+                'height': 'Höhe',
+                'custom_hint': 'Zwischen 16 und 8192 px',
+                'orientation': 'Ausrichtung',
+                'landscape': 'Quer',
+                'portrait': 'Hoch',
+                'framing': 'Bildausschnitt',
+                'fit_cover': 'Füllen',
+                'fit_cover_desc': 'Zugeschnitten',
+                'fit_contain': 'Ganz',
+                'fit_contain_desc': 'Schwarze Balken',
+                'fit_blur': 'Unscharf',
+                'fit_blur_desc': 'Passende Ränder',
+                'download': 'Bild herunterladen',
+                'preparing': 'Wird vorbereitet…',
+                'upscale_warning': 'Ihr Bild ist kleiner als der Bildschirm: Es wird auf {pct} % vergrößert und kann unscharf wirken.',
+                'err_not_image': 'Diese Datei ist kein Bild.',
+                'err_decode': 'Dieses Bild kann nicht gelesen werden (HEIC-Format?). Konvertieren Sie es in JPEG oder PNG.',
+                'err_export': 'Export fehlgeschlagen. Versuchen Sie eine kleinere Größe.',
+                'toast_done': 'Bild heruntergeladen: {name}',
+                'next_title': 'Und jetzt?',
+                'next_text': 'Übertragen Sie das Bild mit der SmartThings-App (Art Mode › Eigene Fotos hinzufügen) oder per USB-Stick auf Ihren TV.',
+                'privacy_badge': '100 % lokale Verarbeitung: Ihre Bilder verlassen nie Ihr Gerät.',
+                'units': 'B|KB|MB|GB',
+                'view_product': 'Produkt ansehen',
+                'close': 'Schließen',
+
+                // Produits, footer et mentions légales
                 'products_title': 'Empfohlenes Zubehör für Samsung The Frame',
                 'products_subtitle': 'Entdecken Sie unsere Auswahl an Zubehör, das mit Ihrem The Frame TV kompatibel ist',
                 'products_note': 'Hinweis: Dies sind Affiliate-Links. Wenn Sie einen Kauf über diese Links tätigen, erhalte ich möglicherweise eine kleine Provision ohne zusätzliche Kosten für Sie.',
-                
-                // Footer
                 'footer_text': 'Bildgrößenänderungstool für Samsung The Frame - Design inspiriert von Spotify',
                 'legal_link': 'Impressum & DSGVO',
                 'privacy_link': 'Datenschutzrichtlinie',
-                
-                // Modal Impressum
                 'legal_title': 'Impressum & DSGVO',
                 'legal_section1_title': 'Herausgeber der Website',
                 'legal_section1_content': 'Diese Website wird herausgegeben von [Firmenname], einer [Rechtsform] mit einem Kapital von [Kapitalbetrag] €, eingetragen im Handelsregister von [Stadt] unter der Nummer [Handelsregisternummer], deren Hauptsitz sich unter [vollständige Adresse] befindet.',
@@ -1520,559 +1904,713 @@
             }
         ];
 
-        document.addEventListener('DOMContentLoaded', function() {
+        // Modèles The Frame : 32" en Full HD, 43" et plus en 4K UHD
+        const PRESETS = [
+            { id: '32', w: 1920, h: 1080, tag: 'Full HD' },
+            { id: '43', w: 3840, h: 2160, tag: '4K' },
+            { id: '50', w: 3840, h: 2160, tag: '4K' },
+            { id: '55', w: 3840, h: 2160, tag: '4K' },
+            { id: '65', w: 3840, h: 2160, tag: '4K' },
+            { id: '75', w: 3840, h: 2160, tag: '4K' },
+            { id: '85', w: 3840, h: 2160, tag: '4K' },
+            { id: 'custom' }
+        ];
+        const MIN_DIM = 16;
+        const MAX_DIM = 8192;
+        const JPEG_QUALITY = 0.95;
+
+        (function () {
+            const $ = (id) => document.getElementById(id);
+            const clamp01 = (v) => Math.min(1, Math.max(0, v));
+
+            // Préférences persistées (localStorage peut être indisponible en navigation privée)
+            const prefs = {
+                get(key) {
+                    try { return localStorage.getItem(key); } catch (e) { return null; }
+                },
+                set(key, value) {
+                    try { localStorage.setItem(key, value); } catch (e) { /* ignoré */ }
+                }
+            };
+
             // Références aux éléments DOM
-            const fileInput = document.getElementById('fileInput');
-            const uploadArea = document.getElementById('uploadArea');
-            const selectedFilesContainer = document.getElementById('selectedFiles');
-            const dimensionOptions = document.querySelectorAll('.dimension-option');
-            const customDimension = document.getElementById('customDimension');
-            const customWidth = document.getElementById('customWidth');
-            const customHeight = document.getElementById('customHeight');
-            const previewCanvas = document.getElementById('previewCanvas');
-            const ctx = previewCanvas.getContext('2d');
-            const placeholderText = document.getElementById('placeholderText');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const originalDimensions = document.getElementById('originalDimensions');
-            const newDimensions = document.getElementById('newDimensions');
-            const fileSize = document.getElementById('fileSize');
-            const fileFormat = document.getElementById('fileFormat');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const progressBar = document.getElementById('progressBar');
-            const productsGrid = document.getElementById('productsGrid');
-            
-            // Boutons de navigation
-            const nextStep1Btn = document.getElementById('nextStep1Btn');
-            const prevStep2Btn = document.getElementById('prevStep2Btn');
-            const nextStep2Btn = document.getElementById('nextStep2Btn');
-            const prevStep3Btn = document.getElementById('prevStep3Btn');
-            const restartBtn = document.getElementById('restartBtn');
-            
-            // Navigation des étapes
-            const stepNavPrev = document.getElementById('stepNavPrev');
-            const stepNavNext = document.getElementById('stepNavNext');
-            const cardsContainer = document.getElementById('cardsContainer');
-            
-            // Sections de contenu
-            const step1Content = document.getElementById('step1Content');
-            const step2Content = document.getElementById('step2Content');
-            const step3Content = document.getElementById('step3Content');
-            
-            // Cartes d'étapes
-            const step1Card = document.getElementById('step1Card');
-            const step2Card = document.getElementById('step2Card');
-            const step3Card = document.getElementById('step3Card');
-            const step4Card = document.getElementById('step4Card');
-            
-            // Navigation principale
-            const resizerBtn = document.getElementById('resizerBtn');
-            const productsBtn = document.getElementById('productsBtn');
-            const resizerSection = document.getElementById('resizerSection');
-            const productsSection = document.getElementById('productsSection');
-            
-            // Sélecteur de langue
-            const languageSelect = document.getElementById('languageSelect');
-            
-            // Modal
-            const legalModal = document.getElementById('legalModal');
-            const legalLink = document.getElementById('legalLink');
-            const privacyLink = document.getElementById('privacyLink');
-            const closeLegalModal = document.getElementById('closeLegalModal');
-            
-            let selectedFile = null;
-            let originalImage = null;
-            let resizedImage = null;
-            let targetWidth = 1920;
-            let targetHeight = 1080;
-            let currentStep = 1;
-            let currentLanguage = 'fr';
-            
-            // Fonction pour générer les produits
-            function generateProducts() {
-                productsGrid.innerHTML = '';
-                
-                products.forEach(product => {
-                    const productCard = document.createElement('div');
-                    productCard.className = 'product-card';
-                    productCard.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x200/282828/FFFFFF?text=Image+Non+Disponible'">
-                        <div class="product-content">
-                            <div class="product-category">${product.category}</div>
-                            <h3 class="product-name">${product.name}</h3>
-                            <p class="product-description">${product.description}</p>
-                            <div class="product-price">${product.price}</div>
-                            <a href="${product.link}" class="product-link" target="_blank" data-translate="view_product">Voir le produit</a>
-                        </div>
-                    `;
-                    productsGrid.appendChild(productCard);
-                });
+            const uploadArea = $('uploadArea');
+            const fileInput = $('fileInput');
+            const editor = $('editor');
+            const stageWrap = $('stageWrap');
+            const stage = $('stage');
+            const previewCanvas = $('previewCanvas');
+            const previewCtx = previewCanvas.getContext('2d');
+            const originalDimensions = $('originalDimensions');
+            const newDimensions = $('newDimensions');
+            const dragHint = $('dragHint');
+            const upscaleWarning = $('upscaleWarning');
+            const upscaleText = $('upscaleText');
+            const thumb = $('thumb');
+            const fileNameEl = $('fileName');
+            const fileSubEl = $('fileSub');
+            const sizeChips = $('sizeChips');
+            const customDimension = $('customDimension');
+            const customWidth = $('customWidth');
+            const customHeight = $('customHeight');
+            const orientationField = $('orientationField');
+            const downloadBtn = $('downloadBtn');
+            const downloadLabel = $('downloadLabel');
+            const nextSteps = $('nextSteps');
+            const productsGrid = $('productsGrid');
+            const resizerBtn = $('resizerBtn');
+            const productsBtn = $('productsBtn');
+            const resizerSection = $('resizerSection');
+            const productsSection = $('productsSection');
+            const languageSelect = $('languageSelect');
+            const legalModal = $('legalModal');
+            const toastRegion = $('toastRegion');
+            const stepEls = document.querySelectorAll('#stepper .step');
+
+            const state = {
+                lang: 'fr',
+                image: null,
+                objectUrl: null,
+                file: null,
+                baseName: 'image',
+                preset: '55',
+                custom: { w: 3840, h: 2160 },
+                orientation: 'landscape',
+                fit: 'cover',
+                offsetX: 0.5,
+                offsetY: 0.5,
+                downloaded: false
+            };
+
+            // Restaurer les derniers réglages
+            const savedPreset = prefs.get('preset');
+            if (PRESETS.some(p => p.id === savedPreset)) state.preset = savedPreset;
+            if (['landscape', 'portrait'].includes(prefs.get('orientation'))) state.orientation = prefs.get('orientation');
+            if (['cover', 'contain', 'blur'].includes(prefs.get('fit'))) state.fit = prefs.get('fit');
+            const savedCustom = (prefs.get('custom') || '').split('x').map(Number);
+            if (savedCustom.length === 2 && savedCustom.every(isValidDim)) {
+                state.custom = { w: savedCustom[0], h: savedCustom[1] };
             }
-            
-            // Fonction de traduction
+
+            // ---------- Traduction ----------
+            function t(key, vars) {
+                const dict = translations[state.lang] || translations.fr;
+                let text = dict[key] !== undefined ? dict[key] : (translations.fr[key] !== undefined ? translations.fr[key] : key);
+                if (vars) text = text.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? vars[name] : match));
+                return text;
+            }
+
             function translatePage(lang) {
-                currentLanguage = lang;
-                
-                // Mettre à jour tous les éléments avec data-translate
-                document.querySelectorAll('[data-translate]').forEach(element => {
-                    const key = element.getAttribute('data-translate');
-                    if (translations[lang] && translations[lang][key]) {
-                        element.textContent = translations[lang][key];
-                    }
+                state.lang = translations[lang] ? lang : 'fr';
+                document.documentElement.lang = state.lang;
+                document.title = t('app_title');
+
+                document.querySelectorAll('[data-translate]').forEach(el => {
+                    el.textContent = t(el.dataset.translate);
                 });
-                
-                // Mettre à jour les placeholders
-                document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
-                    const key = element.getAttribute('data-translate-placeholder');
-                    if (translations[lang] && translations[lang][key]) {
-                        element.placeholder = translations[lang][key];
-                    }
+                document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+                    el.placeholder = t(el.dataset.translatePlaceholder);
                 });
-                
-                // Mettre à jour les textes dans les boutons avec des icônes
-                const downloadBtnText = document.querySelector('#downloadBtn span');
-                if (downloadBtnText && translations[lang] && translations[lang]['download_resized']) {
-                    downloadBtnText.textContent = translations[lang]['download_resized'];
-                }
-                
-                const restartBtnText = document.querySelector('#restartBtn span');
-                if (restartBtnText && translations[lang] && translations[lang]['restart']) {
-                    restartBtnText.textContent = translations[lang]['restart'];
-                }
-                
-                // Mettre à jour le sélecteur de langue
-                languageSelect.value = lang;
-                
-                // Sauvegarder la langue dans le localStorage
-                localStorage.setItem('language', lang);
-            }
-            
-            // Fonctions pour gérer le modal
-            function openLegalModal() {
-                legalModal.style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Empêcher le défilement
-            }
-            
-            function closeLegalModalFunc() {
-                legalModal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Rétablir le défilement
-            }
-            
-            // Mettre à jour la barre de progression
-            function updateProgressBar() {
-                const progress = (currentStep / 4) * 100;
-                progressBar.style.width = `${progress}%`;
-            }
-            
-            // Navigation entre les étapes
-            function goToStep(step) {
-                // Masquer toutes les sections
-                step1Content.classList.add('section-hidden');
-                step2Content.classList.add('section-hidden');
-                step3Content.classList.add('section-hidden');
-                
-                // Désactiver toutes les cartes
-                step1Card.classList.remove('active', 'completed');
-                step2Card.classList.remove('active', 'completed');
-                step3Card.classList.remove('active', 'completed');
-                step4Card.classList.remove('active', 'completed');
-                
-                // Afficher la section correspondante et activer la carte
-                if (step === 1) {
-                    step1Content.classList.remove('section-hidden');
-                    step1Card.classList.add('active');
-                    currentStep = 1;
-                } else if (step === 2) {
-                    step2Content.classList.remove('section-hidden');
-                    step1Card.classList.add('completed');
-                    step2Card.classList.add('active');
-                    currentStep = 2;
-                } else if (step === 3) {
-                    step3Content.classList.remove('section-hidden');
-                    step1Card.classList.add('completed');
-                    step2Card.classList.add('completed');
-                    step3Card.classList.add('active');
-                    currentStep = 3;
-                    
-                    // Redimensionner l'image quand on arrive à l'étape 3
-                    resizeImage();
-                }
-                
-                updateProgressBar();
-            }
-            
-            // Événements de navigation
-            nextStep1Btn.addEventListener('click', () => goToStep(2));
-            prevStep2Btn.addEventListener('click', () => goToStep(1));
-            nextStep2Btn.addEventListener('click', () => goToStep(3));
-            prevStep3Btn.addEventListener('click', () => goToStep(2));
-            restartBtn.addEventListener('click', () => {
-                // Réinitialiser l'application
-                selectedFile = null;
-                originalImage = null;
-                resizedImage = null;
-                selectedFilesContainer.innerHTML = '';
-                uploadArea.innerHTML = `
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p data-translate="upload_text">Cliquez pour sélectionner votre image</p>
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                `;
-                // Retraduire le texte de l'upload area
-                const uploadText = uploadArea.querySelector('p');
-                if (uploadText && translations[currentLanguage] && translations[currentLanguage]['upload_text']) {
-                    uploadText.textContent = translations[currentLanguage]['upload_text'];
-                }
-                
-                nextStep1Btn.disabled = true;
-                downloadBtn.disabled = true;
-                placeholderText.style.display = 'block';
-                goToStep(1);
-            });
-            
-            // Navigation des étapes avec les flèches
-            stepNavPrev.addEventListener('click', () => {
-                cardsContainer.scrollBy({
-                    left: -250,
-                    behavior: 'smooth'
+                document.querySelectorAll('[data-translate-label]').forEach(el => {
+                    el.setAttribute('aria-label', t(el.dataset.translateLabel));
+                    el.title = t(el.dataset.translateLabel);
                 });
-            });
-            
-            stepNavNext.addEventListener('click', () => {
-                cardsContainer.scrollBy({
-                    left: 250,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Navigation principale
-            resizerBtn.addEventListener('click', () => {
-                resizerBtn.classList.add('active');
-                productsBtn.classList.remove('active');
-                resizerSection.classList.remove('section-hidden');
-                productsSection.classList.add('section-hidden');
-            });
-            
-            productsBtn.addEventListener('click', () => {
-                productsBtn.classList.add('active');
-                resizerBtn.classList.remove('active');
-                productsSection.classList.remove('section-hidden');
-                resizerSection.classList.add('section-hidden');
-            });
-            
-            // Gestion du modal
-            legalLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                openLegalModal();
-            });
-            
-            privacyLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                openLegalModal();
-            });
-            
-            closeLegalModal.addEventListener('click', closeLegalModalFunc);
-            
-            // Fermer le modal en cliquant en dehors
-            window.addEventListener('click', function(e) {
-                if (e.target === legalModal) {
-                    closeLegalModalFunc();
-                }
-            });
-            
-            // Gestion du glisser-déposer et du clic pour télécharger
-            uploadArea.addEventListener('click', () => fileInput.click());
-            
-            uploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadArea.style.borderColor = 'var(--spotify-green)';
-                uploadArea.style.backgroundColor = 'rgba(29, 185, 84, 0.05)';
-            });
-            
-            uploadArea.addEventListener('dragleave', () => {
-                uploadArea.style.borderColor = 'var(--spotify-dark-gray)';
-                uploadArea.style.backgroundColor = '';
-            });
-            
-            uploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadArea.style.borderColor = 'var(--spotify-dark-gray)';
-                uploadArea.style.backgroundColor = '';
-                
-                if (e.dataTransfer.files.length) {
-                    handleFile(e.dataTransfer.files[0]);
-                }
-            });
-            
-            fileInput.addEventListener('change', (e) => {
-                if (e.target.files.length) {
-                    handleFile(e.target.files[0]);
-                }
-            });
-            
-            // Gestion de la sélection des dimensions
-            dimensionOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    dimensionOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    if (this.id === 'customOption') {
-                        customDimension.style.display = 'block';
-                        targetWidth = parseInt(customWidth.value) || 1920;
-                        targetHeight = parseInt(customHeight.value) || 1080;
-                    } else {
-                        customDimension.style.display = 'none';
-                        targetWidth = parseInt(this.dataset.width);
-                        targetHeight = parseInt(this.dataset.height);
-                    }
-                    
-                    // Mettre à jour les nouvelles dimensions affichées
-                    newDimensions.textContent = `${targetWidth} × ${targetHeight}`;
-                });
-            });
-            
-            // Mise à jour des dimensions personnalisées
-            customWidth.addEventListener('input', function() {
-                targetWidth = parseInt(this.value) || 1920;
-                newDimensions.textContent = `${targetWidth} × ${targetHeight}`;
-            });
-            
-            customHeight.addEventListener('input', function() {
-                targetHeight = parseInt(this.value) || 1080;
-                newDimensions.textContent = `${targetWidth} × ${targetHeight}`;
-            });
-            
-            // Fonction pour gérer le fichier sélectionné
-            function handleFile(file) {
-                if (!file.type.match('image.*')) {
-                    alert('Veuillez sélectionner un fichier image.');
-                    return;
-                }
-                
-                selectedFile = file;
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    originalImage = new Image();
-                    originalImage.onload = function() {
-                        originalDimensions.textContent = `${originalImage.width} × ${originalImage.height}`;
-                        fileSize.textContent = formatFileSize(file.size);
-                        fileFormat.textContent = file.type.split('/')[1].toUpperCase();
-                    };
-                    originalImage.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                
-                updateSelectedFilesList();
-                
-                // Activer le bouton pour passer à l'étape suivante
-                nextStep1Btn.disabled = false;
+
+                languageSelect.value = state.lang;
+                prefs.set('language', state.lang);
+
+                renderChips();
+                renderProducts();
+                updateInfo();
             }
-            
-            // Mettre à jour la liste des fichiers sélectionnés
-            function updateSelectedFilesList() {
-                selectedFilesContainer.innerHTML = '';
-                
-                if (!selectedFile) {
-                    uploadArea.innerHTML = `
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p data-translate="upload_text">Cliquez pour sélectionner votre image</p>
-                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                    `;
-                    // Retraduire le texte de l'upload area
-                    const uploadText = uploadArea.querySelector('p');
-                    if (uploadText && translations[currentLanguage] && translations[currentLanguage]['upload_text']) {
-                        uploadText.textContent = translations[currentLanguage]['upload_text'];
-                    }
-                    return;
-                }
-                
-                const fileSelectedText = translations[currentLanguage] && translations[currentLanguage]['upload_text'] 
-                    ? translations[currentLanguage]['upload_text'] 
-                    : 'Fichier sélectionné';
-                    
-                const clickToChangeText = translations[currentLanguage] && translations[currentLanguage]['upload_text'] 
-                    ? 'Cliquez pour changer'
-                    : 'Click to change';
-                
-                uploadArea.innerHTML = `
-                    <i class="fas fa-check-circle"></i>
-                    <p>${fileSelectedText}: ${selectedFile.name}</p>
-                    <p style="font-size: 0.8rem; margin-top: 10px; color: var(--spotify-green);">${clickToChangeText}</p>
-                `;
-                
-                const fileItem = document.createElement('div');
-                fileItem.className = 'file-item';
-                fileItem.innerHTML = `
-                    <div class="file-info">
-                        <i class="fas fa-image file-icon"></i>
-                        <span class="file-name">${selectedFile.name}</span>
-                    </div>
-                    <button class="remove-file" id="removeFileBtn">
-                        <i class="fas fa-times"></i>
-                    </button>
-                `;
-                selectedFilesContainer.appendChild(fileItem);
-                
-                // Ajouter l'événement de suppression
-                document.getElementById('removeFileBtn').addEventListener('click', function() {
-                    selectedFile = null;
-                    originalImage = null;
-                    updateSelectedFilesList();
-                    nextStep1Btn.disabled = true;
-                    placeholderText.style.display = 'block';
-                });
+
+            function detectLanguage() {
+                const saved = prefs.get('language');
+                if (saved && translations[saved]) return saved;
+                const browser = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+                return translations[browser] ? browser : 'fr';
             }
-            
-            // Fonction pour dessiner une image en conservant le ratio (sans rogner)
-            function drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
-                if (arguments.length === 2) {
-                    x = y = 0;
-                    w = ctx.canvas.width;
-                    h = ctx.canvas.height;
-                }
-                
-                // default offset is center
-                offsetX = typeof offsetX === "number" ? offsetX : 0.5;
-                offsetY = typeof offsetY === "number" ? offsetY : 0.5;
-                
-                // keep bounds [0.0, 1.0]
-                if (offsetX < 0) offsetX = 0;
-                if (offsetY < 0) offsetY = 0;
-                if (offsetX > 1) offsetX = 1;
-                if (offsetY > 1) offsetY = 1;
-                
-                var iw = img.width,
-                    ih = img.height,
-                    r = Math.min(w / iw, h / ih),
-                    nw = iw * r,   // new prop. width
-                    nh = ih * r,   // new prop. height
-                    cx, cy, cw, ch, ar = 1;
-                
-                // decide which gap to fill    
-                if (nw < w) ar = w / nw;                             
-                if (Math.abs(ar - 1) < 1e-14 && nh < h) ar = h / nh;  // updated
-                nw *= ar;
-                nh *= ar;
-                
-                // calc source rectangle
-                cw = iw / (nw / w);
-                ch = ih / (nh / h);
-                
-                cx = (iw - cw) * offsetX;
-                cy = (ih - ch) * offsetY;
-                
-                // make sure source rectangle is valid
-                if (cx < 0) cx = 0;
-                if (cy < 0) cy = 0;
-                if (cw > iw) cw = iw;
-                if (ch > ih) ch = ih;
-                
-                // fill image in dest. rectangle
-                ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
+
+            // ---------- Utilitaires ----------
+            function isValidDim(v) {
+                return Number.isInteger(v) && v >= MIN_DIM && v <= MAX_DIM;
             }
-            
-            // Fonction de redimensionnement
-            function resizeImage() {
-                if (!originalImage) return;
-                
-                loadingIndicator.style.display = 'block';
-                
-                // Simuler un temps de traitement
+
+            function escapeHtml(str) {
+                return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+            }
+
+            function formatFileSize(bytes) {
+                const units = t('units').split('|');
+                if (bytes < 1024) return `${bytes} ${units[0]}`;
+                const i = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+                const value = (bytes / Math.pow(1024, i)).toLocaleString(state.lang, { maximumFractionDigits: i > 1 ? 1 : 0 });
+                return `${value} ${units[i]}`;
+            }
+
+            function formatDims(w, h) {
+                return `${w} × ${h}`;
+            }
+
+            function toast(message, type = 'success') {
+                const icon = { success: 'check', error: 'alert', info: 'info' }[type] || 'info';
+                const el = document.createElement('div');
+                el.className = `toast toast-${type}`;
+                el.setAttribute('role', type === 'error' ? 'alert' : 'status');
+                el.innerHTML = `<svg class="i"><use href="#i-${icon}"/></svg><span></span>`;
+                el.querySelector('span').textContent = message;
+                toastRegion.appendChild(el);
                 setTimeout(() => {
-                    // Créer un canvas pour l'image finale
-                    const canvas = document.createElement('canvas');
-                    canvas.width = targetWidth;
-                    canvas.height = targetHeight;
-                    const ctx = canvas.getContext('2d');
-                    
-                    // Remplir le fond avec une couleur noire (pour les bandes si nécessaire)
-                    ctx.fillStyle = 'black';
-                    ctx.fillRect(0, 0, targetWidth, targetHeight);
-                    
-                    // Dessiner l'image redimensionnée en conservant le ratio
-                    drawImageProp(ctx, originalImage, 0, 0, targetWidth, targetHeight);
-                    
-                    resizedImage = canvas;
-                    
-                    // Afficher l'aperçu
-                    showPreview();
-                    
-                    // Activer le bouton de téléchargement
-                    downloadBtn.disabled = false;
-                    loadingIndicator.style.display = 'none';
-                    
-                    // Marquer l'étape 3 comme terminée
-                    step3Card.classList.add('completed');
-                    step4Card.classList.add('active');
-                    currentStep = 4;
-                    updateProgressBar();
-                }, 1000);
+                    el.classList.add('leaving');
+                    setTimeout(() => el.remove(), 300);
+                }, type === 'error' ? 5000 : 3500);
             }
-            
-            // Afficher l'aperçu
-            function showPreview() {
-                if (!resizedImage) return;
-                
-                // Définir la taille du canvas pour l'aperçu
-                previewCanvas.width = Math.min(targetWidth, 500);
-                previewCanvas.height = Math.min(targetHeight, 300);
-                
-                // Redessiner l'image en conservant le ratio (sans rogner)
-                ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
-                drawImageProp(ctx, resizedImage, 0, 0, previewCanvas.width, previewCanvas.height);
-                
-                // Mettre à jour les informations
-                newDimensions.textContent = `${targetWidth} × ${targetHeight}`;
-                
-                placeholderText.style.display = 'none';
+
+            // ---------- Calcul des dimensions ----------
+            function getTarget() {
+                if (state.preset === 'custom') return { w: state.custom.w, h: state.custom.h };
+                const preset = PRESETS.find(p => p.id === state.preset);
+                const long = Math.max(preset.w, preset.h);
+                const short = Math.min(preset.w, preset.h);
+                return state.orientation === 'portrait' ? { w: short, h: long } : { w: long, h: short };
             }
-            
-            // Gestion du téléchargement
-            downloadBtn.addEventListener('click', function() {
-                if (!resizedImage) return;
-                
-                resizedImage.toBlob(function(blob) {
+
+            // Débordement (en px) de l'image recadrée par rapport à une zone W × H
+            function overflow(W, H) {
+                const iw = state.image.naturalWidth;
+                const ih = state.image.naturalHeight;
+                const s = Math.max(W / iw, H / ih);
+                return { x: iw * s - W, y: ih * s - H };
+            }
+
+            function isDraggable() {
+                if (!state.image || state.fit !== 'cover') return false;
+                const { w, h } = getTarget();
+                const ex = overflow(w, h);
+                return ex.x / w > 0.005 || ex.y / h > 0.005;
+            }
+
+            // ---------- Rendu ----------
+            // Dessine la composition finale dans un contexte de taille W × H.
+            // Utilisé à l'identique pour l'aperçu et pour l'export : ce que l'on voit est ce que l'on obtient.
+            function drawComposition(ctx, W, H) {
+                const img = state.image;
+                const iw = img.naturalWidth;
+                const ih = img.naturalHeight;
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, W, H);
+
+                if (state.fit === 'cover') {
+                    const s = Math.max(W / iw, H / ih);
+                    const dw = iw * s;
+                    const dh = ih * s;
+                    ctx.drawImage(img, (W - dw) * state.offsetX, (H - dh) * state.offsetY, dw, dh);
+                    return;
+                }
+
+                if (state.fit === 'blur') drawBlurredBackdrop(ctx, W, H);
+
+                const s = Math.min(W / iw, H / ih);
+                const dw = iw * s;
+                const dh = ih * s;
+                ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
+            }
+
+            function makeCanvas(width, ratio) {
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = Math.max(1, Math.round(width * ratio));
+                const c = canvas.getContext('2d');
+                c.imageSmoothingEnabled = true;
+                c.imageSmoothingQuality = 'high';
+                return { canvas, c };
+            }
+
+            // Fond flou calculé sur une petite image puis agrandi : rapide même en 4K.
+            // Utilise le filtre canvas quand il existe, sinon une suite de réductions/agrandissements.
+            function drawBlurredBackdrop(ctx, W, H) {
+                const ratio = H / W;
+                const img = state.image;
+                const iw = img.naturalWidth;
+                const ih = img.naturalHeight;
+                // Couvre la zone avec 10 % de marge pour éviter les bords sombres du flou
+                const drawCover = (c, w, h) => {
+                    const s = Math.max(w / iw, h / ih) * 1.1;
+                    c.drawImage(img, (w - iw * s) / 2, (h - ih * s) / 2, iw * s, ih * s);
+                };
+
+                let { canvas: source, c } = makeCanvas(160, ratio);
+                if (typeof c.filter === 'string') {
+                    c.filter = 'blur(8px)';
+                    drawCover(c, source.width, source.height);
+                } else {
+                    drawCover(c, source.width, source.height);
+                    [20, 80, 160].forEach(width => {
+                        const next = makeCanvas(width, ratio);
+                        next.c.drawImage(source, 0, 0, next.canvas.width, next.canvas.height);
+                        source = next.canvas;
+                    });
+                }
+                ctx.drawImage(source, 0, 0, W, H);
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.fillRect(0, 0, W, H);
+            }
+
+            function renderPreview() {
+                if (!state.image) return;
+                drawComposition(previewCtx, previewCanvas.width, previewCanvas.height);
+            }
+
+            let renderFrame = 0;
+            function scheduleRender() {
+                if (renderFrame) return;
+                renderFrame = requestAnimationFrame(() => {
+                    renderFrame = 0;
+                    renderPreview();
+                });
+            }
+
+            // Adapte la zone d'aperçu au ratio de sortie (sans dépasser la hauteur de l'écran)
+            let lastRatio = 0;
+            function layoutStage() {
+                if (editor.hidden || !state.image) return;
+                const { w, h } = getTarget();
+                const ratio = w / h;
+                const availableWidth = stageWrap.clientWidth - 16;
+                const maxHeight = Math.min(window.innerHeight * 0.62, 640);
+                const cssWidth = Math.max(80, Math.min(availableWidth, maxHeight * ratio));
+                const cssHeight = cssWidth / ratio;
+                stage.style.width = `${cssWidth}px`;
+                stage.style.height = `${cssHeight}px`;
+
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                previewCanvas.width = Math.round(cssWidth * dpr);
+                previewCanvas.height = Math.round(cssHeight * dpr);
+                renderPreview();
+
+                if (lastRatio && Math.abs(lastRatio - ratio) > 0.001 && stage.animate) {
+                    stage.animate([{ opacity: 0.3, transform: 'scale(0.98)' }, { opacity: 1, transform: 'none' }], { duration: 250, easing: 'ease-out' });
+                }
+                lastRatio = ratio;
+            }
+
+            // ---------- Mise à jour de l'interface ----------
+            function updateInfo() {
+                if (!state.image) return;
+                const { w, h } = getTarget();
+                const iw = state.image.naturalWidth;
+                const ih = state.image.naturalHeight;
+
+                originalDimensions.textContent = formatDims(iw, ih);
+                newDimensions.textContent = formatDims(w, h);
+
+                const ext = (state.file.type.split('/')[1] || state.file.name.split('.').pop() || '').toUpperCase().replace('JPEG', 'JPG');
+                fileSubEl.textContent = [formatFileSize(state.file.size), ext].filter(Boolean).join(' · ');
+
+                const scale = state.fit === 'cover' ? Math.max(w / iw, h / ih) : Math.min(w / iw, h / ih);
+                upscaleWarning.hidden = scale <= 1.15;
+                upscaleText.textContent = t('upscale_warning', { pct: Math.round(scale * 100) });
+
+                const draggable = isDraggable();
+                dragHint.hidden = !draggable;
+                stage.classList.toggle('is-draggable', draggable);
+            }
+
+            function updateControls() {
+                sizeChips.querySelectorAll('.chip').forEach(chip => {
+                    const on = chip.dataset.preset === state.preset;
+                    chip.classList.toggle('active', on);
+                    chip.setAttribute('aria-checked', on);
+                });
+                document.querySelectorAll('.segmented').forEach(group => {
+                    const buttons = Array.from(group.querySelectorAll('.seg'));
+                    buttons.forEach((btn, idx) => {
+                        const on = btn.dataset.fit ? btn.dataset.fit === state.fit : btn.dataset.orientation === state.orientation;
+                        btn.classList.toggle('active', on);
+                        btn.setAttribute('aria-checked', on);
+                        if (on) group.style.setProperty('--idx', idx);
+                    });
+                });
+                const isCustom = state.preset === 'custom';
+                customDimension.hidden = !isCustom;
+                orientationField.disabled = isCustom;
+            }
+
+            function updateStepper() {
+                const current = !state.image ? 1 : (state.downloaded ? 4 : 2);
+                stepEls.forEach(el => {
+                    const n = Number(el.dataset.step);
+                    el.classList.toggle('done', n < current);
+                    el.classList.toggle('active', n === current);
+                    if (n === current) el.setAttribute('aria-current', 'step');
+                    else el.removeAttribute('aria-current');
+                });
+            }
+
+            function onSettingsChange() {
+                updateControls();
+                updateInfo();
+                layoutStage();
+            }
+
+            function renderChips() {
+                sizeChips.innerHTML = PRESETS.map(p => {
+                    const main = p.id === 'custom' ? escapeHtml(t('custom')) : `${p.id}"`;
+                    const sub = p.id === 'custom' ? 'px' : p.tag;
+                    return `<button type="button" class="chip" role="radio" data-preset="${p.id}">
+                                <span class="chip-main">${main}</span><span class="chip-sub">${sub}</span>
+                            </button>`;
+                }).join('');
+                updateControls();
+            }
+
+            function renderProducts() {
+                productsGrid.innerHTML = products.map(product => `
+                    <article class="product-card">
+                        <div class="product-media">
+                            <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async">
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">${escapeHtml(product.category)}</span>
+                            <h3 class="product-name">${escapeHtml(product.name)}</h3>
+                            <p class="product-description">${escapeHtml(product.description)}</p>
+                            <div class="product-footer">
+                                <span class="product-price">${escapeHtml(product.price)}</span>
+                                <a href="${escapeHtml(product.link)}" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer sponsored">
+                                    ${escapeHtml(t('view_product'))}
+                                    <svg class="i"><use href="#i-external"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+
+                // Image indisponible : on affiche une icône à la place d'une image cassée
+                productsGrid.querySelectorAll('.product-media img').forEach(img => {
+                    img.addEventListener('error', () => {
+                        img.parentElement.innerHTML = '<svg class="i"><use href="#i-image"/></svg>';
+                    }, { once: true });
+                });
+            }
+
+            // ---------- Gestion du fichier ----------
+            function handleFile(file) {
+                if (!file) return;
+                if (file.type && !file.type.startsWith('image/')) {
+                    toast(t('err_not_image'), 'error');
+                    return;
+                }
+
+                const url = URL.createObjectURL(file);
+                const img = new Image();
+                img.decoding = 'async';
+                img.onload = () => {
+                    if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
+                    state.objectUrl = url;
+                    state.image = img;
+                    state.file = file;
+                    state.baseName = (file.name || 'image').replace(/\.[^.]+$/, '').replace(/[\\/:*?"<>|]+/g, '_') || 'image';
+                    state.offsetX = 0.5;
+                    state.offsetY = 0.5;
+                    state.downloaded = false;
+
+                    thumb.src = url;
+                    fileNameEl.textContent = file.name || 'image';
+                    fileNameEl.title = file.name || '';
+                    nextSteps.hidden = true;
+
+                    showView('resizer');
+                    uploadArea.hidden = true;
+                    editor.hidden = false;
+                    updateStepper();
+                    onSettingsChange();
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    toast(t('err_decode'), 'error');
+                };
+                img.src = url;
+            }
+
+            function openFilePicker() {
+                fileInput.click();
+            }
+
+            uploadArea.addEventListener('click', openFilePicker);
+            uploadArea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openFilePicker();
+                }
+            });
+            $('changeBtn').addEventListener('click', openFilePicker);
+
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length) handleFile(fileInput.files[0]);
+                // Permet de resélectionner le même fichier
+                fileInput.value = '';
+            });
+
+            // Glisser-déposer n'importe où sur la page
+            let dragDepth = 0;
+            const hasFiles = (e) => e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files');
+
+            window.addEventListener('dragenter', (e) => {
+                if (!hasFiles(e)) return;
+                e.preventDefault();
+                dragDepth++;
+                document.body.classList.add('is-dragging');
+            });
+            window.addEventListener('dragover', (e) => {
+                if (!hasFiles(e)) return;
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+            });
+            window.addEventListener('dragleave', (e) => {
+                if (!hasFiles(e)) return;
+                dragDepth = Math.max(0, dragDepth - 1);
+                if (!dragDepth) document.body.classList.remove('is-dragging');
+            });
+            window.addEventListener('drop', (e) => {
+                if (!hasFiles(e)) return;
+                e.preventDefault();
+                dragDepth = 0;
+                document.body.classList.remove('is-dragging');
+                handleFile(e.dataTransfer.files[0]);
+            });
+
+            // Coller une image depuis le presse-papiers
+            document.addEventListener('paste', (e) => {
+                const items = e.clipboardData ? Array.from(e.clipboardData.items) : [];
+                const item = items.find(i => i.kind === 'file' && i.type.startsWith('image/'));
+                const file = item && item.getAsFile();
+                if (!file) return;
+                e.preventDefault();
+                const ext = file.type.split('/')[1] || 'png';
+                handleFile(file.name ? file : new File([file], `image.${ext}`, { type: file.type }));
+            });
+
+            // ---------- Réglages ----------
+            sizeChips.addEventListener('click', (e) => {
+                const chip = e.target.closest('.chip');
+                if (!chip || chip.dataset.preset === state.preset) return;
+                state.preset = chip.dataset.preset;
+                state.offsetX = state.offsetY = 0.5;
+                prefs.set('preset', state.preset);
+                onSettingsChange();
+                if (state.preset === 'custom') customWidth.focus();
+            });
+
+            document.querySelectorAll('[data-orientation]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (state.orientation === btn.dataset.orientation) return;
+                    state.orientation = btn.dataset.orientation;
+                    state.offsetX = state.offsetY = 0.5;
+                    prefs.set('orientation', state.orientation);
+                    onSettingsChange();
+                });
+            });
+
+            document.querySelectorAll('[data-fit]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (state.fit === btn.dataset.fit) return;
+                    state.fit = btn.dataset.fit;
+                    prefs.set('fit', state.fit);
+                    onSettingsChange();
+                });
+            });
+
+            function onCustomInput() {
+                const w = Number(customWidth.value);
+                const h = Number(customHeight.value);
+                const wOk = isValidDim(w);
+                const hOk = isValidDim(h);
+                $('customWidthField').classList.toggle('invalid', !wOk);
+                $('customHeightField').classList.toggle('invalid', !hOk);
+                // On conserve la dernière valeur valide tant que la saisie est incomplète
+                if (!wOk || !hOk) return;
+                state.custom = { w, h };
+                state.offsetX = state.offsetY = 0.5;
+                prefs.set('custom', `${w}x${h}`);
+                onSettingsChange();
+            }
+            customWidth.addEventListener('input', onCustomInput);
+            customHeight.addEventListener('input', onCustomInput);
+
+            // ---------- Recadrage à la souris / au doigt / au clavier ----------
+            let drag = null;
+
+            previewCanvas.addEventListener('pointerdown', (e) => {
+                if (!isDraggable()) return;
+                const rect = stage.getBoundingClientRect();
+                drag = {
+                    x: e.clientX,
+                    y: e.clientY,
+                    offsetX: state.offsetX,
+                    offsetY: state.offsetY,
+                    overflow: overflow(rect.width, rect.height)
+                };
+                previewCanvas.setPointerCapture(e.pointerId);
+                stage.classList.add('dragging');
+            });
+
+            previewCanvas.addEventListener('pointermove', (e) => {
+                if (!drag) return;
+                if (drag.overflow.x > 0.5) state.offsetX = clamp01(drag.offsetX - (e.clientX - drag.x) / drag.overflow.x);
+                if (drag.overflow.y > 0.5) state.offsetY = clamp01(drag.offsetY - (e.clientY - drag.y) / drag.overflow.y);
+                scheduleRender();
+            });
+
+            const endDrag = () => {
+                drag = null;
+                stage.classList.remove('dragging');
+            };
+            previewCanvas.addEventListener('pointerup', endDrag);
+            previewCanvas.addEventListener('pointercancel', endDrag);
+
+            function recenter() {
+                state.offsetX = state.offsetY = 0.5;
+                scheduleRender();
+            }
+            previewCanvas.addEventListener('dblclick', recenter);
+            $('recenterBtn').addEventListener('click', recenter);
+
+            previewCanvas.addEventListener('keydown', (e) => {
+                const moves = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+                const move = moves[e.key];
+                if (!move || !isDraggable()) return;
+                e.preventDefault();
+                const step = e.shiftKey ? 0.1 : 0.02;
+                state.offsetX = clamp01(state.offsetX - move[0] * step);
+                state.offsetY = clamp01(state.offsetY - move[1] * step);
+                scheduleRender();
+            });
+
+            // Redimensionnement de la fenêtre
+            let resizeFrame = 0;
+            const onResize = () => {
+                cancelAnimationFrame(resizeFrame);
+                resizeFrame = requestAnimationFrame(layoutStage);
+            };
+            window.addEventListener('resize', onResize);
+            if (window.ResizeObserver) {
+                let lastWidth = 0;
+                new ResizeObserver(entries => {
+                    const width = entries[0].contentRect.width;
+                    if (width !== lastWidth) {
+                        lastWidth = width;
+                        onResize();
+                    }
+                }).observe(stageWrap);
+            }
+
+            // ---------- Téléchargement ----------
+            const nextFrame = () => new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve, 0)));
+
+            downloadBtn.addEventListener('click', async () => {
+                if (!state.image || downloadBtn.classList.contains('is-busy')) return;
+                const { w, h } = getTarget();
+
+                downloadBtn.classList.add('is-busy');
+                downloadLabel.textContent = t('preparing');
+                // Laisser le navigateur afficher l'état « en cours » avant le calcul
+                await nextFrame();
+
+                const canvas = document.createElement('canvas');
+                canvas.width = w;
+                canvas.height = h;
+                drawComposition(canvas.getContext('2d'), w, h);
+
+                canvas.toBlob((blob) => {
+                    downloadBtn.classList.remove('is-busy');
+                    downloadLabel.textContent = t('download');
+                    if (!blob) {
+                        toast(t('err_export'), 'error');
+                        return;
+                    }
+
+                    const fileName = `${state.baseName}_TheFrame_${w}x${h}.jpg`;
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `theframe_${targetWidth}x${targetHeight}_${selectedFile.name}`;
+                    a.download = fileName;
                     document.body.appendChild(a);
                     a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                }, 'image/jpeg', 0.95);
+                    a.remove();
+                    setTimeout(() => URL.revokeObjectURL(url), 4000);
+
+                    state.downloaded = true;
+                    updateStepper();
+                    nextSteps.hidden = false;
+                    toast(t('toast_done', { name: fileName }), 'success');
+                }, 'image/jpeg', JPEG_QUALITY);
             });
-            
-            // Fonction utilitaire pour formater la taille du fichier
-            function formatFileSize(bytes) {
-                if (bytes === 0) return '0 Bytes';
-                const k = 1024;
-                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-                const i = Math.floor(Math.log(bytes) / Math.log(k));
-                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+
+            // ---------- Navigation principale ----------
+            function showView(view) {
+                const isResizer = view === 'resizer';
+                if (resizerSection.hidden === !isResizer) return;
+                resizerSection.hidden = !isResizer;
+                productsSection.hidden = isResizer;
+                resizerBtn.classList.toggle('active', isResizer);
+                productsBtn.classList.toggle('active', !isResizer);
+                resizerBtn.setAttribute('aria-selected', isResizer);
+                productsBtn.setAttribute('aria-selected', !isResizer);
+                try {
+                    history.replaceState(null, '', isResizer ? location.pathname + location.search : '#accessoires');
+                } catch (e) { /* ignoré (ex. file://) */ }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (isResizer) layoutStage();
             }
-            
-            // Gestion du changement de langue
-            languageSelect.addEventListener('change', function() {
-                const selectedLanguage = this.value;
-                translatePage(selectedLanguage);
-                
-                // Mettre à jour les textes dynamiques
-                if (selectedFile) {
-                    updateSelectedFilesList();
-                }
+
+            resizerBtn.addEventListener('click', () => showView('resizer'));
+            productsBtn.addEventListener('click', () => showView('products'));
+            $('brandLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                showView('resizer');
             });
-            
-            // Initialiser la langue depuis le localStorage ou utiliser le français par défaut
-            const savedLanguage = localStorage.getItem('language') || 'fr';
-            languageSelect.value = savedLanguage;
-            translatePage(savedLanguage);
-            
-            // Générer les produits
-            generateProducts();
-            
-            // Initialiser la barre de progression
-            updateProgressBar();
-        });
+
+            // ---------- Mentions légales ----------
+            function openLegalModal(sectionIndex) {
+                if (typeof legalModal.showModal === 'function') legalModal.showModal();
+                else legalModal.setAttribute('open', '');
+                const body = legalModal.querySelector('.modal-body');
+                const section = legalModal.querySelectorAll('.modal-section')[sectionIndex];
+                body.scrollTop = 0;
+                if (section) section.scrollIntoView({ block: 'start' });
+            }
+
+            function closeLegalModal() {
+                if (typeof legalModal.close === 'function') legalModal.close();
+                else legalModal.removeAttribute('open');
+            }
+
+            $('legalLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                openLegalModal(0);
+            });
+            $('privacyLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                openLegalModal(4); // Section « Protection des données personnelles »
+            });
+            $('closeLegalModal').addEventListener('click', closeLegalModal);
+            // Clic sur le fond assombri
+            legalModal.addEventListener('click', (e) => {
+                if (e.target === legalModal) closeLegalModal();
+            });
+
+            // ---------- Langue ----------
+            languageSelect.addEventListener('change', () => translatePage(languageSelect.value));
+
+            // ---------- Initialisation ----------
+            customWidth.value = state.custom.w;
+            customHeight.value = state.custom.h;
+            translatePage(detectLanguage());
+            updateStepper();
+            if (location.hash === '#accessoires') showView('products');
+        })();
     </script>
 </body>
 </html>
