@@ -1,0 +1,16 @@
+{
+    "name": "Image Resizer pour The Frame",
+    "short_name": "The Frame",
+    "description": "Redimensionnez vos images au format parfait pour Samsung The Frame.",
+    "lang": "fr",
+    "start_url": "./",
+    "scope": "./",
+    "display": "browser",
+    "background_color": "#0e0e0f",
+    "theme_color": "#0e0e0f",
+    "icons": [
+        { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+        { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+        { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    ]
+}
