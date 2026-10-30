@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0e0e0f">
+    <meta name="apple-mobile-web-app-title" content="The Frame">
+    <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
     <title>Image Resizer pour The Frame</title>
     <style>
         :root {
@@ -489,6 +494,16 @@
             color: #ffd28a;
             font-size: 0.85rem;
             animation: fadeUp 0.3s var(--ease);
+        }
+
+        .warning strong {
+            font-weight: 600;
+        }
+
+        .warning-tip {
+            display: block;
+            margin-top: 2px;
+            color: rgba(255, 210, 138, 0.8);
         }
 
         .warning .i {
@@ -1367,7 +1382,10 @@
                     </div>
                     <p class="warning" id="upscaleWarning" hidden>
                         <svg class="i"><use href="#i-alert"/></svg>
-                        <span id="upscaleText"></span>
+                        <span>
+                            <strong id="upscaleText"></strong>
+                            <span class="warning-tip" data-translate="upscale_tip"></span>
+                        </span>
                     </p>
                 </div>
 
@@ -1432,6 +1450,20 @@
                             <button type="button" class="seg" role="radio" data-fit="blur">
                                 <span data-translate="fit_blur">Fond flou</span>
                                 <small data-translate="fit_blur_desc">Bords assortis</small>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="field">
+                        <legend data-translate="format">Format</legend>
+                        <div class="segmented" role="radiogroup" style="--n: 2">
+                            <button type="button" class="seg" role="radio" data-format="jpeg">
+                                <span>JPEG</span>
+                                <small data-translate="fmt_jpeg_desc">Fichier léger</small>
+                            </button>
+                            <button type="button" class="seg" role="radio" data-format="png">
+                                <span>PNG</span>
+                                <small data-translate="fmt_png_desc">Sans perte</small>
                             </button>
                         </div>
                     </fieldset>
@@ -1576,9 +1608,13 @@
                 'fit_contain_desc': 'Bandes noires',
                 'fit_blur': 'Fond flou',
                 'fit_blur_desc': 'Bords assortis',
+                'format': 'Format',
+                'fmt_jpeg_desc': 'Fichier léger',
+                'fmt_png_desc': 'Sans perte',
                 'download': 'Télécharger l\'image',
                 'preparing': 'Préparation…',
-                'upscale_warning': 'Votre image est plus petite que l\'écran : elle sera agrandie à {pct} % et peut paraître floue.',
+                'upscale_warning': 'Votre image est plus petite que l\'écran : elle sera agrandie à {pct} %.',
+                'upscale_tip': 'Agrandissement haute précision (Lanczos) appliqué pour limiter le flou. Pour un résultat optimal, partez de l\'original en pleine résolution.',
                 'err_not_image': 'Ce fichier n\'est pas une image.',
                 'err_decode': 'Impossible de lire cette image (format HEIC ?). Convertissez-la en JPEG ou PNG.',
                 'err_export': 'L\'export a échoué. Essayez une dimension plus petite.',
@@ -1652,9 +1688,13 @@
                 'fit_contain_desc': 'Black bars',
                 'fit_blur': 'Blurred',
                 'fit_blur_desc': 'Matching edges',
+                'format': 'Format',
+                'fmt_jpeg_desc': 'Smaller file',
+                'fmt_png_desc': 'Lossless',
                 'download': 'Download image',
                 'preparing': 'Preparing…',
-                'upscale_warning': 'Your image is smaller than the screen: it will be enlarged to {pct}% and may look blurry.',
+                'upscale_warning': 'Your image is smaller than the screen: it will be enlarged to {pct}%.',
+                'upscale_tip': 'High-precision enlargement (Lanczos) is applied to limit blur. For best results, start from the full-resolution original.',
                 'err_not_image': 'This file is not an image.',
                 'err_decode': 'Unable to read this image (HEIC format?). Convert it to JPEG or PNG.',
                 'err_export': 'Export failed. Try a smaller size.',
@@ -1728,9 +1768,13 @@
                 'fit_contain_desc': 'Bandas negras',
                 'fit_blur': 'Difuminado',
                 'fit_blur_desc': 'Bordes a juego',
+                'format': 'Formato',
+                'fmt_jpeg_desc': 'Archivo ligero',
+                'fmt_png_desc': 'Sin pérdida',
                 'download': 'Descargar imagen',
                 'preparing': 'Preparando…',
-                'upscale_warning': 'Tu imagen es más pequeña que la pantalla: se ampliará al {pct} % y puede verse borrosa.',
+                'upscale_warning': 'Tu imagen es más pequeña que la pantalla: se ampliará al {pct} %.',
+                'upscale_tip': 'Se aplica una ampliación de alta precisión (Lanczos) para limitar el desenfoque. Para un resultado óptimo, parte del original en resolución completa.',
                 'err_not_image': 'Este archivo no es una imagen.',
                 'err_decode': 'No se puede leer esta imagen (¿formato HEIC?). Conviértela a JPEG o PNG.',
                 'err_export': 'La exportación falló. Prueba con un tamaño menor.',
@@ -1804,9 +1848,13 @@
                 'fit_contain_desc': 'Schwarze Balken',
                 'fit_blur': 'Unscharf',
                 'fit_blur_desc': 'Passende Ränder',
+                'format': 'Format',
+                'fmt_jpeg_desc': 'Kleine Datei',
+                'fmt_png_desc': 'Verlustfrei',
                 'download': 'Bild herunterladen',
                 'preparing': 'Wird vorbereitet…',
-                'upscale_warning': 'Ihr Bild ist kleiner als der Bildschirm: Es wird auf {pct} % vergrößert und kann unscharf wirken.',
+                'upscale_warning': 'Ihr Bild ist kleiner als der Bildschirm: Es wird auf {pct} % vergrößert.',
+                'upscale_tip': 'Eine hochpräzise Vergrößerung (Lanczos) begrenzt die Unschärfe. Für ein optimales Ergebnis verwenden Sie das Original in voller Auflösung.',
                 'err_not_image': 'Diese Datei ist kein Bild.',
                 'err_decode': 'Dieses Bild kann nicht gelesen werden (HEIC-Format?). Konvertieren Sie es in JPEG oder PNG.',
                 'err_export': 'Export fehlgeschlagen. Versuchen Sie eine kleinere Größe.',
@@ -1917,7 +1965,7 @@
         ];
         const MIN_DIM = 16;
         const MAX_DIM = 8192;
-        const JPEG_QUALITY = 0.95;
+        const JPEG_QUALITY = 0.98;
 
         (function () {
             const $ = (id) => document.getElementById(id);
@@ -1977,6 +2025,7 @@
                 custom: { w: 3840, h: 2160 },
                 orientation: 'landscape',
                 fit: 'cover',
+                format: 'jpeg',
                 offsetX: 0.5,
                 offsetY: 0.5,
                 downloaded: false
@@ -1987,6 +2036,7 @@
             if (PRESETS.some(p => p.id === savedPreset)) state.preset = savedPreset;
             if (['landscape', 'portrait'].includes(prefs.get('orientation'))) state.orientation = prefs.get('orientation');
             if (['cover', 'contain', 'blur'].includes(prefs.get('fit'))) state.fit = prefs.get('fit');
+            if (['jpeg', 'png'].includes(prefs.get('format'))) state.format = prefs.get('format');
             const savedCustom = (prefs.get('custom') || '').split('x').map(Number);
             if (savedCustom.length === 2 && savedCustom.every(isValidDim)) {
                 state.custom = { w: savedCustom[0], h: savedCustom[1] };
@@ -2094,28 +2144,211 @@
             // Dessine la composition finale dans un contexte de taille W × H.
             // Utilisé à l'identique pour l'aperçu et pour l'export : ce que l'on voit est ce que l'on obtient.
             function drawComposition(ctx, W, H) {
-                const img = state.image;
-                const iw = img.naturalWidth;
-                const ih = img.naturalHeight;
+                drawBackground(ctx, W, H);
+                const p = placement(W, H);
+                // À l'échelle 1:1, on aligne sur les pixels pour éviter le flou d'un décalage d'un demi-pixel
+                if (Math.abs(p.s - 1) < 1e-6) {
+                    p.dx = Math.round(p.dx);
+                    p.dy = Math.round(p.dy);
+                }
+                ctx.drawImage(state.image, p.dx, p.dy, p.dw, p.dh);
+            }
+
+            function drawBackground(ctx, W, H) {
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = 'high';
                 ctx.fillStyle = '#000';
                 ctx.fillRect(0, 0, W, H);
-
-                if (state.fit === 'cover') {
-                    const s = Math.max(W / iw, H / ih);
-                    const dw = iw * s;
-                    const dh = ih * s;
-                    ctx.drawImage(img, (W - dw) * state.offsetX, (H - dh) * state.offsetY, dw, dh);
-                    return;
-                }
-
                 if (state.fit === 'blur') drawBlurredBackdrop(ctx, W, H);
+            }
 
-                const s = Math.min(W / iw, H / ih);
+            // Position et échelle de l'image dans une zone W × H selon le mode de cadrage
+            function placement(W, H) {
+                const iw = state.image.naturalWidth;
+                const ih = state.image.naturalHeight;
+                const s = state.fit === 'cover' ? Math.max(W / iw, H / ih) : Math.min(W / iw, H / ih);
                 const dw = iw * s;
                 const dh = ih * s;
-                ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
+                const fx = state.fit === 'cover' ? state.offsetX : 0.5;
+                const fy = state.fit === 'cover' ? state.offsetY : 0.5;
+                return { s, dw, dh, dx: (W - dw) * fx, dy: (H - dh) * fy };
+            }
+
+            // Rendu final en pleine résolution.
+            // Agrandissement : rééchantillonnage Lanczos3 (plus net que le lissage natif des navigateurs,
+            // et identique sur Chrome, Safari et Firefox). Réduction : lissage natif haute qualité.
+            async function renderExport(W, H) {
+                const canvas = document.createElement('canvas');
+                canvas.width = W;
+                canvas.height = H;
+                const ctx = canvas.getContext('2d');
+                const p = placement(W, H);
+
+                if (p.s <= 1 + 1e-6) {
+                    drawComposition(ctx, W, H);
+                    return canvas;
+                }
+
+                drawBackground(ctx, W, H);
+
+                // Zone visible de l'image, alignée sur les pixels de sortie
+                const X0 = Math.max(0, Math.round(p.dx));
+                const Y0 = Math.max(0, Math.round(p.dy));
+                const X1 = Math.min(W, Math.round(p.dx + p.dw));
+                const Y1 = Math.min(H, Math.round(p.dy + p.dh));
+                const dW = X1 - X0;
+                const dH = Y1 - Y0;
+                if (dW <= 0 || dH <= 0) return canvas;
+
+                // Fenêtre source correspondante (en pixels de l'image d'origine, valeurs fractionnaires)
+                const sx = (X0 - p.dx) / p.s;
+                const sy = (Y0 - p.dy) / p.s;
+                const cw = dW / p.s;
+                const ch = dH / p.s;
+
+                // Extraction 1:1 des pixels source utiles, avec une marge pour le noyau du filtre
+                const iw = state.image.naturalWidth;
+                const ih = state.image.naturalHeight;
+                const margin = 4;
+                const rx0 = Math.max(0, Math.floor(sx) - margin);
+                const ry0 = Math.max(0, Math.floor(sy) - margin);
+                const rx1 = Math.min(iw, Math.ceil(sx + cw) + margin);
+                const ry1 = Math.min(ih, Math.ceil(sy + ch) + margin);
+                const rw = rx1 - rx0;
+                const rh = ry1 - ry0;
+                const region = document.createElement('canvas');
+                region.width = rw;
+                region.height = rh;
+                const rctx = region.getContext('2d');
+                rctx.fillStyle = '#000';
+                rctx.fillRect(0, 0, rw, rh);
+                rctx.drawImage(state.image, rx0, ry0, rw, rh, 0, 0, rw, rh);
+                const src = rctx.getImageData(0, 0, rw, rh).data;
+
+                const pixels = await resample({ src, sW: rw, sH: rh, x0: sx - rx0, y0: sy - ry0, cw, ch, dW, dH });
+                ctx.putImageData(new ImageData(pixels, dW, dH), X0, Y0);
+                return canvas;
+            }
+
+            // Rééchantillonnage Lanczos3 séparable (horizontal puis vertical).
+            // Fonction autonome : elle est aussi exécutée telle quelle dans un Web Worker.
+            function lanczosResample(job) {
+                const { src, sW, sH, x0, y0, cw, ch, dW, dH } = job;
+                const A = 3;
+                const sinc = (x) => {
+                    if (x === 0) return 1;
+                    const px = Math.PI * x;
+                    return Math.sin(px) / px;
+                };
+
+                // Pour chaque pixel de sortie : indices source (bornés aux bords) et poids normalisés
+                function buildWeights(destLen, srcLen, start, span) {
+                    const scale = span / destLen;
+                    const filterScale = Math.max(1, scale);
+                    const support = A * filterScale;
+                    const first = new Int32Array(destLen + 1);
+                    const idx = [];
+                    const wts = [];
+                    for (let i = 0; i < destLen; i++) {
+                        const center = start + (i + 0.5) * scale - 0.5;
+                        const left = Math.ceil(center - support);
+                        const right = Math.floor(center + support);
+                        first[i] = idx.length;
+                        let sum = 0;
+                        for (let j = left; j <= right; j++) {
+                            const x = (j - center) / filterScale;
+                            const w = x > -A && x < A ? sinc(x) * sinc(x / A) : 0;
+                            if (w === 0) continue;
+                            idx.push(Math.min(srcLen - 1, Math.max(0, j)));
+                            wts.push(w);
+                            sum += w;
+                        }
+                        for (let k = first[i]; k < idx.length; k++) wts[k] /= sum;
+                    }
+                    first[destLen] = idx.length;
+                    return { first, idx: Int32Array.from(idx), wts: Float32Array.from(wts) };
+                }
+
+                const hw = buildWeights(dW, sW, x0, cw);
+                const vw = buildWeights(dH, sH, y0, ch);
+
+                // Passe horizontale : sW × sH → dW × sH (RVB, virgule fixe ×16 pour limiter la mémoire)
+                const tmp = new Int16Array(dW * sH * 3);
+                for (let y = 0; y < sH; y++) {
+                    const rowIn = y * sW;
+                    const rowOut = y * dW;
+                    for (let x = 0; x < dW; x++) {
+                        let r = 0, g = 0, b = 0;
+                        for (let k = hw.first[x], end = hw.first[x + 1]; k < end; k++) {
+                            const p = (rowIn + hw.idx[k]) * 4;
+                            const w = hw.wts[k];
+                            r += src[p] * w;
+                            g += src[p + 1] * w;
+                            b += src[p + 2] * w;
+                        }
+                        const o = (rowOut + x) * 3;
+                        tmp[o] = Math.round(r * 16);
+                        tmp[o + 1] = Math.round(g * 16);
+                        tmp[o + 2] = Math.round(b * 16);
+                    }
+                }
+
+                // Passe verticale : dW × sH → dW × dH
+                const out = new Uint8ClampedArray(dW * dH * 4);
+                for (let y = 0; y < dH; y++) {
+                    const kStart = vw.first[y];
+                    const kEnd = vw.first[y + 1];
+                    const rowOut = y * dW;
+                    for (let x = 0; x < dW; x++) {
+                        let r = 0, g = 0, b = 0;
+                        for (let k = kStart; k < kEnd; k++) {
+                            const p = (vw.idx[k] * dW + x) * 3;
+                            const w = vw.wts[k];
+                            r += tmp[p] * w;
+                            g += tmp[p + 1] * w;
+                            b += tmp[p + 2] * w;
+                        }
+                        const o = (rowOut + x) * 4;
+                        out[o] = r / 16;
+                        out[o + 1] = g / 16;
+                        out[o + 2] = b / 16;
+                        out[o + 3] = 255;
+                    }
+                }
+                return out;
+            }
+
+            // Exécute le calcul dans un Web Worker pour garder l'interface fluide,
+            // avec repli sur le thread principal si les workers sont indisponibles.
+            let resampleWorker = null;
+            function getResampleWorker() {
+                if (resampleWorker !== null) return resampleWorker;
+                try {
+                    const code = `${lanczosResample.toString()}
+                        self.onmessage = (e) => {
+                            const out = lanczosResample(e.data);
+                            self.postMessage(out, [out.buffer]);
+                        };`;
+                    resampleWorker = new Worker(URL.createObjectURL(new Blob([code], { type: 'text/javascript' })));
+                } catch (e) {
+                    resampleWorker = false;
+                }
+                return resampleWorker;
+            }
+
+            function resample(job) {
+                const worker = getResampleWorker();
+                if (!worker) return Promise.resolve(lanczosResample(job));
+                return new Promise((resolve) => {
+                    worker.onmessage = (e) => resolve(e.data);
+                    worker.onerror = (e) => {
+                        e.preventDefault();
+                        resampleWorker = false;
+                        resolve(lanczosResample(job));
+                    };
+                    // Pas de transfert du tampon source : il reste disponible pour le repli
+                    worker.postMessage(job);
+                });
             }
 
             function makeCanvas(width, ratio) {
@@ -2227,7 +2460,9 @@
                 document.querySelectorAll('.segmented').forEach(group => {
                     const buttons = Array.from(group.querySelectorAll('.seg'));
                     buttons.forEach((btn, idx) => {
-                        const on = btn.dataset.fit ? btn.dataset.fit === state.fit : btn.dataset.orientation === state.orientation;
+                        const on = btn.dataset.fit ? btn.dataset.fit === state.fit
+                            : btn.dataset.format ? btn.dataset.format === state.format
+                            : btn.dataset.orientation === state.orientation;
                         btn.classList.toggle('active', on);
                         btn.setAttribute('aria-checked', on);
                         if (on) group.style.setProperty('--idx', idx);
@@ -2422,6 +2657,15 @@
                 });
             });
 
+            document.querySelectorAll('[data-format]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (state.format === btn.dataset.format) return;
+                    state.format = btn.dataset.format;
+                    prefs.set('format', state.format);
+                    updateControls();
+                });
+            });
+
             function onCustomInput() {
                 const w = Number(customWidth.value);
                 const h = Number(customHeight.value);
@@ -2518,12 +2762,14 @@
                 // Laisser le navigateur afficher l'état « en cours » avant le calcul
                 await nextFrame();
 
-                const canvas = document.createElement('canvas');
-                canvas.width = w;
-                canvas.height = h;
-                drawComposition(canvas.getContext('2d'), w, h);
-
-                canvas.toBlob((blob) => {
+                let canvas;
+                try {
+                    canvas = await renderExport(w, h);
+                } catch (e) {
+                    canvas = null;
+                }
+                const isPng = state.format === 'png';
+                const finish = (blob) => {
                     downloadBtn.classList.remove('is-busy');
                     downloadLabel.textContent = t('download');
                     if (!blob) {
@@ -2531,7 +2777,7 @@
                         return;
                     }
 
-                    const fileName = `${state.baseName}_TheFrame_${w}x${h}.jpg`;
+                    const fileName = `${state.baseName}_TheFrame_${w}x${h}.${isPng ? 'png' : 'jpg'}`;
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
@@ -2545,7 +2791,9 @@
                     updateStepper();
                     nextSteps.hidden = false;
                     toast(t('toast_done', { name: fileName }), 'success');
-                }, 'image/jpeg', JPEG_QUALITY);
+                };
+                if (!canvas) finish(null);
+                else canvas.toBlob(finish, isPng ? 'image/png' : 'image/jpeg', JPEG_QUALITY);
             });
 
             // ---------- Navigation principale ----------
